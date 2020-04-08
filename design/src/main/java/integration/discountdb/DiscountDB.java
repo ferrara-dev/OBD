@@ -6,13 +6,8 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class DiscountDB {
+public class DiscountDB implements IProductDB{
 
-    public static final int HEADERS_POSITION = 0;
-    public static final int HEADER_VALUES_START_POSITION = 0;
-    public static final int PRODUCTS_START_POSITION = 1;
-    private static final String SEMICOLON = ",";
-    private final String FILENAME = "newDiscountDB.csv";
     private List<String> rows;
     private List<String> headers;
     static Map<String,List<String>> discounts;
@@ -45,7 +40,6 @@ public class DiscountDB {
         });
         return searchResult;
     }
-
 
     private Map<String,List<String>> extractDiscount(final List<String> rows) {
         final Map<String,List<String>> products = new HashMap<>();
@@ -80,7 +74,7 @@ public class DiscountDB {
         });
         return searchResult;
     }
-    */
+
     public void printResult(List<String> result) {
         System.out.println("Search result: " + result);
         result.forEach(key->{
@@ -96,5 +90,5 @@ public class DiscountDB {
             });
         });
     }
-
+    */
 }
