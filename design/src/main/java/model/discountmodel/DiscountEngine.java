@@ -1,8 +1,9 @@
 package model.discountmodel;
-
+import integration.DiscountRegestry;
 import integration.discountdb.DiscountDTO;
 import model.Calendar;
 import model.salemodel.SaleDetail;
+import startup.LayerCreator;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class DiscountEngine{
     }
 
     public List<DiscountDTO> getOffers(){
-        return Discount.DISCOUNT_REGESTRY.getAvailableDiscounts(Calendar.getDayOfTheWeek().name());
+        return DiscountRegestry.getAvailableDiscounts(Calendar.getDayOfTheWeek().name());
     }
 
 

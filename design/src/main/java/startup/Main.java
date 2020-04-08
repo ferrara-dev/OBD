@@ -1,13 +1,11 @@
 package startup;
 
-import controller.DiscountController;
-import controller.SaleController;
-import integration.RegestryCreator;
 
+
+import integration.RegestryCreator;
 import view.cashierview.CashierGui;
 import view.cashierview.CashierView;
 import view.View;
-
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -18,16 +16,13 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         CustomerDBCreator.createTable();
-        RegestryCreator creator = new RegestryCreator();
-        creator.createItemRegestry();
-        creator.createDiscountRegestry();
-        start(creator);
-
+        start();
     }
 
 
-    private static void start(RegestryCreator creator) throws Exception {
-        View cashierView = new CashierView(new SaleController(creator));
+    private static void start() throws Exception {
+        LayerCreator layerCreator = new LayerCreator();
+        View cashierView = new CashierView(layerCreator);
         testSale(((CashierView) cashierView));
     }
 

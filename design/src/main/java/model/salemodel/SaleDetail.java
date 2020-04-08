@@ -12,12 +12,9 @@ public class SaleDetail {
     boolean completed;
     private double runningTotal = 0;
     private double discount = 0;
-    String TimeAndDateOfSale;
-    public String dayOfSale;
-    DiscountEngine discountEngine;
+    public String TimeAndDateOfSale;
 
     public SaleDetail(){
-        dayOfSale = Calendar.getDayOfTheWeek().name();
         completed = false;
         active = true;
         processedGoods = new ProcessedGoods();
@@ -32,7 +29,6 @@ public class SaleDetail {
     }
 
     public void setSaleLineItem(ItemModel saleLineItem) {
-
         this.saleLineItem = saleLineItem;
     }
 
@@ -60,5 +56,6 @@ public class SaleDetail {
         this.runningTotal += amount;
         return runningTotal;
     }
+
 
 }

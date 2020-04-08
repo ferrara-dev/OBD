@@ -1,35 +1,30 @@
 package view.cashierview;
 
-import controller.DiscountController;
-import controller.SaleController;
+import startup.LayerCreator;
 import view.View;
 
 public class CashierView implements View {
-    private SaleController saleController;
+    private LayerCreator creator;
     private CashierGui cashierGui;
 
-
-    public CashierView(SaleController saleController) throws Exception {
-        this.saleController = saleController;
+    public CashierView(LayerCreator creator) throws Exception {
+        this.creator = creator;
         cashierGui = new CashierGui(this);
     }
 
     public void startSale(){
-        displayMessage(saleController.startSale());
+        displayMessage(creator.getSaleController().startSale());
     }
 
     public String endSale(){
         // call to controller
         return "Total cost : \n"
-                + saleController.endSale() + " kr";
+                + creator.getSaleController().endSale() + " kr";
     }
 
     public String registerItem(int itemId, int quantity){
-        for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
-            System.out.println(ste);
-        }
         //call to controller
-        return (saleController.registerItem(itemId, quantity));
+        return (creator.getItemController().registerItem(itemId, quantity));
 
     }
 
@@ -44,7 +39,12 @@ public class CashierView implements View {
     }
 
     public String signalDiscountRequest(String customerId){
-        return  saleController.discountController.signalDiscountRequest(customerId);
+        return  creator.getDiscountController().signalDiscountRequest(customerId);
+    }
+
+    public String enterPayment(double amount){
+        creator.getSaleController().enterPayment(amount);
+        return null;
     }
 
 }

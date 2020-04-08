@@ -6,8 +6,7 @@ import integration.RegestryCreator;
 import model.salemodel.SaleModel;
 
 public interface Discount {
-    DiscountRegestry DISCOUNT_REGESTRY = RegestryCreator.getDiscountRegestry();
-    ItemRegestry ITEM_REGESTRY = RegestryCreator.getItemRegestry();
+
 
 
     int getItemId();

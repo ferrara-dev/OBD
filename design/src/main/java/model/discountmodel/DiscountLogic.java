@@ -11,7 +11,6 @@ public class DiscountLogic {
     static private final String THREE_FOR_TWO_DISCOUNT = "Buy-3-pay-2";
     static private double totalPriceReduction = 0;
     static SaleDetail saleDetails;
-    static List<Discount> discountModels;
 
     public static double ApplyDiscountLogic(SaleDetail saleDetail, List<DiscountDTO> discounts) {
 

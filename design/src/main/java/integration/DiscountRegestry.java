@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class DiscountRegestry {
   // public static List<DiscountOffer> discountList;
-   Map<String,List<DiscountDTO>> discountMap;
+   static Map<String,List<DiscountDTO>> discountMap;
    private static List<DiscountDTO> discounts;
 
    /*
@@ -49,7 +49,7 @@ public class DiscountRegestry {
         return tempList;
     }
 
-    public List<DiscountDTO> getAvailableDiscounts(String dayOfTheWeek){
+    public static List<DiscountDTO> getAvailableDiscounts(String dayOfTheWeek){
        return discountMap.get(dayOfTheWeek);
     }
     /*

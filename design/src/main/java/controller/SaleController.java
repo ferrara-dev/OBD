@@ -1,33 +1,27 @@
 package controller;
 
-import integration.ItemRegestry;
 import integration.RegestryCreator;
+import model.salemodel.Register;
 import model.salemodel.SaleModel;
 
 
 public class SaleController {
-    private static SaleModel salemodel;
-    public DiscountController discountController;
-    private ItemRegestry itemRegestry;
+    public SaleModel salemodel;
     private RegestryCreator creator;
+    Register cashRegister;
 
     public SaleController(RegestryCreator creator){
         this.creator = creator;
-        itemRegestry = creator.getItemRegestry();
-        salemodel = new SaleModel(creator);
-        discountController = new DiscountController(this);
+        cashRegister = new Register();
     }
 
     public String startSale(){
+        if(salemodel == null)
+            salemodel = new SaleModel(creator);
+
         salemodel.startSale();
         String startConfirmation = "Sale Started";
         return startConfirmation;
-    }
-
-    public String registerItem(int itemId, int quantity) {
-        //call to model
-        String displayMessage = salemodel.registerItem(itemId,quantity);
-        return displayMessage;
     }
 
     public String endSale(){
@@ -35,7 +29,15 @@ public class SaleController {
         return salemodel.endSale();
     }
 
-    public SaleModel getSalemodel() {
-        return salemodel;
+
+    public void enterPayment(double amount){
+        if(cashRegister.processPayment(salemodel.saleDetail.getRunningTotal(), amount) >= 0) {
+            logSale();
+            String change = Double.toString(cashRegister.processPayment(salemodel.saleDetail.getRunningTotal(), amount));
+        }
+    }
+
+    public void logSale(){
+        creator.getSaleLog().logSale(salemodel.saleDetail);
     }
 }
