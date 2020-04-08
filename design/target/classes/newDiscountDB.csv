@@ -1,0 +1,9 @@
+type,item id,Avalible,REQUIERMENT,Reduction,Limit
+Product discount,1,MONDAY,Buy-3-pay-2,0,0
+Product discount,2,TUESDAY,On given item,0,1
+Product discount,3,WEDNESDAY,On given item,0.2,0
+Product discount,4,THURSDAY,On given item,0.2,0
+Product discount,5,FRIDAY,On given item,0.2,0
+Product discount,6,SATURDAY,On given item,0.2,0
+Product discount,7,SUNDAY,On given item,0.2,0
+Price discount,0,MONDAY-FRIDAY,Total over 500,0.1,1
