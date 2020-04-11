@@ -8,6 +8,8 @@ import model.itemmodel.ItemModel;
 import model.Model;
 import util.NotFoundException;
 
+import java.util.Objects;
+
 public class SaleModel implements Model {
     public SaleDetail saleDetail;
     public RegestryCreator creator;
@@ -20,31 +22,36 @@ public class SaleModel implements Model {
 
     /**
      * Call to the integration layer to fetch information about an item register an item
+     *
      * @param itemId
      * @param quantity
      * @return
      */
     @Override
     public String registerItem(int itemId, int quantity) {
-        boolean isRegistered = false;
-        if(!saleDetail.isCompleted())
-            if (saleDetail.isActive()) {
-                saleDetail.setSaleLineItem(new ItemModel(fetchItemDetail(itemId), quantity));
-                String saleDetails = addItemToSale();
-                return saleDetails;
-            }
-            return getDisplayMessage(ITEM_NOT_FOUND, false);
+        if (Objects.isNull(saleDetail))
+            startSale();
+            if (!saleDetail.isCompleted())
+                if (saleDetail.isActive()) {
+                    ItemModel item = new ItemModel(fetchItemDetail(itemId), quantity);
+                    saleDetail.setSaleLineItem(item);
+                    String saleDetails = addItemToSale();
+                    return saleDetails;
+                }
+
+        return getDisplayMessage(ITEM_NOT_FOUND, false);
     }
 
     /**
      * fetch information about an item from the item registry
      * throws ItemNotFoundException if the item is not found.
+     *
      * @param itemId
      * @return Detailed information about the item with the
      * given itemIdentifier
      */
-    private ItemDetail fetchItemDetail(int itemId){
-        if(!creator.getItemRegestry().contains(itemId))
+    private ItemDetail fetchItemDetail(int itemId) {
+        if (!creator.getItemRegestry().contains(itemId))
             throw new NotFoundException("Item not found");
         return creator.getItemRegestry().getItemDetail(itemId);
     }
@@ -64,18 +71,16 @@ public class SaleModel implements Model {
     }
 
     private String getDisplayMessage(int itemId, boolean itemFound) {
-        if(itemFound) {
-
-
+        if (itemFound) {
             return " ";
         }
 
         return "Item not found";
     }
 
-    private String addItemToSale(){
-       String saleDetails = saleDetail.updateSaleDetail();
-       return saleDetails;
+    private String addItemToSale() {
+        String saleDetails = saleDetail.updateSaleDetail();
+        return saleDetails;
     }
 
 

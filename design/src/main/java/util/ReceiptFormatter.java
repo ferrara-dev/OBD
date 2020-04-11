@@ -17,8 +17,6 @@ public class ReceiptFormatter {
     }
 
     public String formatReceipt() {
-
-        FormatedTableBuilder receiptBuilder = new FormatedTableBuilder();
         StringBuilder stringBuilder = new StringBuilder();
 
         for(int j = 0; j < receipt.itemNames.length; j++) {

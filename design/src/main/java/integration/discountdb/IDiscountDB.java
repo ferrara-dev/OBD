@@ -1,6 +1,6 @@
 package integration.discountdb;
 
-public interface IProductDB {
+public interface IDiscountDB {
 
     public static final int HEADERS_POSITION = 0;
     public static final int HEADER_VALUES_START_POSITION = 0;

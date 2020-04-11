@@ -1,7 +1,5 @@
 package model.salemodel;
 
-import model.Calendar;
-import model.discountmodel.DiscountEngine;
 import model.itemmodel.ItemModel;
 import model.itemmodel.ProcessedGoods;
 

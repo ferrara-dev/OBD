@@ -4,11 +4,9 @@ import integration.discountdb.DiscountDB;
 import integration.productdb.ProductDB;
 
 public class RegestryCreator {
-     ItemRegestry itemRegestry;
-     DiscountRegestry discountRegestry;
-     SaleLog saleLog;
-
-    static final String [] DISCOUNT_TYPES = {"2-for-1","10% off", ""};
+    ItemRegestry itemRegestry;
+    DiscountRegestry discountRegestry;
+    SaleLog saleLog;
 
     public RegestryCreator() throws Exception {
         createItemRegestry();
@@ -22,7 +20,7 @@ public class RegestryCreator {
         saleLog = new SaleLog();
     }
 
-    public SaleLog getSaleLog(){
+    public SaleLog getSaleLog() {
         return saleLog;
     }
 
@@ -30,14 +28,14 @@ public class RegestryCreator {
         return itemRegestry;
     }
 
-    public DiscountRegestry getDiscountRegestry(){
+    public DiscountRegestry getDiscountRegestry() {
         return discountRegestry;
     }
 
     private void createDiscountRegestry() throws Exception {
         DiscountDB db = new DiscountDB();
         //DiscountOffer ProductDiscount1 = new DiscountOffer("product",1,{})
-       discountRegestry = new DiscountRegestry(db.getDiscountList());
+        discountRegestry = new DiscountRegestry(db.getDiscountList());
     }
 
 

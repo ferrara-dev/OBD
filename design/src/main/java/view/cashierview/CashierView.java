@@ -3,17 +3,14 @@ package view.cashierview;
 import startup.LayerCreator;
 import util.NotFoundException;
 import view.View;
-import view.cashierview.cashiergui.CashierGui;
 
-import javax.swing.*;
+
 
 public class CashierView implements View {
     private LayerCreator creator;
-    private CashierGui cashierGui;
 
     public CashierView(LayerCreator creator) throws Exception {
         this.creator = creator;
-        cashierGui = new CashierGui(this);
     }
 
 
@@ -31,7 +28,7 @@ public class CashierView implements View {
     }
 
     /**
-     * call controller to register a item to the sale
+     * call controller to register an item to the sale
      *
      * @param itemId   the item identifier entered by the cashier
      * @param quantity quantity of the item being registered,
@@ -40,29 +37,22 @@ public class CashierView implements View {
      * @return message containing information about the sale, displayed by the gui
      */
     public String registerItem(int itemId, int quantity) {
-        try {
-            String displayMessage = (creator.getItemController().registerItem(itemId, quantity));
+
+            String displayMessage = creator.getItemController().registerItem(itemId, quantity);
             return displayMessage;
-        } catch (NotFoundException ex) {
-            return "item Not Found";
-        }
     }
 
-    @Override
-    public void displayMessage(String... message) {
+
+    public void displayMessage(Object object) {
         StringBuilder sb = new StringBuilder();
-        for (String string : message) {
-            sb.append(string);
-            sb.append("\n");
-        }
-        System.out.println(sb);
+
     }
 
     public String signalDiscountRequest(String customerId) {
         try {
             return creator.getDiscountController().signalDiscountRequest(customerId);
         } catch (NotFoundException ex) {
-            return "item Not Found";
+            return "customer is not a registered member";
         }
     }
 

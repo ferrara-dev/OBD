@@ -6,7 +6,6 @@ public class DiscountDTO {
     private String available;
     private String requirement;
     private String reduction;
-    private String description;
     private String limit;
     private String itemId;
     public String validMembers [];
@@ -40,10 +39,6 @@ public class DiscountDTO {
 
     public String getReduction() {
         return reduction;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public String getLimit() {

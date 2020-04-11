@@ -18,7 +18,6 @@ public class DiscountController {
             discountEngine = new DiscountEngine(creator.getSaleController().salemodel.saleDetail);
           //  creator.getSaleController().
             return "total discount of : " + discountEngine.totalPriceReduction;
-
         }
         else
             throw new NotFoundException("Item not found");

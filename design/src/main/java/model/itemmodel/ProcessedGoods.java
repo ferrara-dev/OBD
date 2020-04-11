@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ProcessedGoods {
     private List<ItemModel> goods;
-
     public List<ItemModel> getGoods(){
         return goods;
     }

@@ -1,7 +1,5 @@
 package integration;
 
-import integration.productdb.ProductDB;
-import model.Calendar;
 import model.salemodel.SaleDetail;
 
 import java.util.ArrayList;
@@ -15,20 +13,7 @@ public class SaleLog {
     }
 
     public void logSale(SaleDetail saleDetail) {
-        /*
-        String date = Calendar.getCurrentDate();
-        if (saleDetailHashMap.containsKey(date)) {
-            saleDetailHashMap.get(date).add(saleDetail);
-        }
-        else {
-            saleDetailHashMap.keySet().add(date);
-            saleDetailHashMap.put(date, new ArrayList<SaleDetail>());
-        }
 
-        ProductDB.updateInventory(saleDetail.getProcessedGoods());
-        AccountingSystem.updateAccounting(saleDetail);
-
-         */
     }
 
 }

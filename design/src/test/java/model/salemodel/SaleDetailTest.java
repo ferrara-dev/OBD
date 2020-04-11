@@ -1,66 +1,79 @@
 package model.salemodel;
 
+import integration.productdb.ItemDTO;
+import model.itemmodel.ItemModel;
+import model.itemmodel.ProcessedGoods;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SaleDetailTest {
+    private ProcessedGoods goods;
+    private ItemModel item;
+    private ItemDTO itemDTO;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
+        goods = new ProcessedGoods();
+        itemDTO = new ItemDTO("item", 20, "viand", 99, 500);
     }
 
-    @org.junit.jupiter.api.AfterEach
+    @AfterEach
     void tearDown() {
+
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void setTimeAndDateOfSale() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getTotalVAT() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getTimeAndDateOfSale() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void setActive() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void setCompleted() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void isActive() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void isCompleted() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getRunningTotal() {
     }
 
-    @org.junit.jupiter.api.Test
-    void getSaleLineItem() {
+    @Test
+    void getCashBack() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void setSaleLineItem() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getProcessedGoods() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void updateSaleDetail() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void updateRunningTotal() {
     }
 }

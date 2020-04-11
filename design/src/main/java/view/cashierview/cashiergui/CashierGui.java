@@ -1,5 +1,6 @@
 package view.cashierview.cashiergui;
 
+import util.NotFoundException;
 import view.cashierview.CashierView;
 import view.cashierview.cashiergui.panels.*;
 
@@ -91,8 +92,13 @@ public class CashierGui extends JFrame implements ActionListener, ItemListener {
                 quantity = 1;
             else
                 quantity = Integer.parseInt(itemQuantityTextField.getText());
-            String displayMessage = (cashierView.registerItem(itemId, quantity));
-            saleInformationArea.setText(displayMessage);
+            try {
+                String displayMessage = (cashierView.registerItem(itemId, quantity));
+                saleInformationArea.setText(displayMessage);
+            } catch (NotFoundException ex) {
+              GuiErrorMessage.getErrorPopUp(ex.ITEM_NOT_FOUND_MESSAGE);
+            }
+
         }
 
         if (e.getSource() == enterPayment && textfieldIsNotEmpty(paymentTextField)) {

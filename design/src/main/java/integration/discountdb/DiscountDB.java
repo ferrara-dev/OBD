@@ -34,39 +34,4 @@ public class DiscountDB{
         });
         return searchResult;
     }
-
-
-
-/**
- public List<DiscountOffer> createDiscountList() {
- List<DiscountOffer> searchResult = new ArrayList<>();
- discounts.keySet().forEach(offer->{
-
- DiscountOffer offer1 = new DiscountOffer(Integer.parseInt(offer));
- offer1.rule.type = discounts.get(offer).get(1);
- System.out.println(offer1.rule.type);
- offer1.rule.description = discounts.get(offer).get(2);
- System.out.println(offer1.rule.description);
-
- searchResult.add(offer1);
- });
- return searchResult;
- }
-
- public void printResult(List<String> result) {
- System.out.println("Search result: " + result);
- result.forEach(key->{
- System.out.println("======================================================");
- System.out.println("Product: " + key);
- System.out.println("======================================================");
- IntStream.range(0, 5).forEach(index-> {
- String nutritionKey = headers.get(index);
- //System.out.println( products.get(key).size());
- if(index<discounts.get(key).size() && discounts.containsKey(key)) {
- System.out.println(nutritionKey + ": " + discounts.get(key).get(index));
- }
- });
- });
- }
- */
 }

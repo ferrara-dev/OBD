@@ -3,13 +3,12 @@ package integration.discountdb;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
+import static util.CsvUtil.getStrings;
 
-public class DiscountDBLoader implements IProductDB {
+public class DiscountDBLoader implements IDiscountDB {
 
     protected List<String> rows;
     protected List<String> headers;
@@ -28,10 +27,8 @@ public class DiscountDBLoader implements IProductDB {
     }
 
     private List<String> extractHeaders(final List<String> rows) {
-        final List<String> headers = new ArrayList<>();
-        List<String> arr = Arrays.asList(rows.get(HEADERS_POSITION).split(SEMICOLON));
-        IntStream.range(HEADER_VALUES_START_POSITION,  arr.size()).forEach(index-> headers.add(arr.get(index)));
-        return headers;
+        return getStrings(rows, HEADERS_POSITION, SEMICOLON, HEADER_VALUES_START_POSITION);
     }
+
 
 }
