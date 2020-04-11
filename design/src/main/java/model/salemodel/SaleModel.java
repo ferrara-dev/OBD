@@ -6,6 +6,7 @@ import integration.RegestryCreator;
 import model.Calendar;
 import model.itemmodel.ItemModel;
 import model.Model;
+import util.NotFoundException;
 
 public class SaleModel implements Model {
     public SaleDetail saleDetail;
@@ -27,24 +28,24 @@ public class SaleModel implements Model {
     public String registerItem(int itemId, int quantity) {
         boolean isRegistered = false;
         if(!saleDetail.isCompleted())
-        if(creator.getItemRegestry().contains(itemId)) {
-            if (saleDetail.isActive() && new ItemModel(fetchItemDetail(itemId), quantity) != null) {
-                saleDetail.setSaleLineItem(new ItemModel(creator.getItemRegestry().getItemDetail(itemId), quantity));
+            if (saleDetail.isActive()) {
+                saleDetail.setSaleLineItem(new ItemModel(fetchItemDetail(itemId), quantity));
                 String saleDetails = addItemToSale();
                 return saleDetails;
             }
-        }
             return getDisplayMessage(ITEM_NOT_FOUND, false);
     }
 
     /**
-     * fetch information about an item
+     * fetch information about an item from the item registry
+     * throws ItemNotFoundException if the item is not found.
      * @param itemId
-     * @return
+     * @return Detailed information about the item with the
+     * given itemIdentifier
      */
-    private ItemDetail findItem(int itemId){
+    private ItemDetail fetchItemDetail(int itemId){
         if(!creator.getItemRegestry().contains(itemId))
-            throw new Illegal("No such item found in inventory");
+            throw new NotFoundException("Item not found");
         return creator.getItemRegestry().getItemDetail(itemId);
     }
 
@@ -62,9 +63,6 @@ public class SaleModel implements Model {
         return Double.toString(saleDetail.getRunningTotal());
     }
 
-    public String paySale(){
-        return null;
-    }
     private String getDisplayMessage(int itemId, boolean itemFound) {
         if(itemFound) {
 

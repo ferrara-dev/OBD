@@ -5,8 +5,6 @@ import model.salemodel.Payment;
 import model.salemodel.Receipt;
 import model.salemodel.SaleModel;
 import startup.LayerCreator;
-import util.ReceiptFormatter;
-
 
 public class SaleController {
     public SaleModel salemodel;
@@ -15,7 +13,6 @@ public class SaleController {
 
     public SaleController(LayerCreator creator){
         this.creator = creator;
-
     }
 
     /**
@@ -33,6 +30,10 @@ public class SaleController {
         return startConfirmation;
     }
 
+    /**
+     * call saleModel to end the sale after all items has been registered
+     * @return message shown by the gui to present total cost
+     */
     public String endSale(){
         // call to Salemodel
         return salemodel.endSale();
@@ -41,7 +42,7 @@ public class SaleController {
     /**
      * call to the cash register to processes a payment
      * @param amountPayed
-     * @return returns information that is forwarded to a printer that prints a recept
+     * @return returns information that is forwarded to a printer that prints a receipt
      */
     public String enterPayment(double amountPayed){
         String receipt;
@@ -63,7 +64,7 @@ public class SaleController {
      * @return
      */
     String applyDiscountToSale(double priceReduction){
-        salemodel.
+       return null;
     }
 
     private void logSale(){

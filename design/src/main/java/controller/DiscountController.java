@@ -2,6 +2,7 @@ package controller;
 
 import model.discountmodel.DiscountEngine;
 import startup.LayerCreator;
+import util.NotFoundException;
 
 
 public class DiscountController {
@@ -15,11 +16,13 @@ public class DiscountController {
     public String signalDiscountRequest(String customerId){
         if(integration.customerdb.CustomerDB.find(customerId)){
             discountEngine = new DiscountEngine(creator.getSaleController().salemodel.saleDetail);
-            creator.getSaleController().
+          //  creator.getSaleController().
             return "total discount of : " + discountEngine.totalPriceReduction;
 
         }
-        return "Customer Id not found";
+        else
+            throw new NotFoundException("Item not found");
+
     }
 
 }
