@@ -15,6 +15,7 @@ public class SaleLog {
     }
 
     public void logSale(SaleDetail saleDetail) {
+        /*
         String date = Calendar.getCurrentDate();
         if (saleDetailHashMap.containsKey(date)) {
             saleDetailHashMap.get(date).add(saleDetail);
@@ -26,6 +27,8 @@ public class SaleLog {
 
         ProductDB.updateInventory(saleDetail.getProcessedGoods());
         AccountingSystem.updateAccounting(saleDetail);
+
+         */
     }
 
 }

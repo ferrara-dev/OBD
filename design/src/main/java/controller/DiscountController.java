@@ -6,8 +6,8 @@ import startup.LayerCreator;
 
 public class DiscountController {
     private LayerCreator creator;
-
     DiscountEngine discountEngine;
+
     public DiscountController(LayerCreator LayerCreator){
         this.creator = LayerCreator;
     }
@@ -15,7 +15,9 @@ public class DiscountController {
     public String signalDiscountRequest(String customerId){
         if(integration.customerdb.CustomerDB.find(customerId)){
             discountEngine = new DiscountEngine(creator.getSaleController().salemodel.saleDetail);
+            creator.getSaleController().
             return "total discount of : " + discountEngine.totalPriceReduction;
+
         }
         return "Customer Id not found";
     }

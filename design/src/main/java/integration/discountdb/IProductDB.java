@@ -7,4 +7,5 @@ public interface IProductDB {
     public static final int PRODUCTS_START_POSITION = 1;
      static final String SEMICOLON = ",";
      final String FILENAME = "newDiscountDB.csv";
+
 }

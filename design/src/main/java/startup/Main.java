@@ -2,8 +2,8 @@ package startup;
 
 
 
-import integration.RegestryCreator;
-import view.cashierview.CashierGui;
+import model.PhysicalObjectCreator;
+import view.cashierview.cashiergui.CashierGui;
 import view.cashierview.CashierView;
 import view.View;
 import javax.swing.*;

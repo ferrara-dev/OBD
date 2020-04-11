@@ -2,6 +2,7 @@ package view.cashierview;
 
 import startup.LayerCreator;
 import view.View;
+import view.cashierview.cashiergui.CashierGui;
 
 public class CashierView implements View {
     private LayerCreator creator;
@@ -12,6 +13,10 @@ public class CashierView implements View {
         cashierGui = new CashierGui(this);
     }
 
+
+    /**
+     * call controller to initialize new sale
+     */
     public void startSale(){
         displayMessage(creator.getSaleController().startSale());
     }
@@ -22,10 +27,17 @@ public class CashierView implements View {
                 + creator.getSaleController().endSale() + " kr";
     }
 
+    /**
+     * call controller to register a item to the sale
+     * @param itemId the item identifier entered by the cashier
+     * @param quantity quantity of the item being registered,
+     *                 defaults as 1 if the cashier does not
+     *                 specify the quantity.
+     * @return message containing information about the sale, displayed by the gui
+     */
     public String registerItem(int itemId, int quantity){
-        //call to controller
-        return (creator.getItemController().registerItem(itemId, quantity));
-
+        String displayMessage = (creator.getItemController().registerItem(itemId, quantity));
+        return displayMessage;
     }
 
     @Override
@@ -43,8 +55,8 @@ public class CashierView implements View {
     }
 
     public String enterPayment(double amount){
-        creator.getSaleController().enterPayment(amount);
-        return null;
+        String saleDetails = creator.getSaleController().enterPayment(amount);
+        return saleDetails;
     }
 
 }

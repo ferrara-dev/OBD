@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProcessedGoods {
-    public static List<ItemModel> goods;
+    private List<ItemModel> goods;
+
+    public List<ItemModel> getGoods(){
+        return goods;
+    }
 
     public ProcessedGoods() {
         goods = new ArrayList<>();
@@ -35,6 +39,19 @@ public class ProcessedGoods {
             }
         return 0;
     }
+
+    public String processedGoodsAsText(){
+        String goodsAsString = new String();
+        System.out.println(goods.size());
+        for(ItemModel item: goods){
+            goodsAsString =  goodsAsString + " " +
+                    "" + item.name + " x " + item.quantity + "  " + item.totalPrice + " " +
+                    "kr ( " + item.price + "kr/pce excluding tax of " + item.taxRate*item.price + "kr " + " )" +
+                    "" + "\n";
+        }
+        return goodsAsString;
+    }
+
 /**
     public void addItemToSale(SaleDetail saleDetail){
         if (contains(saleDetail.getItemModel().itemId))

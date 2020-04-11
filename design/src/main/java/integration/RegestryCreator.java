@@ -36,9 +36,8 @@ public class RegestryCreator {
 
     private void createDiscountRegestry() throws Exception {
         DiscountDB db = new DiscountDB();
-        db.load();
         //DiscountOffer ProductDiscount1 = new DiscountOffer("product",1,{})
-       discountRegestry = new DiscountRegestry(db.createDiscountList());
+       discountRegestry = new DiscountRegestry(db.getDiscountList());
     }
 
 
