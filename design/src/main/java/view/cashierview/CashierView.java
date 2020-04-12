@@ -9,7 +9,7 @@ public class CashierView implements View {
 
     public CashierView(LayerCreator creator) throws Exception {
         this.creator = creator;
-        cashierGui = new CashierGui(this);
+        //cashierGui = new CashierGui(this);
     }
 
     public void startSale(){

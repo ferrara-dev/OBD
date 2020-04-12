@@ -31,9 +31,9 @@ public class SaleController {
 
 
     public void enterPayment(double amount){
-        if(cashRegister.processPayment(salemodel.saleDetail.getRunningTotal(), amount) >= 0) {
+        if(cashRegister.processPayment(salemodel.saleDetail, amount) >= 0) {
             logSale();
-            String change = Double.toString(cashRegister.processPayment(salemodel.saleDetail.getRunningTotal(), amount));
+            String change = Double.toString(cashRegister.processPayment(salemodel.saleDetail, amount));
         }
     }
 

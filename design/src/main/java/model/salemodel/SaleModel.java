@@ -5,6 +5,8 @@ import integration.RegestryCreator;
 import model.itemmodel.ItemModel;
 import model.Model;
 
+import java.util.Objects;
+
 public class SaleModel implements Model {
     public SaleDetail saleDetail;
     public RegestryCreator creator;
@@ -17,15 +19,20 @@ public class SaleModel implements Model {
     @Override
     public String registerItem(int itemId, int quantity) {
         boolean isRegistered = false;
-        if(!saleDetail.completed)
-        if(creator.getItemRegestry().contains(itemId)) {
-            if (saleDetail.active && new ItemModel(creator.getItemRegestry().getItemDetail(itemId), quantity) != null) {
-                saleDetail.setSaleLineItem(new ItemModel(creator.getItemRegestry().getItemDetail(itemId), quantity));
-                addItemToSale();
-                return getDisplayMessage(itemId, true);
+        if(Objects.isNull(saleDetail)) {
+            startSale();
+        }
+        if(!saleDetail.completed) {
+            if (creator.getItemRegestry().contains(itemId)) {
+                ItemModel itemModel = new ItemModel(creator.getItemRegestry().getItemDetail(itemId), quantity);
+                if (saleDetail.active && itemModel != null) {
+                    saleDetail.setSaleLineItem(itemModel);
+                    addItemToSale();
+                    return getDisplayMessage(itemId, true);
+                }
             }
         }
-            return getDisplayMessage(ITEM_NOT_FOUND, false);
+        return getDisplayMessage(ITEM_NOT_FOUND, false);
     }
 
     public void startSale() {

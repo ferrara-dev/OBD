@@ -1,11 +1,16 @@
 package integration;
 
 import integration.discountdb.DiscountDTO;
+import org.h2.mvstore.MVMap;
 
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toMap;
 
 public class DiscountRegestry {
   // public static List<DiscountOffer> discountList;
@@ -20,15 +25,16 @@ public class DiscountRegestry {
 
     public DiscountRegestry(List<DiscountDTO> discounts){
         this.discounts = discounts;
-        discountMap = Map.of(
-                "MONDAY",getDiscountOffers("MONDAY"),
-                "TUESDAY",getDiscountOffers("TUESDAY"),
-                "WEDNESDAY", getDiscountOffers("WEDNESDAY"),
-                "THURSDAY",getDiscountOffers("THURSDAY"),
-                "FRIDAY", getDiscountOffers("FRIDAY"),
-                "SATURDAY",getDiscountOffers("SATURDAY"),
-                "SUNDAY",getDiscountOffers("SUNDAY")
-        );
+
+        discountMap = Stream.of(
+                new AbstractMap.SimpleEntry<>("MONDAY",getDiscountOffers("MONDAY")),
+                new AbstractMap.SimpleEntry<>("TUESDAY",getDiscountOffers("TUESDAY")),
+                new AbstractMap.SimpleEntry<>("WEDNESDAY", getDiscountOffers("WEDNESDAY")),
+                new AbstractMap.SimpleEntry<>("THURSDAY",getDiscountOffers("THURSDAY")),
+                new AbstractMap.SimpleEntry<>("FRIDAY", getDiscountOffers("FRIDAY")),
+                new AbstractMap.SimpleEntry<>("SATURDAY",getDiscountOffers("SATURDAY")),
+                new AbstractMap.SimpleEntry<>("SUNDAY",getDiscountOffers("SUNDAY"))
+        ).collect(toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
         System.out.println(discountMap.toString());
     }
 
