@@ -45,9 +45,9 @@ public class Receipt implements Paper {
         }
 
         totalTaxPayed = Double.toString(saleDetail.getTotalVAT());
-        totalCost = Double.toString(saleDetail.getRunningTotal());
+        totalCost = Double.toString(saleDetail.getTotalCost());
         amountPaid = Double.toString(payment.getAmountPayed());
-        change = Double.toString(payment.getAmountPayed() - saleDetail.getRunningTotal());
+        change = Double.toString(payment.getAmountPayed() - saleDetail.getTotalCost());
 
         storeName = store.getName();
         storeAddress = store.getStoreAddress().toString();

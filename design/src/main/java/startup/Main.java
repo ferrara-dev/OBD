@@ -2,6 +2,7 @@ package startup;
 
 
 
+import integration.productdb.ProductDB;
 import model.PhysicalObjectCreator;
 import view.cashierview.cashiergui.CashierGui;
 import view.cashierview.CashierView;

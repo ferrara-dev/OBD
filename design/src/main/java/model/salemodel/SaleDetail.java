@@ -1,7 +1,10 @@
 package model.salemodel;
 
+import model.Calendar;
 import model.itemmodel.ItemModel;
 import model.itemmodel.ProcessedGoods;
+
+import java.util.Objects;
 
 public class SaleDetail {
     private ProcessedGoods processedGoods;
@@ -18,17 +21,13 @@ public class SaleDetail {
      * Creates a new instance representing details about
      * a specific transaction.
      */
-    public SaleDetail(){
+    public SaleDetail() {
         completed = false;
         active = true;
         processedGoods = new ProcessedGoods();
     }
 
-    public void setTimeAndDateOfSale(String timeAndDateOfSale) {
-        TimeAndDateOfSale = timeAndDateOfSale;
-    }
-
-    public double getTotalVAT(){
+    public double getTotalVAT() {
         return totalVAT;
     }
 
@@ -38,10 +37,6 @@ public class SaleDetail {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
     }
 
     public boolean isActive() {
@@ -65,12 +60,18 @@ public class SaleDetail {
     }
 
     public ProcessedGoods getProcessedGoods() {
+        if (Objects.isNull(processedGoods))
+            processedGoods = new ProcessedGoods();
         return processedGoods;
     }
 
-    public String updateSaleDetail(){
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public String updateSaleDetail() {
         if (processedGoods.contains(saleLineItem.itemId))
-           updateItemQuantity();
+            updateItemQuantity();
         else
             addItem();
         updateRunningTotal(saleLineItem.totalPrice);
@@ -78,11 +79,30 @@ public class SaleDetail {
         return saleDetailAsString();
     }
 
-    private void updateVAT(){
+    public double updateRunningTotal(double amount) {
+        this.runningTotal += amount;
+        if (runningTotal < 0) {
+            cashBack = -1 * runningTotal;
+            runningTotal = 0;
+        }
+        return runningTotal;
+    }
+
+    public void completeSale() {
+        setCompleted(true);
+        setTimeAndDateOfSale(Calendar.getTimeAndDate());
+        totalCost = runningTotal;
+    }
+
+    private void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    private void updateVAT() {
         totalVAT += saleLineItem.taxRate * saleLineItem.quantity * saleLineItem.price;
     }
 
-    private String updateItemQuantity(){
+    private String updateItemQuantity() {
         processedGoods.getItem(saleLineItem.itemId).quantity += saleLineItem.quantity;
         return saleDetailAsString();
     }
@@ -91,16 +111,7 @@ public class SaleDetail {
         processedGoods.getGoods().add(saleLineItem);
     }
 
-    public double updateRunningTotal(double amount) {
-        this.runningTotal += amount;
-        if(runningTotal < 0) {
-            cashBack = runningTotal;
-            runningTotal = 0;
-        }
-        return runningTotal;
-    }
-
-    private String saleDetailAsString(){
+    private String saleDetailAsString() {
         StringBuilder sb = new StringBuilder(processedGoods.processedGoodsAsText());
         sb.append("\n");
         sb.append("---------------------\n");
@@ -108,4 +119,7 @@ public class SaleDetail {
         return sb.toString();
     }
 
+    private void setTimeAndDateOfSale(String timeAndDateOfSale) {
+        TimeAndDateOfSale = timeAndDateOfSale;
+    }
 }

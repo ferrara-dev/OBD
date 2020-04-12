@@ -15,7 +15,7 @@ public class DiscountController {
 
     public String signalDiscountRequest(String customerId){
         if(integration.customerdb.CustomerDB.find(customerId)){
-            discountEngine = new DiscountEngine(creator.getSaleController().salemodel.saleDetail);
+            discountEngine = new DiscountEngine(creator.getSaleController().getSalemodel().getSaleDetail());
           //  creator.getSaleController().
             return "total discount of : " + discountEngine.totalPriceReduction;
         }

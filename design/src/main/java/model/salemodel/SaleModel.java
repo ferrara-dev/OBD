@@ -11,13 +11,31 @@ import util.NotFoundException;
 import java.util.Objects;
 
 public class SaleModel implements Model {
-    public SaleDetail saleDetail;
-    public RegestryCreator creator;
+    private SaleDetail saleDetail;
+    private RegestryCreator creator;
 
     private final int ITEM_NOT_FOUND = 0;
 
     public SaleModel(RegestryCreator creator) {
         this.creator = creator;
+    }
+
+    /**
+     * Gets details about current sale.
+     * First check if saleDetail has not
+     * been initiated.
+     *
+     * @return details about current sale
+     */
+    public SaleDetail getSaleDetail() {
+        if (Objects.isNull(saleDetail)) {
+            startSale();
+        }
+        return saleDetail;
+    }
+
+    public RegestryCreator getCreator() {
+        return creator;
     }
 
     /**
@@ -65,9 +83,8 @@ public class SaleModel implements Model {
     }
 
     public String endSale() {
-        saleDetail.setCompleted(true);
-        saleDetail.setTimeAndDateOfSale(Calendar.getTimeAndDate());
-        return Double.toString(saleDetail.getRunningTotal());
+        saleDetail.completeSale();
+        return Double.toString(saleDetail.getTotalCost());
     }
 
     private String getDisplayMessage(int itemId, boolean itemFound) {

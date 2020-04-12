@@ -16,7 +16,7 @@ public class ItemController {
      * @return
      */
     public String registerItem(int itemId, int quantity) {
-        String displayMessage = creator.getSaleController().salemodel.registerItem(itemId,quantity);
+        String displayMessage = creator.getSaleController().getSalemodel().registerItem(itemId,quantity);
         return displayMessage;
     }
 }

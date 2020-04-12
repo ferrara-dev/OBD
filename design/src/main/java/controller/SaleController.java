@@ -6,13 +6,21 @@ import model.salemodel.Receipt;
 import model.salemodel.SaleModel;
 import startup.LayerCreator;
 
+import java.util.Objects;
+
 public class SaleController {
-    public SaleModel salemodel;
+    private SaleModel salemodel;
     private LayerCreator creator;
 
 
     public SaleController(LayerCreator creator){
         this.creator = creator;
+    }
+
+    public SaleModel getSalemodel() {
+        if(Objects.isNull((salemodel)))
+            startSale();
+        return salemodel;
     }
 
     /**
@@ -45,17 +53,18 @@ public class SaleController {
      * @return returns information that is forwarded to a printer that prints a receipt
      */
     public String enterPayment(double amountPayed){
-        String receipt;
-        Payment payment = new Payment(salemodel.saleDetail, amountPayed);
+        String receiptString;
+        Payment payment = new Payment(salemodel.getSaleDetail(), amountPayed);
         creator.getPhysicalObjectCreator().getCashRegister().processPayment(payment);
-        if(salemodel.saleDetail.getRunningTotal() >= 0) {
-            salemodel.saleDetail.setActive(false);
+        if(salemodel.getSaleDetail().getRunningTotal() >= 0) {
+            salemodel.getSaleDetail().setActive(false);
             logSale();
-            receipt = Printer.print((new Receipt(payment, creator.getPhysicalObjectCreator().getStore(), salemodel.saleDetail)));
+            Receipt receipt = new Receipt(payment, creator.getPhysicalObjectCreator().getStore(), salemodel.getSaleDetail());
+            receiptString = Printer.print(receipt);
         }
         else
-            return "Still " + Double.toString(salemodel.saleDetail.getRunningTotal()) + " left to pay";
-        return receipt;
+            return "Still " + Double.toString(salemodel.getSaleDetail().getRunningTotal()) + " left to pay";
+        return receiptString;
     }
 
     /**
@@ -68,7 +77,7 @@ public class SaleController {
     }
 
     private void logSale(){
-        creator.getRegestryCreator().getSaleLog().logSale(salemodel.saleDetail);
+        creator.getRegestryCreator().getSaleLog().logSale(salemodel.getSaleDetail());
     }
 
 
