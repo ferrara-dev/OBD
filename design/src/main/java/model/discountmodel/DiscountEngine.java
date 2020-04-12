@@ -11,6 +11,7 @@ import java.util.List;
 public class DiscountEngine{
     public double totalPriceReduction;
     List<DiscountDTO> discountDTOS;
+
     public DiscountEngine(SaleDetail saleDetail){
         discountDTOS = getOffers();
         totalPriceReduction = DiscountLogic.ApplyDiscountLogic(saleDetail,discountDTOS);

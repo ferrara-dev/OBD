@@ -1,23 +1,22 @@
 package model.salemodel;
 
+import model.Store;
+
 public class Register {
+    Store store;
     private double balance;
 
-
-    public Register(){
+    public Register(Store store){
+        this.store = store;
     }
 
-    public double processPayment(SaleDetail saleDetail, double amount){
-        double rest = amount - saleDetail.getRunningTotal();
-        balance += amount;
-        return rest;
+    public void processPayment(Payment payment){
+        double amountPayed = payment.getAmountPayed();
+        payment.getSaleDetail().updateRunningTotal((-1)*amountPayed);
     }
 
     public double getBalance(){
         return balance;
     }
 
-    public void printReciept(SaleDetail saleDetail){
-
-    }
 }

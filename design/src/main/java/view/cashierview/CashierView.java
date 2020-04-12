@@ -1,50 +1,67 @@
 package view.cashierview;
 
 import startup.LayerCreator;
+import util.NotFoundException;
 import view.View;
+
+
 
 public class CashierView implements View {
     private LayerCreator creator;
-    private CashierGui cashierGui;
 
     public CashierView(LayerCreator creator) throws Exception {
         this.creator = creator;
-        //cashierGui = new CashierGui(this);
     }
 
-    public void startSale(){
+
+    /**
+     * call controller to initialize new sale
+     */
+    public void startSale() {
         displayMessage(creator.getSaleController().startSale());
     }
 
-    public String endSale(){
+    public String endSale() {
         // call to controller
         return "Total cost : \n"
                 + creator.getSaleController().endSale() + " kr";
     }
 
-    public String registerItem(int itemId, int quantity){
-        //call to controller
-        return (creator.getItemController().registerItem(itemId, quantity));
+    /**
+     * call controller to register an item to the sale
+     *
+     * @param itemId   the item identifier entered by the cashier
+     * @param quantity quantity of the item being registered,
+     *                 defaults as 1 if the cashier does not
+     *                 specify the quantity.
+     * @return message containing information about the sale, displayed by the gui
+     */
+    public String registerItem(int itemId, int quantity) {
 
+            String displayMessage = creator.getItemController().registerItem(itemId, quantity);
+            return displayMessage;
     }
 
-    @Override
-    public void displayMessage(String... message) {
+
+    public void displayMessage(Object object) {
         StringBuilder sb = new StringBuilder();
-        for(String string: message){
-            sb.append(string);
-            sb.append("\n");
-        }
-        System.out.println(sb);
+
     }
 
-    public String signalDiscountRequest(String customerId){
-        return  creator.getDiscountController().signalDiscountRequest(customerId);
+    public String signalDiscountRequest(String customerId) {
+        try {
+            return creator.getDiscountController().signalDiscountRequest(customerId);
+        } catch (NotFoundException ex) {
+            return "customer is not a registered member";
+        }
     }
+
+
+
 
     public String enterPayment(double amount){
-        creator.getSaleController().enterPayment(amount);
-        return null;
+        String saleDetails = creator.getSaleController().enterPayment(amount);
+        return saleDetails;
     }
 
 }

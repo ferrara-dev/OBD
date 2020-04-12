@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
-
+import static util.CsvUtil.getStrings;
 public class ProductDB {
 
     public static final int HEADERS_POSITION = 0;
@@ -34,10 +34,7 @@ public class ProductDB {
     }
 
     private List<String> extractHeaders(final List<String> rows) {
-        final List<String> headers = new ArrayList<>();
-        List<String> arr = Arrays.asList(rows.get(HEADERS_POSITION).split(SEMICOLON));
-        IntStream.range(HEADER_VALUES_START_POSITION,  arr.size()).forEach(index-> headers.add(arr.get(index)));
-        return headers;
+        return getStrings(rows, HEADERS_POSITION, SEMICOLON, HEADER_VALUES_START_POSITION);
     }
 
     private Map<String,List<String>> extractProducts(final List<String> rows) {
@@ -71,22 +68,6 @@ public class ProductDB {
             searchResult.add(product1);
         });
         return searchResult;
-    }
-
-    public void printResult(List<String> result) {
-        System.out.println("Search result: " + result);
-        result.forEach(key->{
-            System.out.println("======================================================");
-            System.out.println("Product: " + key);
-            System.out.println("======================================================");
-            IntStream.range(0, 5).forEach(index-> {
-                String nutritionKey = headers.get(index);
-                //System.out.println( products.get(key).size());
-                if(index<products.get(key).size() && products.containsKey(key)) {
-                    System.out.println(nutritionKey + ": " + products.get(key).get(index));
-                }
-            });
-        });
     }
 
     public void updateDiscountedItems(){
