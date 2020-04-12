@@ -3,12 +3,9 @@ package model.salemodel;
 
 import integration.ItemDetail;
 import integration.RegestryCreator;
-import model.Calendar;
-import model.itemmodel.ItemModel;
 import model.Model;
+import model.itemmodel.ItemModel;
 import util.NotFoundException;
-
-import java.util.Objects;
 
 import java.util.Objects;
 
@@ -49,33 +46,16 @@ public class SaleModel implements Model {
      */
     @Override
     public String registerItem(int itemId, int quantity) {
-<<<<<<< HEAD
-        boolean isRegistered = false;
-        if(Objects.isNull(saleDetail)) {
+        if (Objects.isNull(saleDetail)) {
             startSale();
         }
-        if(!saleDetail.completed) {
-            if (creator.getItemRegestry().contains(itemId)) {
-                ItemModel itemModel = new ItemModel(creator.getItemRegestry().getItemDetail(itemId), quantity);
-                if (saleDetail.active && itemModel != null) {
-                    saleDetail.setSaleLineItem(itemModel);
-                    addItemToSale();
-                    return getDisplayMessage(itemId, true);
-                }
+        if (!saleDetail.isCompleted())
+            if (saleDetail.isActive()) {
+                ItemModel item = new ItemModel(fetchItemDetail(itemId), quantity);
+                saleDetail.setSaleLineItem(item);
+                String saleDetails = addItemToSale();
+                return saleDetails;
             }
-        }
-        return getDisplayMessage(ITEM_NOT_FOUND, false);
-=======
-        if (Objects.isNull(saleDetail))
-            startSale();
-            if (!saleDetail.isCompleted())
-                if (saleDetail.isActive()) {
-                    ItemModel item = new ItemModel(fetchItemDetail(itemId), quantity);
-                    saleDetail.setSaleLineItem(item);
-                    String saleDetails = addItemToSale();
-                    return saleDetails;
-                }
-
         return getDisplayMessage(ITEM_NOT_FOUND, false);
     }
 
@@ -91,7 +71,6 @@ public class SaleModel implements Model {
         if (!creator.getItemRegestry().contains(itemId))
             throw new NotFoundException("Item not found");
         return creator.getItemRegestry().getItemDetail(itemId);
->>>>>>> master
     }
 
     /**

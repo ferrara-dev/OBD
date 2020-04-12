@@ -3,22 +3,24 @@ package model.salemodel;
 import integration.productdb.ItemDTO;
 import model.itemmodel.ItemModel;
 import model.itemmodel.ProcessedGoods;
+import org.junit.Before;
 import org.junit.Rule;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import startup.LayerCreator;
 import util.NotFoundException;
 
 import static junit.framework.TestCase.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertThrows;
+
 
 class SaleModelTest {
     private ProcessedGoods goods;
     private ItemModel item;
     private ItemDTO itemDTO;
-    @BeforeEach
+    @Before
     void setUp() {
         goods = new ProcessedGoods();
         itemDTO = new ItemDTO("item", 20, "viand", 99, 500);

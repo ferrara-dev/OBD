@@ -1,22 +1,21 @@
 package model.salemodel;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
 
-class PaymentTest {
+public class PaymentTest {
 
 
     @Test
-    void getPriceToPay() {
+    public void getPriceToPay() {
 
     }
 
     @Test
-    void getSaleDetail() {
+    public void getSaleDetail() {
     }
 
     @Test
-    void getAmountPayed() {
+    public void getAmountPayed() {
     }
 }
