@@ -3,9 +3,8 @@ package model.salemodel;
 
 import integration.ItemDetail;
 import integration.RegestryCreator;
-import model.Calendar;
-import model.itemmodel.ItemModel;
 import model.Model;
+import model.itemmodel.ItemModel;
 import util.NotFoundException;
 
 import java.util.Objects;
@@ -47,16 +46,16 @@ public class SaleModel implements Model {
      */
     @Override
     public String registerItem(int itemId, int quantity) {
-        if (Objects.isNull(saleDetail))
+        if (Objects.isNull(saleDetail)) {
             startSale();
-            if (!saleDetail.isCompleted())
-                if (saleDetail.isActive()) {
-                    ItemModel item = new ItemModel(fetchItemDetail(itemId), quantity);
-                    saleDetail.setSaleLineItem(item);
-                    String saleDetails = addItemToSale();
-                    return saleDetails;
-                }
-
+        }
+        if (!saleDetail.isCompleted())
+            if (saleDetail.isActive()) {
+                ItemModel item = new ItemModel(fetchItemDetail(itemId), quantity);
+                saleDetail.setSaleLineItem(item);
+                String saleDetails = addItemToSale();
+                return saleDetails;
+            }
         return getDisplayMessage(ITEM_NOT_FOUND, false);
     }
 

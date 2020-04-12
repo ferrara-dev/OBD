@@ -27,12 +27,11 @@ public class DataBaseService {
         return false;
     }
     public static boolean read(final String SQL_STATEMENT , String id) {
-        if()
+
         try (Connection con = DriverManager.getConnection(URL)){
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(String.format(SQL_STATEMENT, id));
 
-            StringBuilder sb =
             while(rs.next()) {
                 return true;
             }
@@ -72,12 +71,6 @@ public class DataBaseService {
         return false;
     }
 
-
-    /**
-     *
-     * @param member
-     * @return
-     */
     public boolean register(final String SQL_STATEMENT, String id) {
         try (Connection con = DriverManager.getConnection(URL)){
             Statement stm = con.createStatement();

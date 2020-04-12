@@ -1,46 +1,47 @@
 package controller;
 
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import startup.LayerCreator;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.assertEquals;
 
-class SaleControllerTest {
+
+public class SaleControllerTest {
     LayerCreator layerCreator;
 
-    @BeforeEach
-    void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         LayerCreator layerCreator = new LayerCreator();
 
     }
 
-    @AfterEach
-    void tearDown() {
+    @After
+    public void tearDown() {
 
     }
 
     @Test
-    void startSale() throws Exception {
+    public void startSale() throws Exception {
         LayerCreator layerCreator = new LayerCreator();
         assertEquals("Sale Started", layerCreator.getSaleController().startSale());
 
     }
 
     @Test
-    void endSale() {
+    public void endSale() {
 
     }
 
     @Test
-    void enterPayment() {
+    public void enterPayment() {
 
     }
 
     @Test
-    void applyDiscountToSale() {
+    public void applyDiscountToSale() {
 
     }
 }

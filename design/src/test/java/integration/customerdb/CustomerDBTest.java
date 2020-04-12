@@ -1,29 +1,28 @@
 package integration.customerdb;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
 
-class CustomerDBTest {
+public class CustomerDBTest {
 
     @Test
-    void find() {
+    public void find() {
 
     }
 
     @Test
-    void readRecord() {
+    public void readRecord() {
     }
 
     @Test
-    void getInformation() {
+    public void getInformation() {
     }
 
     @Test
-    void insertRecord() {
+    public void insertRecord() {
     }
 
     @Test
-    void printSQLException() {
+    public void printSQLException() {
     }
 }

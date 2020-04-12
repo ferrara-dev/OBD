@@ -1,79 +1,78 @@
 package model.salemodel;
 
+
 import integration.productdb.ItemDTO;
 import model.itemmodel.ItemModel;
 import model.itemmodel.ProcessedGoods;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class SaleDetailTest {
+public class SaleDetailTest {
     private ProcessedGoods goods;
     private ItemModel item;
     private ItemDTO itemDTO;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         goods = new ProcessedGoods();
         itemDTO = new ItemDTO("item", 20, "viand", 99, 500);
     }
 
-    @AfterEach
-    void tearDown() {
+    @After
+    public void tearDown() {
 
     }
 
     @Test
-    void setTimeAndDateOfSale() {
+    public void setTimeAndDateOfSale() {
     }
 
     @Test
-    void getTotalVAT() {
+    public void getTotalVAT() {
     }
 
     @Test
-    void getTimeAndDateOfSale() {
+    public void getTimeAndDateOfSale() {
     }
 
     @Test
-    void setActive() {
+    public void setActive() {
     }
 
     @Test
-    void setCompleted() {
+    public void setCompleted() {
     }
 
     @Test
-    void isActive() {
+    public void isActive() {
     }
 
     @Test
-    void isCompleted() {
+    public void isCompleted() {
     }
 
     @Test
-    void getRunningTotal() {
+    public void getRunningTotal() {
     }
 
     @Test
-    void getCashBack() {
+    public void getCashBack() {
     }
 
     @Test
-    void setSaleLineItem() {
+    public void setSaleLineItem() {
     }
 
     @Test
-    void getProcessedGoods() {
+    public void getProcessedGoods() {
     }
 
     @Test
-    void updateSaleDetail() {
+    public void updateSaleDetail() {
     }
 
     @Test
-    void updateRunningTotal() {
+    public void updateRunningTotal() {
     }
 }

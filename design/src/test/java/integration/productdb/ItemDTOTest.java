@@ -1,18 +1,16 @@
 package integration.productdb;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.After;
+import org.junit.Before;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class ItemDTOTest {
+public class ItemDTOTest {
     ItemDTO itemDTO;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
     }
 
-    @AfterEach
-    void tearDown() {
+    @After
+    public void tearDown() {
     }
 }
