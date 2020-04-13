@@ -1,6 +1,8 @@
 package controller;
 
+import integration.ItemDetail;
 import integration.Printer;
+import model.itemmodel.ItemModel;
 import model.salemodel.Payment;
 import model.salemodel.Receipt;
 import model.salemodel.SaleModel;
@@ -17,6 +19,11 @@ public class SaleController {
         this.creator = creator;
     }
 
+    public String registerItem(ItemDetail itemDetail , int quantity){
+        ItemModel itemModel = new ItemModel(itemDetail, quantity);
+        return salemodel.registerItem(itemModel);
+    }
+
     public SaleModel getSalemodel() {
         if(Objects.isNull((salemodel)))
             startSale();
@@ -26,12 +33,13 @@ public class SaleController {
     /**
      * call saleModel to initialize a new sale opportunity.
      * The sale model will be created if it
-     * hasn't been initialized.
+     * hasn't been initialized or if the last sale has been completed
+     * and logged.
      * @return message shown by the gui to confirm the start of a new sale
      */
     public String startSale(){
-        if(salemodel == null)
-            salemodel = new SaleModel(creator.getRegestryCreator());
+        if(salemodel == null || salemodel.getSaleDetail().isCompleted())
+            salemodel = new SaleModel();
 
         salemodel.startSale();
         String startConfirmation = "Sale Started";
