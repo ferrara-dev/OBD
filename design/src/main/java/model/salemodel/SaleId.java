@@ -6,13 +6,17 @@ import java.util.UUID;
  * Class representing a unique id used to identify each sale
  */
 public class SaleId {
-    private String id;
+    private String value;
 
     public SaleId(){
-        id =  UUID.randomUUID().toString();
+        this.value =  UUID.randomUUID().toString();
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public String getValue() {
-        return id;
+        return value;
     }
 }

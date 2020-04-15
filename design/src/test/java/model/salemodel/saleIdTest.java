@@ -11,9 +11,11 @@ public class saleIdTest {
     @Test
     public void testSaleId(){
         SaleDetail thisSaleDetail = new SaleDetail();
+        thisSaleDetail.createDefault();
         String thisSaleId = thisSaleDetail.getSaleId().getValue();
 
         SaleDetail thatSaleDetail = new SaleDetail();
+        thatSaleDetail.createDefault();
         String thatSaleId = thatSaleDetail.getSaleId().getValue();
         String thatPreviousId;
 
@@ -26,6 +28,7 @@ public class saleIdTest {
 
             //thatSaleDetail points to a new instance of saleDetail
             thatSaleDetail = new SaleDetail();
+            thatSaleDetail.createDefault();
             thatSaleId = thatSaleDetail.getSaleId().getValue();
 
             //check so thatSaleId is not equal to thatPreviousId

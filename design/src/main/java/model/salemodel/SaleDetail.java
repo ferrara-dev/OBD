@@ -15,8 +15,32 @@ public class SaleDetail {
     private double totalCost = 0;
     private double totalVAT = 0;
     private double cashBack = 0;
-    private String TimeAndDateOfSale;
+    private String timeAndDateOfSale;
     private SaleId id;
+
+    public void setProcessedGoods(ProcessedGoods processedGoods) {
+        this.processedGoods = processedGoods;
+    }
+
+    public void setRunningTotal(double runningTotal) {
+        this.runningTotal = runningTotal;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public void setTotalVAT(double totalVAT) {
+        this.totalVAT = totalVAT;
+    }
+
+    public void setCashBack(double cashBack) {
+        this.cashBack = cashBack;
+    }
+
+    public void setSaleId(SaleId id) {
+        this.id = id;
+    }
 
     /**
      * Creates a new instance representing details about
@@ -24,10 +48,14 @@ public class SaleDetail {
      */
 
     public SaleDetail() {
-        id = new SaleId();
-        completed = false;
-        active = true;
-        processedGoods = new ProcessedGoods();
+
+    }
+
+    public void createDefault() {
+        setSaleId(new SaleId());
+        setCompleted(false);
+        setActive(true);
+        setProcessedGoods(new ProcessedGoods());
     }
 
     public SaleId getSaleId(){
@@ -39,7 +67,7 @@ public class SaleDetail {
     }
 
     public String getTimeAndDateOfSale() {
-        return TimeAndDateOfSale;
+        return this.timeAndDateOfSale;
     }
 
     public void setActive(boolean active) {
@@ -102,7 +130,7 @@ public class SaleDetail {
         totalCost = runningTotal;
     }
 
-    private void setCompleted(boolean completed) {
+    public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
@@ -128,6 +156,6 @@ public class SaleDetail {
     }
 
     private void setTimeAndDateOfSale(String timeAndDateOfSale) {
-        TimeAndDateOfSale = timeAndDateOfSale;
+        this.timeAndDateOfSale = timeAndDateOfSale;
     }
 }

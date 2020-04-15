@@ -1,12 +1,8 @@
 package integration.discountdb;
 
-import model.discountmodel.Discount;
-
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class DiscountDB{
     DiscountDBLoader loader;

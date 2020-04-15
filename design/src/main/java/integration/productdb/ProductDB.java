@@ -3,6 +3,7 @@ package integration.productdb;
 import model.itemmodel.ProcessedGoods;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class ProductDB {
 
 
     public void load() throws Exception {
-        rows = Files.readAllLines(Paths.get(this.getClass().getClassLoader().getResource(FILENAME).toURI()), Charset.forName("UTF-8"));
+        rows = Files.readAllLines(Paths.get(this.getClass().getClassLoader().getResource(FILENAME).toURI()), StandardCharsets.UTF_8);
         headers = extractHeaders(rows);
         products = extractProducts(rows);
     }
