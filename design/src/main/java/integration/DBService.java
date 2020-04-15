@@ -22,6 +22,10 @@ public class DBService {
     private static final String URL = "jdbc:h2:file:./userDB;DB_CLOSE_DELAY=-1";
     private static final String INSERT_TEMPLATE = "INSERT INTO  %s VALUES ('%s', '%s' FORMAT JSON);";
     private static final String SELECT_TEMPLATE = "SELECT * FROM %s WHERE id='%s';";
+    //UPDATE table_name
+    //SET column1 = value1, column2 = value2, ...
+    //WHERE condition;
+    private static final String UPDATE_TEMPLATE = "UPDATE %s SET status=%s WHERE id='%s';";
     private static final ObjectMapper objectMapper = new ObjectMapper();;
 
     public static void logSale(String id, Object obj) {
@@ -73,6 +77,61 @@ public class DBService {
         }
         throw  new NotFoundException("SaleDetail not found!");
     }
+
+    public static ItemDetail getProduct(int id) {
+        // Step 1: Establishing a Connection
+        try (Connection connection = DriverManager.getConnection(URL)) {
+            Statement statement = connection.createStatement();
+
+            // Step 3: Execute the query or update query
+            ResultSet result = statement.executeQuery(String.format(SELECT_TEMPLATE,"products",id));
+            while (result.next()) {
+                /**
+                 * `name` VARCHAR(MAX) NULL,
+                 * `amount` FLOAT NULL,
+                 * `unit` VARCHAR(MAX) NULL,
+                 * `price` INT NULL,
+                 * `category` VARCHAR(MAX) NULL,
+                 * `id` INT primary key,
+                 * `status` INT NULL
+                 */
+
+                String name = result.getString("name");
+                float amount = result.getFloat("amount");
+                String unit = result.getString("unit");
+                int price = result.getInt("price");
+                String category = result.getString("category");
+                int itemId = result.getInt("id");
+                int status = result.getInt("status");
+                ItemDetail detail = new ItemDetail(name,price,category,itemId,status);
+                return detail;
+            }
+
+        } catch (SQLException e) {
+
+            // print SQL exception information
+            printSQLException(e);
+        }
+        throw  new NotFoundException("SaleDetail not found!");
+    }
+
+    public static int updateProduct(int id, int status) {
+        // Step 1: Establishing a Connection
+        try (Connection connection = DriverManager.getConnection(URL)) {
+            Statement statement = connection.createStatement();
+
+            // Step 3: Execute the query or update query
+            int result = statement.executeUpdate(String.format(UPDATE_TEMPLATE,"products",status,id));
+            return result;
+
+        } catch (SQLException e) {
+
+            // print SQL exception information
+            printSQLException(e);
+        }
+        throw  new NotFoundException("SaleDetail not found!");
+    }
+
     public static void printSQLException(SQLException ex) {
 
         System.err.println("SQLState: " + ex.getSQLState());
