@@ -1,8 +1,5 @@
 package view.cashierview.cashiergui;
 
-
-import view.cashierview.cashiergui.CashierGui;
-import view.cashierview.cashiergui.ComponentAdder;
 import view.cashierview.cashiergui.panels.DisplayPanel;
 
 import javax.swing.*;
@@ -14,6 +11,7 @@ public class GuiCreator {
     private DisplayPanel displayPanel;
     private CashierGui cashierGui;
     private ComponentAdder componentAdder;
+
     public GuiCreator(CashierGui cashierGui) throws Exception {
         this.cashierGui = cashierGui;
         createGUI();
@@ -34,6 +32,7 @@ public class GuiCreator {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new GridLayout());
     }
+
     private void showGUI() throws Exception {
         mainFrame.setPreferredSize(SCREEN_SIZE);
         mainFrame.setDefaultLookAndFeelDecorated(true);

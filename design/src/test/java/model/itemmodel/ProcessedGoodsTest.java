@@ -2,9 +2,9 @@ package model.itemmodel;
 
 import controller.SaleController;
 import integration.productdb.ItemDTO;
+
 import org.junit.After;
 import org.junit.Before;
-
 import org.junit.Test;
 import startup.LayerCreator;
 

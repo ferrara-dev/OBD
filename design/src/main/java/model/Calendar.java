@@ -36,16 +36,19 @@ public class Calendar {
 
     public static String getCurrentDate(){
         LocalDate today = LocalDate.now();
+
         return today.toString();
     }
-    public static List<String> getDatesBetween(String startDate, String endDate){
+
+    public static List<String> getDatesBetween(String startDate){
         List<String> dates = new ArrayList<>();
         LocalDate start = LocalDate.parse(startDate);
-        LocalDate end   = LocalDate.parse(endDate);
+        //LocalDate end   = LocalDate.parse(endDate);
+        LocalDate nextYear = start.plusYears(1);
         LocalDate next = start.minusDays(1);
-        while ((next = next.plusDays(1)).isBefore(end.plusDays(1))) {
+
+        while ((next = next.plusDays(1)).isBefore(nextYear)) {
             dates.add(next.toString());
-            System.out.println(next);
         }
         return dates;
     }

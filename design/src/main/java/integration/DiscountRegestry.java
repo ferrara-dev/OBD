@@ -35,7 +35,7 @@ public class DiscountRegestry {
                 new AbstractMap.SimpleEntry<>("SATURDAY",getDiscountOffers("SATURDAY")),
                 new AbstractMap.SimpleEntry<>("SUNDAY",getDiscountOffers("SUNDAY"))
         ).collect(toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
-        System.out.println(discountMap.toString());
+
     }
 
     public Map<String, List<DiscountDTO>> getDiscountMap() {

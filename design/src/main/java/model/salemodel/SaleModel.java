@@ -3,20 +3,17 @@ package model.salemodel;
 
 import integration.ItemDetail;
 import integration.RegestryCreator;
-import model.Model;
 import model.itemmodel.ItemModel;
 import util.NotFoundException;
 
 import java.util.Objects;
 
-public class SaleModel implements Model {
+public class SaleModel {
     private SaleDetail saleDetail;
-    private RegestryCreator creator;
-
     private final int ITEM_NOT_FOUND = 0;
 
-    public SaleModel(RegestryCreator creator) {
-        this.creator = creator;
+    public SaleModel() {
+
     }
 
     /**
@@ -33,26 +30,22 @@ public class SaleModel implements Model {
         return saleDetail;
     }
 
-    public RegestryCreator getCreator() {
-        return creator;
-    }
-
     /**
      * Call to the integration layer to fetch information about an item register an item
      *
-     * @param itemId
-     * @param quantity
+     * @param
+     * @param
      * @return
      */
-    @Override
-    public String registerItem(int itemId, int quantity) {
+
+    public String registerItem(ItemModel itemModel) {
         if (Objects.isNull(saleDetail)) {
             startSale();
         }
+
         if (!saleDetail.isCompleted())
             if (saleDetail.isActive()) {
-                ItemModel item = new ItemModel(fetchItemDetail(itemId), quantity);
-                saleDetail.setSaleLineItem(item);
+                saleDetail.setSaleLineItem(itemModel);
                 String saleDetails = addItemToSale();
                 return saleDetails;
             }
@@ -66,12 +59,13 @@ public class SaleModel implements Model {
      * @param itemId
      * @return Detailed information about the item with the
      * given itemIdentifier
-     */
+
     private ItemDetail fetchItemDetail(int itemId) {
         if (!creator.getItemRegestry().contains(itemId))
             throw new NotFoundException("Item not found");
         return creator.getItemRegestry().getItemDetail(itemId);
     }
+   */
 
     /**
      * Creates a new sale detail where all information about

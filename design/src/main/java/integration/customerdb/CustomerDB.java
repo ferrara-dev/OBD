@@ -15,6 +15,7 @@ public class CustomerDB {
             "('960404-6541', 'Deepa', 'deepa@gmail.com', 'India', '123')," + "('711231-6325', 'Tom', 'top@gmail.com', 'India', '123');";
     private static final String SQL_FIND_USER = "SELECT * FROM CustomerDB WHERE id='%s';";
     private static final String SQL_FIND_USERNAME = "SELECT * FROM CustomerDB *;";
+
     public static boolean find(String customerId) {
         try (Connection con = DriverManager.getConnection(URL)){
             Statement stm = con.createStatement();

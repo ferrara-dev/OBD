@@ -16,15 +16,22 @@ public class SaleDetail {
     private double totalVAT = 0;
     private double cashBack = 0;
     private String TimeAndDateOfSale;
+    private SaleId id;
 
     /**
      * Creates a new instance representing details about
      * a specific transaction.
      */
+
     public SaleDetail() {
+        id = new SaleId();
         completed = false;
         active = true;
         processedGoods = new ProcessedGoods();
+    }
+
+    public SaleId getSaleId(){
+        return id;
     }
 
     public double getTotalVAT() {
@@ -70,6 +77,7 @@ public class SaleDetail {
     }
 
     public String updateSaleDetail() {
+
         if (processedGoods.contains(saleLineItem.itemId))
             updateItemQuantity();
         else

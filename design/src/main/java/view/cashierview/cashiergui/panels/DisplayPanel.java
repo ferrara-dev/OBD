@@ -9,8 +9,6 @@ import java.awt.*;
 public class DisplayPanel extends JPanel {
 
     private JPanel rootDisplayPanel;
-    private final JLabel itemIdLabel = new JLabel("Item id :");
-    private final JLabel saleInformationLabel = new JLabel("SaleInformation ");
 
     public DisplayPanel() throws Exception {
         setLayout(new MigLayout("wrap", "[fill, grow]", "[fill, grow][fill, grow]"));
@@ -27,12 +25,6 @@ public class DisplayPanel extends JPanel {
     private void initInformationDisplay() throws Exception {
         rootDisplayPanel = new NestedDisplayPanel();
 
-    }
-
-    private JPanel initRootPanels() {
-        JPanel panel = new JPanel(new MigLayout("nogrid, flowy, debug"));
-        panel.add(new JScrollPane(new JTextArea(5, 20)));
-        return panel;
     }
 
     class NestedDisplayPanel extends JPanel {

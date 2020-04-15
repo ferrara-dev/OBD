@@ -1,22 +1,31 @@
 package model.salemodel;
 
 
+import controller.ItemController;
+import controller.SaleController;
+import integration.ItemDetail;
 import integration.productdb.ItemDTO;
 import model.itemmodel.ItemModel;
 import model.itemmodel.ProcessedGoods;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import startup.LayerCreator;
 
 public class SaleDetailTest {
-    private ProcessedGoods goods;
-    private ItemModel item;
-    private ItemDTO itemDTO;
-
+    LayerCreator layerCreator;
+    SaleController saleController;
+    ItemController itemController;
+    SaleModel saleModel;
+    SaleDetail saleDetail;
     @Before
-    public void setUp() {
-        goods = new ProcessedGoods();
-        itemDTO = new ItemDTO("item", 20, "viand", 99, 500);
+    public void setUp() throws Exception {
+        layerCreator = new LayerCreator();
+        saleController = layerCreator.getSaleController();
+        itemController = layerCreator.getItemController();
+        saleModel = saleController.getSalemodel();
+        saleModel.startSale();
+        saleDetail = saleModel.getSaleDetail();
     }
 
     @After
@@ -26,6 +35,7 @@ public class SaleDetailTest {
 
     @Test
     public void setTimeAndDateOfSale() {
+        saleDetail.completeSale();
     }
 
     @Test
@@ -62,6 +72,8 @@ public class SaleDetailTest {
 
     @Test
     public void setSaleLineItem() {
+        saleDetail.setSaleLineItem(new ItemModel(new ItemDetail("hello", 100, "No", 50, 999),100));
+        saleDetail.updateSaleDetail();
     }
 
     @Test

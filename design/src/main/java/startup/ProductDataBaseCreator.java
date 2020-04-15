@@ -11,6 +11,7 @@ public class ProductDataBaseCreator {
     private static final String INSERT_MULTIPLE_USERS_SQL = "INSERT INTO  ProductDB " +
             "VALUES ('2', 'blueberries', 'samuel@gmail.com', 'India', '123')," +
             "('3', 'blåbär', 'deepa@gmail.com', 'India', '123')," + "('4', 'saft', 'top@gmail.com', 'India', '123');";
+
     private static final String SQL_FIND_USER = "SELECT * FROM CustomerDB WHERE id='%s';";
 
     public static void createTable() throws SQLException {

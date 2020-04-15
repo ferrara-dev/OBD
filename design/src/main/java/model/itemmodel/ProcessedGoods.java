@@ -44,7 +44,6 @@ public class ProcessedGoods {
 
     public String processedGoodsAsText() {
         String goodsAsString = new String();
-        System.out.println(goods.size());
         for (ItemModel item : goods) {
             goodsAsString = goodsAsString + " " +
                     "" + item.name + " x " + item.quantity + "  " + item.totalPrice + " " +
