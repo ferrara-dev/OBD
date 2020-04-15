@@ -1,5 +1,6 @@
 package integration.customerdb;
 
+import util.DataBaseService;
 import util.JavaSeH2Memory;
 
 import java.sql.*;
@@ -17,6 +18,10 @@ public class CustomerDB {
     private static final String SQL_FIND_USERNAME = "SELECT * FROM CustomerDB *;";
 
     public static boolean find(String customerId) {
+        if (DataBaseService.find(DataBaseService.SQL_FIND_CUSTOMER_BY_ID, customerId))
+            return true;
+        return false;
+        /*
         try (Connection con = DriverManager.getConnection(URL)){
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(String.format(SQL_FIND_USER, customerId));
@@ -27,17 +32,18 @@ public class CustomerDB {
         } catch (SQLException ex) {
             printSQLException(ex);
         }
-        return false;
+        *
+         */
     }
 
-    public static void readRecord(String tableName, String item,String key) {
-        try (Connection con = DriverManager.getConnection(URL)){
+    public static void readRecord(String tableName, String item, String key) {
+        try (Connection con = DriverManager.getConnection(URL)) {
             Statement stm = con.createStatement();
 
             System.out.println("Reading data from " + tableName);
             stm = con.createStatement();
             String sql = "SELECT " + item + " FROM " + tableName + " WHERE id='%s'";
-            ResultSet rs = stm.executeQuery(String.format(sql,key));
+            ResultSet rs = stm.executeQuery(String.format(sql, key));
 
             // STEP 4: Extract data from result set
             while (rs.next()) {
@@ -55,11 +61,11 @@ public class CustomerDB {
 
     }
 
-    public static List<String> getInformation(String operation){
+    public static List<String> getInformation(String operation) {
         List<String> result = new ArrayList<>();
-        switch (operation){
-            case "name":{
-                try (Connection con = DriverManager.getConnection(URL)){
+        switch (operation) {
+            case "name": {
+                try (Connection con = DriverManager.getConnection(URL)) {
                     Statement stm = con.createStatement();
                     stm = con.createStatement();
                     String sql1 = "SELECT NAME FROM CustomerDB";
@@ -82,8 +88,8 @@ public class CustomerDB {
 
                 return result;
             }
-            case "id":{
-                try (Connection con = DriverManager.getConnection(URL)){
+            case "id": {
+                try (Connection con = DriverManager.getConnection(URL)) {
                     Statement stm = con.createStatement();
                     stm = con.createStatement();
                     String sql1 = "SELECT ID FROM CustomerDB";
@@ -108,7 +114,7 @@ public class CustomerDB {
             }
         }
 
-      return result;
+        return result;
     }
 
 
@@ -132,7 +138,7 @@ public class CustomerDB {
 
 
     public static void printSQLException(SQLException ex) {
-        for (Throwable e: ex) {
+        for (Throwable e : ex) {
             if (e instanceof SQLException) {
                 e.printStackTrace(System.err);
                 System.err.println("SQLState: " + ((SQLException) e).getSQLState());

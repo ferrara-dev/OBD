@@ -45,27 +45,15 @@ public class SaleModel {
 
         if (!saleDetail.isCompleted())
             if (saleDetail.isActive()) {
-                saleDetail.setSaleLineItem(itemModel);
-                String saleDetails = addItemToSale();
+                String saleDetails = saleDetail.addItemToSale(itemModel);
                 return saleDetails;
             }
         return getDisplayMessage(ITEM_NOT_FOUND, false);
     }
 
-    /**
-     * fetch information about an item from the item registry
-     * throws ItemNotFoundException if the item is not found.
-     *
-     * @param itemId
-     * @return Detailed information about the item with the
-     * given itemIdentifier
-
-    private ItemDetail fetchItemDetail(int itemId) {
-        if (!creator.getItemRegestry().contains(itemId))
-            throw new NotFoundException("Item not found");
-        return creator.getItemRegestry().getItemDetail(itemId);
+    public void setSaleDetail(SaleDetail saleDetail) {
+        this.saleDetail = saleDetail;
     }
-   */
 
     /**
      * Creates a new sale detail where all information about
@@ -76,8 +64,7 @@ public class SaleModel {
     }
 
     public String endSale() {
-        saleDetail.completeSale();
-        return Double.toString(saleDetail.getTotalCost());
+        return Double.toString(saleDetail.completeSale());
     }
 
     private String getDisplayMessage(int itemId, boolean itemFound) {
@@ -87,11 +74,5 @@ public class SaleModel {
 
         return "Item not found";
     }
-
-    private String addItemToSale() {
-        String saleDetails = saleDetail.updateSaleDetail();
-        return saleDetails;
-    }
-
 
 }

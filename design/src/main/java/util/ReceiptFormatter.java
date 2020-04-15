@@ -1,16 +1,9 @@
 package util;
 
 import model.salemodel.Receipt;
-import org.h2.util.StringUtils;
-import org.w3c.dom.ls.LSOutput;
 
-import java.text.DecimalFormat;
-import java.util.Arrays;
 
 public class ReceiptFormatter {
-    private final int SECTION_LENGTH = 10;
-    private final String[] HEADERS = new String[]{"Item", "Price", "Quantity", "VAT"};
-    private String returnValue;
     private Receipt receipt;
     public ReceiptFormatter(Receipt receipt){
         this.receipt = receipt;
@@ -21,15 +14,14 @@ public class ReceiptFormatter {
 
         for(int j = 0; j < receipt.itemNames.length; j++) {
             stringBuilder.append("- " + receipt.itemNames[j]);
-            stringBuilder.append(" " + receipt.itemPrices[j]);
-            stringBuilder.append("kr");
-            stringBuilder.append(" " + receipt.itemQuantites[j]);
+            stringBuilder.append(tab(" ", 5) + receipt.itemPrices[j]);
+            stringBuilder.append("kr exklusive moms");
+            stringBuilder.append(tab(" ", 5) + receipt.itemQuantites[j]);
             stringBuilder.append("st");
             stringBuilder.append("\n");
 
 
         }
-        System.out.println(stringBuilder.toString());
         stringBuilder.append("Total summa : " + receipt.totalCost + " kr\n");
         stringBuilder.append("Varav moms  : " + receipt.totalTaxPayed + " kr\n");
         stringBuilder.append("Betalt : " + receipt.amountPaid + " kr\n");
@@ -63,10 +55,6 @@ public class ReceiptFormatter {
             spaces.append(" ");
         }
         return spaces.toString();
-    }
-
-    private  void setReturnValue(String s) {
-        returnValue = s;
     }
 
     private static String tab(String str, int lengthOfLine) {

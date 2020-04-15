@@ -16,6 +16,8 @@ import startup.LayerCreator;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
+import startup.Main;
+import util.NotFoundException;
 
 
 public class TestBasicFlow {
@@ -38,23 +40,57 @@ public class TestBasicFlow {
 
     }
 
+
     @Test
     public void testSaleStartUp() {
         SaleController saleController = layerCreator.getSaleController();
         assertEquals("Sale Started", saleController.startSale());
-
-        testSaleIsActive(saleController.getSalemodel());
-    }
-
-    public void testSaleIsActive(SaleModel saleModel) {
         assertTrue(saleModel.getSaleDetail().isActive());
     }
 
+    @Test
+    public void testRegisterItem(){
+        itemController.registerItem(1, 1);
+        assertFalse(saleModel.getSaleDetail().getProcessedGoods().isEmpty());
+    }
 
+    @Test(expected = NotFoundException.class)
+    public void testItemNotFound(){
+        itemController.registerItem(99, 2);
+    }
 
+    @Test
+    public void testRegisterMultipleItem(){
+        itemController.registerItem(1, 3);
+        assertEquals(3,saleModel.getSaleDetail().getProcessedGoods().getItemQuantity(1));
+    }
 
+    @Test
+    public void testRegisterItemAddToQuantity(){
+        ProcessedGoods processedGoods = saleModel.getSaleDetail().getProcessedGoods();
+        itemController.registerItem(1, 3);
+        assertEquals(3,processedGoods.getItemQuantity(1));
+        itemController.registerItem(2, 3);
+        assertEquals(3, processedGoods.getItemQuantity(2));
+        itemController.registerItem(1, 5);
+        assertEquals(8, processedGoods.getItemQuantity(1));
+        itemController.registerItem(2, 1);
+        assertEquals(4, processedGoods.getItemQuantity(2));
 
+        assertTrue(processedGoods.contains(1));
+        assertTrue(processedGoods.contains(2));
+    }
 
+    @Test
+    public void testEndSale(){
+        saleModel.endSale();
+        assertTrue(saleModel.getSaleDetail().isCompleted());
+    }
+
+    @Test
+    public void testPayment(){
+        assertEquals(0,saleModel.getSaleDetail().getTotalCost());
+    }
     public void registerItem(ProcessedGoods processedGoods, int itemId, int quantity){
         itemController.registerItem(itemId, quantity);
 

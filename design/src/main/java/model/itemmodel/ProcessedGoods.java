@@ -56,21 +56,6 @@ public class ProcessedGoods {
     public boolean isEmpty() {
         return goods.isEmpty();
     }
-/**
- public void addItemToSale(SaleDetail saleDetail){
- if (contains(saleDetail.getItemModel().itemId))
- updateItemQuantity(saleDetail);
- else
- goods.add(saleDetail.getItemModel());
- }
 
- public void updateItemQuantity(ItemModel model){
- getItem(model.itemId).quantity += model.quantity;
- }
-
- public void addItem(ItemModel itemModel) {
- goods.add(itemModel);
- }
- **/
 
 }

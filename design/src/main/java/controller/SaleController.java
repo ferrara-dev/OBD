@@ -6,6 +6,7 @@ import model.itemmodel.ItemModel;
 import model.salemodel.Payment;
 import model.salemodel.Receipt;
 import model.salemodel.SaleModel;
+import service.saleservice.SaleService;
 import startup.LayerCreator;
 
 import java.util.Objects;
@@ -13,10 +14,11 @@ import java.util.Objects;
 public class SaleController {
     private SaleModel salemodel;
     private LayerCreator creator;
-
+    SaleService saleService;
 
     public SaleController(LayerCreator creator){
         this.creator = creator;
+        saleService = new SaleService(salemodel);
     }
 
     public String registerItem(ItemDetail itemDetail , int quantity){

@@ -14,7 +14,7 @@ public class ItemRegestry {
 
     public ItemDetail getItemDetail(int itemId){
         for(Item item:productList){
-            if(item.getItemDetail().itemId == itemId) {
+            if(item.getItemDetail().getItemId() == itemId) {
                 return item.getItemDetail();
             }
         }
@@ -23,7 +23,7 @@ public class ItemRegestry {
 
     public boolean contains(int itemId){
         for (Item item : productList)
-            if (itemId == item.getItemDetail().itemId)
+            if (itemId == item.getItemDetail().getItemId())
                 return true;
 
         return false;

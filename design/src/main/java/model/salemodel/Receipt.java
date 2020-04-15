@@ -1,13 +1,12 @@
 package model.salemodel;
 
-import model.Paper;
 import model.Store;
 
 
 import java.text.DecimalFormat;
 
 
-public class Receipt implements Paper {
+public class Receipt {
     public String storeName;
     public String storeAddress;
     public String CustomerServicePhoneNumber;
@@ -25,6 +24,7 @@ public class Receipt implements Paper {
     public String [] itemQuantites;
     public final String [] paymentInformation = {"Total cost : " + totalCost, "Amount paid : " + amountPaid, "change : " + change, "total VAT : " + totalTaxPayed};
     private DecimalFormat df2 = new DecimalFormat("#.##");
+
     public Receipt(Payment payment, Store store, SaleDetail saleDetail)
     {
         timeAndDateOfSale = saleDetail.getTimeAndDateOfSale();

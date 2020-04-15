@@ -1,18 +1,10 @@
 package view.cashierview.cashiergui;
 
-import util.FormatException;
-import util.NotFoundException;
 import view.cashierview.CashierView;
 import view.cashierview.cashiergui.panels.*;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class CashierGui extends JFrame {
     private CashierView cashierView;

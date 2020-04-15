@@ -3,7 +3,6 @@ package model.salemodel;
 import model.Calendar;
 import model.itemmodel.ItemModel;
 import model.itemmodel.ProcessedGoods;
-
 import java.util.Objects;
 
 public class SaleDetail {
@@ -18,6 +17,7 @@ public class SaleDetail {
     private String TimeAndDateOfSale;
     private SaleId id;
 
+
     /**
      * Creates a new instance representing details about
      * a specific transaction.
@@ -29,6 +29,40 @@ public class SaleDetail {
         active = true;
         processedGoods = new ProcessedGoods();
     }
+
+
+    public void setCashBack(double cashBack) {
+        this.cashBack = cashBack;
+    }
+
+    public void setId(SaleId id) {
+        this.id = id;
+    }
+
+    public void setProcessedGoods(ProcessedGoods processedGoods) {
+        this.processedGoods = processedGoods;
+    }
+
+    public void setRunningTotal(double runningTotal) {
+        this.runningTotal = runningTotal;
+    }
+
+    public void setSaleLineItem(ItemModel saleLineItem) {
+        this.saleLineItem = saleLineItem;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public void setTotalVAT(double totalVAT) {
+        this.totalVAT = totalVAT;
+    }
+
+    public ItemModel getSaleLineItem() {
+        return saleLineItem;
+    }
+
 
     public SaleId getSaleId(){
         return id;
@@ -62,9 +96,6 @@ public class SaleDetail {
         return cashBack;
     }
 
-    public void setSaleLineItem(ItemModel saleLineItem) {
-        this.saleLineItem = saleLineItem;
-    }
 
     public ProcessedGoods getProcessedGoods() {
         if (Objects.isNull(processedGoods))
@@ -76,15 +107,9 @@ public class SaleDetail {
         return totalCost;
     }
 
-    public String updateSaleDetail() {
-
-        if (processedGoods.contains(saleLineItem.itemId))
-            updateItemQuantity();
-        else
-            addItem();
-        updateRunningTotal(saleLineItem.totalPrice);
-        updateVAT();
-        return saleDetailAsString();
+    public String addItemToSale(ItemModel item){
+        saleLineItem = item;
+        return updateSaleDetail();
     }
 
     public double updateRunningTotal(double amount) {
@@ -96,10 +121,20 @@ public class SaleDetail {
         return runningTotal;
     }
 
-    public void completeSale() {
+    public Double completeSale() {
         setCompleted(true);
         setTimeAndDateOfSale(Calendar.getTimeAndDate());
-        totalCost = runningTotal;
+        return totalCost = runningTotal;
+    }
+
+    private String updateSaleDetail() {
+        if (processedGoods.contains(saleLineItem.itemId))
+            updateItemQuantity();
+        else
+            addItem();
+        updateRunningTotal(saleLineItem.totalPrice);
+        updateVAT();
+        return saleDetailAsString();
     }
 
     private void setCompleted(boolean completed) {

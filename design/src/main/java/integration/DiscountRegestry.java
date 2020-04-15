@@ -17,12 +17,6 @@ public class DiscountRegestry {
    static Map<String,List<DiscountDTO>> discountMap;
    private static List<DiscountDTO> discounts;
 
-   /*
-    public DiscountRegestry(List<DiscountOffer> discountList){
-        this.discountList = discountList;
-    }
-    */
-
     public DiscountRegestry(List<DiscountDTO> discounts){
         this.discounts = discounts;
 
@@ -58,23 +52,6 @@ public class DiscountRegestry {
     public static List<DiscountDTO> getAvailableDiscounts(String dayOfTheWeek){
        return discountMap.get(dayOfTheWeek);
     }
-    /*
 
-    public int getDiscountItemId(String dayOfTheWeek){
-        return getDiscountOffer(dayOfTheWeek).rule.discountItem.itemId;
-    }
-
-    public String getDiscountType(String dayOfTheWeek){
-        return getDiscountOffer(dayOfTheWeek).rule.type;
-    }
-    public DiscountOffer getDiscountOffer(String dayOfTheWeek){
-        for(DiscountOffer offer: discountList){
-            if(offer.rule.description.equals(dayOfTheWeek)){
-                return offer;
-            }
-        }
-        return null;
-    }
-*/
 
 }

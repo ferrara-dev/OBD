@@ -1,11 +1,11 @@
 package integration;
 
 public class ItemDetail {
-    public String name;
-    public String category;
-    public double price;
-    public int stockStatus;
-    public int itemId;
+    private String name;
+    private String category;
+    private double price;
+    private int stockStatus;
+    private int itemId;
 
     public ItemDetail(String name, double price, String category, int itemId, int stockStatus) {
         this.name = name;
@@ -14,7 +14,7 @@ public class ItemDetail {
         this.itemId = itemId;
         this.stockStatus = stockStatus;
     }
-    /*
+
     public int getItemId() {
         return itemId;
     }
@@ -35,7 +35,6 @@ public class ItemDetail {
         return price;
     }
 
-*/
     @Override
     public String toString() {
         return "ItemDetail{" +

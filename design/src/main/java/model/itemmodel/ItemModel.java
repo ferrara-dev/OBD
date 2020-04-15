@@ -2,6 +2,7 @@ package model.itemmodel;
 
 
 import integration.ItemDetail;
+import integration.productdb.ItemDTO;
 
 public class ItemModel {
         private String itemDescription;
@@ -13,19 +14,24 @@ public class ItemModel {
         public String category;
         public double taxRate;
 
+        public ItemModel(ItemDTO itemDTO){
+                price = itemDTO.getPrice();
+                quantity = itemDTO.getQuantity();
+                itemId = itemDTO.getItemId();
+        }
         public ItemModel(ItemDetail itemDetail, int quantity){
-                price = itemDetail.price;
+                price = itemDetail.getPrice();
                 this.quantity = quantity;
-                itemId = itemDetail.itemId;
-                name = itemDetail.name;
-                category = itemDetail.category;
+                itemId = itemDetail.getItemId();
+                name = itemDetail.getName();
+                category = itemDetail.getCategory();
                 taxRate = Tax.getTax(category);
                 calcTotalPrice();
 
                 itemDescription = "Item name : " + name + "\n" +
                         "price/item : " + price + "\n" +
                         "Tax-Rate : " + taxRate + "\n" +
-                        "Stock status : " + itemDetail.stockStatus +
+                        "Stock status : " + itemDetail.getStockStatus() +
                         "\n";
 
         }

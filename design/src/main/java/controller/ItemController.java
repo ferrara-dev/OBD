@@ -1,16 +1,18 @@
 package controller;
 
 import integration.ItemDetail;
+import model.itemmodel.ItemModel;
 import model.itemmodel.ItemScanner;
 import startup.LayerCreator;
 
 public class ItemController {
     SaleController saleController;
     ItemScanner itemScanner;
-
+    service.productservice.ItemScanner itemScanner1;
     public ItemController(LayerCreator creator){
         saleController = creator.getSaleController();
         itemScanner = new ItemScanner(creator.getRegestryCreator().getItemRegestry());
+        itemScanner1 = new service.productservice.ItemScanner(creator.getRegestryCreator().getItemRegestry());
     }
 
     /**
@@ -22,8 +24,13 @@ public class ItemController {
      * @return
      */
     public String registerItem(int itemId, int quantity) {
-        ItemDetail itemDetail = itemScanner.scanId(itemId);
+        ItemDetail itemDetail = itemScanner1.scanId(itemId);
         String displayMessage = saleController.registerItem(itemDetail, quantity);
         return displayMessage;
+    }
+
+    public ItemModel registerItem2(int itemId, int quantity) {
+        ItemModel itemModel =
+        return null;
     }
 }

@@ -1,5 +1,4 @@
-
-package model.itemmodel;
+package service.productservice;
 
 
 import integration.ItemDetail;
@@ -9,6 +8,7 @@ import util.NotFoundException;
 /**
  * Class representing a scanner used by the cashier to read the item id
  */
+
 public class ItemScanner {
     ItemRegestry registry;
 
@@ -22,6 +22,7 @@ public class ItemScanner {
      * @param itemId
      * @return details about the item that is mapped to the id specified
      */
+
     public ItemDetail scanId(int itemId){
         return fetchItemDetail(itemId);
     }

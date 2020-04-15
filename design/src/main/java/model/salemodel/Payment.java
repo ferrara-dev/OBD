@@ -1,7 +1,7 @@
 package model.salemodel;
 
 /**
- * Class representing a payment of items
+ * Class representing a payment
  */
 public class Payment {
     private double amountPayed;
