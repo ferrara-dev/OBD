@@ -1,55 +1,43 @@
 package startup;
 
 
-
-import integration.productdb.ProductDB;
-import model.PhysicalObjectCreator;
-import view.cashierview.cashiergui.CashierGui;
+import com.alee.laf.WebLookAndFeel;
+import com.alee.skin.dark.WebDarkSkin;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
+import org.h2.tools.RunScript;
 import view.cashierview.CashierView;
-import view.View;
-import javax.swing.*;
+import view.cashierview.cashiergui.CashierGui;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URISyntaxException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Objects;
 
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        CustomerDBCreator.createTable();
+        DBCreator.createTable();
         start();
     }
 
-
     private static void start() throws Exception {
+
         LayerCreator layerCreator = new LayerCreator();
-        View cashierView = new CashierView(layerCreator);
-        testSale(((CashierView) cashierView));
+        run(new CashierView(layerCreator));
     }
 
-    private static void testSale(CashierView cashierView){
-        /* Use an appropriate Look and Feel */
-        try {
-            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-        } catch (UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        } catch (IllegalAccessException ex) {
-            ex.printStackTrace();
-        } catch (InstantiationException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        /* Turn off metal's use of bold fonts */
-        UIManager.put("swing.boldMetal", Boolean.FALSE);
-
-        //Schedule a job for the event dispatch thread:
-        //creating and showing this application's GUI.
+    private static void run(CashierView cashierView) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    CashierGui cashierGui = new CashierGui(cashierView);
+                    WebLookAndFeel.install ( WebDarkSkin.class );
+                    new CashierGui(cashierView);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (URISyntaxException e) {
@@ -62,52 +50,46 @@ public class Main {
 
     }
 
-    private static class CustomerDBCreator {
+    private static class DBCreator {
         private static final String URL = "jdbc:h2:file:./userDB;DB_CLOSE_DELAY=-1";
-        private static final String createTableSQL = "create table IF NOT EXISTS CustomerDB(\r\n" + "  id  varchar(20) primary key,\r\n" +
-                "  name varchar(20),\r\n" + "  email varchar(20),\r\n" + "  country varchar(20),\r\n" +
-                "  password varchar(20)\r\n" + "  );";
-        private static final String INSERT_MULTIPLE_USERS_SQL = "INSERT INTO  CustomerDB " +
-                "VALUES ('940412-1395', 'Samuel', 'samuel@gmail.com', 'India', '123')," +
-                "('960404-6541', 'Deepa', 'deepa@gmail.com', 'India', '123')," + "('711231-6325', 'Tom', 'top@gmail.com', 'India', '123');";
-        private static final String SQL_FIND_USER = "SELECT * FROM CustomerDB WHERE id='%s';";
-
-        public static void createTable() throws SQLException {
-
-            System.out.println(createTableSQL);
+        public static void createTable() {
+            InputStream inputStream = null;
+            Reader targetReader = null;
             // Step 1: Establishing a Connection
-            try (Connection connection = DriverManager
-                    .getConnection(URL);
-
-                 // Step 2:Create a statement using connection object
-                 Statement statement = connection.createStatement();) {
-
-                // Step 3: Execute the query or update query
-                statement.execute(createTableSQL);
+            try (Connection connection = DriverManager.getConnection(URL)) {
+               inputStream = Main.class.getResourceAsStream("/db.sql");
+               targetReader = new InputStreamReader(inputStream);
+                // run script file with H2 RunScript
+                RunScript.execute(connection, targetReader);
+            } catch (JdbcSQLIntegrityConstraintViolationException ei) {
+               System.out.println("Data already created!");
             } catch (SQLException e) {
-
-                // print SQL exception information
                 printSQLException(e);
-            }
-
-            // Step 4: try-with-resource statement will auto close the connection.
-        }
-
-        public static void printSQLException(SQLException ex) {
-            for (Throwable e: ex) {
-                if (e instanceof SQLException) {
-                    e.printStackTrace(System.err);
-                    System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-                    System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-                    System.err.println("Message: " + e.getMessage());
-                    Throwable t = ex.getCause();
-                    while (t != null) {
-                        System.out.println("Cause: " + t);
-                        t = t.getCause();
+                System.exit(-1);
+            } finally {
+                try {
+                    if(Objects.nonNull(inputStream)) {
+                        inputStream.close();
                     }
+                    if(Objects.nonNull(targetReader)) {
+                        targetReader.close();
+                    }
+                } catch (Exception e) {
+                    System.exit(-1);
                 }
             }
         }
+
+        public static void printSQLException(SQLException ex) {
+
+            System.err.println("SQLState: " + ex.getSQLState());
+            System.err.println("Error Code: " + ex.getErrorCode());
+            System.err.println("Message: " + ex.getMessage());
+            Throwable t = ex.getCause();
+            System.out.println("Cause: " + t);
+        }
+
+
     }
 }
 

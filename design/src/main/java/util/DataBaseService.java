@@ -13,10 +13,10 @@ public class DataBaseService {
     public static final String SQL_FIND_PRODUCT_BY_ID = "SELECT * FROM ProductDB WHERE id='%s';";
     public static final String SQL_PRODUCT_TABLE_NAME = "ProductDB";
 
-    public static boolean find(final String SQL_STATEMENT , String id) {
+    public static boolean find(final String query , String id) {
         try (Connection con = DriverManager.getConnection(URL)){
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery(String.format(SQL_STATEMENT, id));
+            ResultSet rs = stm.executeQuery(String.format(query, id));
 
             if(rs.next()) {
                 return true;
@@ -71,10 +71,10 @@ public class DataBaseService {
         return false;
     }
 
-    public boolean register(final String SQL_STATEMENT, String id) {
+    public boolean register(final String query, String id) {
         try (Connection con = DriverManager.getConnection(URL)){
             Statement stm = con.createStatement();
-            int rs = stm.executeUpdate(String.format(SQL_STATEMENT,id));
+            int rs = stm.executeUpdate(String.format(query,id));
             return rs>0;
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(JavaSeH2Memory.class.getName());
