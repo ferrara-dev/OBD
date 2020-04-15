@@ -25,7 +25,6 @@ public class SaleLog {
 
     public void logSale(SaleDetail saleDetail) {
         saleDetailHashMap.get(Calendar.getCurrentDate()).add(saleDetail);
-        saleDetail.updateSaleDetail();
     }
 
     public SaleDetail getLoggedSale(String dayOfSale, String saleId){

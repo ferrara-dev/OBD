@@ -18,7 +18,7 @@ public class CashierView implements View {
      * call controller to initialize new sale
      */
     public void startSale() {
-        displayMessage(creator.getSaleController().startSale());
+        creator.getSaleController().startSale();
     }
 
     public String endSale() {
@@ -43,20 +43,9 @@ public class CashierView implements View {
     }
 
 
-    public void displayMessage(Object object) {
-        StringBuilder sb = new StringBuilder();
-
-    }
-
     public String signalDiscountRequest(String customerId) {
-        try {
             return creator.getDiscountController().signalDiscountRequest(customerId);
-        } catch (NotFoundException ex) {
-            return "customer is not a registered member";
-        }
     }
-
-
 
 
     public String enterPayment(double amount){

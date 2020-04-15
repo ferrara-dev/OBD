@@ -17,6 +17,7 @@ import startup.LayerCreator;
 
 public class SaleLogTest {
     LayerCreator layerCreator;
+
     @Before
     public void setUp() throws Exception {
         layerCreator = new LayerCreator();
@@ -72,10 +73,15 @@ public class SaleLogTest {
         SaleModel testSaleModel = new SaleModel();
         testSaleModel.startSale();
         assertTrue(testSaleModel.getSaleDetail().isActive());
-        assertEquals(1, testSaleModel.getSaleDetail().getSaleId());
+
+        String firstId = testSaleModel.getSaleDetail().getSaleId().getValue();
+        testSaleModel.endSale();
+
+        assertEquals(firstId, layerCreator.getRegestryCreator().getSaleLog().getLoggedSale(Calendar.getCurrentDate(), firstId));
 
         testSaleModel.startSale();
-        assertEquals(2, testSaleModel.getSaleDetail().getSaleId());
+        String secondId = testSaleModel.getSaleDetail().getSaleId().getValue();
+       // assertEquals(2, testSaleModel.getSaleDetail().getSaleId());
 
     }
 

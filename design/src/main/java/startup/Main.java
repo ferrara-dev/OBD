@@ -73,7 +73,6 @@ public class Main {
         private static final String SQL_FIND_USER = "SELECT * FROM CustomerDB WHERE id='%s';";
 
         public static void createTable() throws SQLException {
-
             System.out.println(createTableSQL);
             // Step 1: Establishing a Connection
             try (Connection connection = DriverManager
