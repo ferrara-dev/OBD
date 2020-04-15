@@ -1,20 +1,19 @@
 package integration;
 
-import java.lang.management.GarbageCollectorMXBean;
-import java.util.List;
-import java.util.Objects;
-import javax.swing.DefaultListSelectionModel;
 import model.Calendar;
 import model.salemodel.SaleDetail;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import util.NotFoundException;
 
-public class SaleLog {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+
+public class SaleLog implements Serializable {
 
     HashMap<String, ArrayList<SaleDetail>> saleDetailHashMap;
+    private static final long serialVersionUID = 21313123123L;
 
     public SaleLog()  {
         saleDetailHashMap = new HashMap<>();
@@ -31,11 +30,10 @@ public class SaleLog {
         ArrayList<SaleDetail> listOfSales = saleDetailHashMap.get(dayOfSale);
         if(listOfSales.isEmpty())
             throw new NotFoundException("No sales stored that day");
-        boolean found = false;
 
         SaleDetail searchedSale = null;
         for (SaleDetail saleDetail: listOfSales){
-            if(saleDetail.getSaleId().getValue() == saleId){
+            if(saleDetail.getSaleId().getValue().equals(saleId)){
                 searchedSale = saleDetail;
                 break;
             }

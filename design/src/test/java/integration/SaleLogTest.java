@@ -14,6 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import startup.LayerCreator;
+import util.NotFoundException;
 
 public class SaleLogTest {
     LayerCreator layerCreator;
@@ -68,8 +69,8 @@ public class SaleLogTest {
      * Test to make sure that saleId is not reset to 0 when creating a new instance of saleDetail
      * @throws Exception
      */
-    @Test
-    public void startSale() throws Exception {
+    @Test(expected = NotFoundException.class)
+    public void startSale() {
         SaleModel testSaleModel = new SaleModel();
         testSaleModel.startSale();
         assertTrue(testSaleModel.getSaleDetail().isActive());
