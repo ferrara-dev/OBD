@@ -6,7 +6,8 @@ import integration.productdb.InventoryHandler;
 import integration.productdb.ItemDTO;
 
 /**
- * Class representing a scanner used by the cashier to read the itemId
+ * Scans <code> itemId <\code> and fetches instance of <code> ItemDTO <\code>
+ * from the InventoryHandler
  */
 public class ItemScanner {
     private final DataBaseHandler <ItemDTO,Integer> inventoryHandler = new InventoryHandler();
