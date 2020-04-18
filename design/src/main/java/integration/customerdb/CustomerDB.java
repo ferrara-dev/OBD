@@ -1,6 +1,7 @@
 package integration.customerdb;
 
 import util.JavaSeH2Memory;
+import util.NotFoundException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,7 +28,8 @@ public class CustomerDB {
         } catch (SQLException ex) {
             printSQLException(ex);
         }
-        return false;
+
+        throw new NotFoundException("Customer not found in database");
     }
 
     public static void readRecord(String tableName, String item,String key) {

@@ -1,15 +1,9 @@
 package model.salemodel;
 
 
-import integration.ItemDetail;
-import integration.RegestryCreator;
-import model.itemmodel.ItemModel;
-import model.itemmodel.ProcessedGoods;
-import util.NotFoundException;
-
-import java.util.Objects;
 
 public class SaleModel {
+    /*
     private SaleDetail saleDetail;
     private final int ITEM_NOT_FOUND = 0;
 
@@ -24,6 +18,7 @@ public class SaleModel {
      *
      * @return details about current sale
      */
+    /*
     public SaleDetail getSaleDetail() {
         if (Objects.isNull(saleDetail)) {
             startSale();
@@ -38,7 +33,7 @@ public class SaleModel {
      * @param
      * @return
      */
-
+/*
     public String registerItem(ItemModel itemModel) {
         if (Objects.isNull(saleDetail)) {
             startSale();
@@ -54,24 +49,10 @@ public class SaleModel {
     }
 
     /**
-     * fetch information about an item from the item registry
-     * throws ItemNotFoundException if the item is not found.
-     *
-     * @param itemId
-     * @return Detailed information about the item with the
-     * given itemIdentifier
-
-    private ItemDetail fetchItemDetail(int itemId) {
-        if (!creator.getItemRegestry().contains(itemId))
-            throw new NotFoundException("Item not found");
-        return creator.getItemRegestry().getItemDetail(itemId);
-    }
-   */
-
-    /**
      * Creates a new sale detail where all information about
      * the performed transaction is stored.
      */
+/*
     public void startSale() {
         saleDetail = new SaleDetail();
         saleDetail.createDefault();
@@ -96,4 +77,6 @@ public class SaleModel {
     }
 
 
+
+ */
 }

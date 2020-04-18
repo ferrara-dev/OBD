@@ -38,36 +38,7 @@ public class MemberService {
         }
         return false;
     }
-/*
-    public boolean createUserTable() {
 
-        try (Connection con = DriverManager.getConnection(URL)){
-            Statement stm = con.createStatement();
-            int rs = stm.executeUpdate(SQL_CREATE_USER_TABLE);
-            return rs>0;
-        } catch (SQLException ex) {
-            Logger lgr = Logger.getLogger(JavaSeH2Memory.class.getName());
-            lgr.log(Level.SEVERE, ex.getMessage(), ex);
-        }
-        return false;
-
-    }
-
-    public boolean createInfoTable() {
-
-        try (Connection con = DriverManager.getConnection(URL)){
-            Statement stm = con.createStatement();
-            int rs = stm.executeUpdate(SQL_CREATE_INFO_TABLE);
-
-            return rs>0;
-        } catch (SQLException ex) {
-            Logger lgr = Logger.getLogger(JavaSeH2Memory.class.getName());
-            lgr.log(Level.SEVERE, ex.getMessage(), ex);
-        }
-        return false;
-
-    }
-*/
 
     public boolean delete(Member member) {
 

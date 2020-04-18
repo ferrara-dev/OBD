@@ -10,7 +10,7 @@ public class DataBaseService {
     public static final String SQL_CUSTOMER_TABLE_NAME = "CustomerDB";
     private static final String SQL_DELETE_CUSTOMER = "DELETE FROM customers WHERE id='%s';";
 
-    public static final String SQL_FIND_PRODUCT_BY_ID = "SELECT * FROM products WHERE id='%s';";
+    public static final String SQL_FIND_PRODUCT_BY_ID = "SELECT * FROM ProductDB WHERE id='%s';";
     public static final String SQL_PRODUCT_TABLE_NAME = "ProductDB";
 
     public static boolean find(final String query , String id) {
@@ -26,6 +26,7 @@ public class DataBaseService {
         }
         return false;
     }
+
     public static boolean read(final String SQL_STATEMENT , String id) {
 
         try (Connection con = DriverManager.getConnection(URL)){

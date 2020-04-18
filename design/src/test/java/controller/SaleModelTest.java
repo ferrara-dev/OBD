@@ -1,7 +1,5 @@
 package controller;
 
-import integration.RegestryCreator;
-import model.salemodel.SaleModel;
 import org.junit.Test;
 import startup.LayerCreator;
 import util.NotFoundException;

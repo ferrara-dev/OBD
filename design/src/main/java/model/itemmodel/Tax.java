@@ -11,8 +11,8 @@ public class Tax {
     private static final Map<String, Double> taxRates =
             Stream.of( new AbstractMap.SimpleEntry<>("Misc",0.25D), new AbstractMap.SimpleEntry<>("Viand",0.125D), new AbstractMap.SimpleEntry<>("Literature",0.06D)).collect(toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
 
-     static double getTax(String key){
-        return taxRates.get(key);
+     static double getTax(ItemModel itemModel){
+        return taxRates.get(itemModel.getCategory());
     }
 
 }
