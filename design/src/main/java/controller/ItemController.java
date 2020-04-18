@@ -1,7 +1,7 @@
 package controller;
 
-import integration.ItemDetail;
-import model.itemmodel.ItemScanner;
+import integration.productdb.ItemDTO;
+import service.inventoryservice.ItemScanner;
 import startup.LayerCreator;
 
 public class ItemController {
@@ -10,7 +10,7 @@ public class ItemController {
 
     public ItemController(LayerCreator creator){
         saleController = creator.getSaleController();
-        itemScanner = new ItemScanner(creator.getRegestryCreator().getItemRegestry());
+        itemScanner = new ItemScanner();
     }
 
     /**
@@ -22,8 +22,8 @@ public class ItemController {
      * @return
      */
     public String registerItem(int itemId, int quantity) {
-        ItemDetail itemDetail = itemScanner.scanId(itemId);
-        String displayMessage = saleController.registerItem(itemDetail, quantity);
+        ItemDTO itemDTO = itemScanner.scanId(itemId);
+        String displayMessage = saleController.registerItem(itemDTO, quantity);
         return displayMessage;
     }
 }

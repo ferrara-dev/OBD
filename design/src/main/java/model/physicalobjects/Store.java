@@ -1,4 +1,4 @@
-package model;
+package model.physicalobjects;
 
 import util.Address;
 import util.ContactInformation;

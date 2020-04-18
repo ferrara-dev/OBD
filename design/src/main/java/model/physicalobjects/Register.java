@@ -1,5 +1,6 @@
-package model.salemodel;
-import model.Store;
+package model.physicalobjects;
+import model.physicalobjects.Store;
+import model.salemodel.Payment;
 
 public class Register {
     Store store;

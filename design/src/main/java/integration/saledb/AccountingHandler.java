@@ -1,8 +1,8 @@
-package integration;
+package integration.saledb;
 
 import model.salemodel.SaleDetail;
 
-public class AccountingSystem {
+public class AccountingHandler {
 
 
     public static void updateAccounting(SaleDetail saleDetail) {

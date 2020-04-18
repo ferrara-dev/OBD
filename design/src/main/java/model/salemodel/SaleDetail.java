@@ -1,23 +1,109 @@
 package model.salemodel;
 
-import model.Calendar;
-import model.itemmodel.ItemModel;
-import model.itemmodel.ProcessedGoods;
+import model.discountmodel.Discount;
 
-import java.util.Objects;
+import util.Calendar;
+import model.itemmodel.ItemModel;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class SaleDetail {
-    private ProcessedGoods processedGoods;
-    private ItemModel saleLineItem;
+    private HashMap<Integer,ItemModel> goods;
+    private Discount discount;
     private boolean active;
     private boolean completed;
-    private double runningTotal = 0;
-    private double totalCost = 0;
-    private double totalVAT = 0;
-    private double cashBack = 0;
     private String timeAndDateOfSale;
     private SaleId id;
 
+    /**
+     * Creates a new instance representing details about
+     * a specific transaction.
+     */
+    public SaleDetail() {
+
+    }
+
+    public void createDefault() {
+        setSaleId(new SaleId());
+        setCompleted(false);
+        setActive(true);
+        setTimeAndDateOfSale(Calendar.getTimeAndDate());
+        goods = new HashMap<>();
+    }
+
+    public HashMap<Integer,ItemModel> getGoods(){
+        return goods;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setGoods(HashMap<Integer, ItemModel> goods) {
+        this.goods = goods;
+    }
+
+    public SaleId getSaleId(){
+        return id;
+    }
+
+    public void setSaleId(SaleId id) {
+        this.id = id;
+    }
+
+    public SaleId getId() {
+        return id;
+    }
+
+    public void setId(SaleId id) {
+        this.id = id;
+    }
+
+    public String getTimeAndDateOfSale() {
+        return this.timeAndDateOfSale;
+    }
+
+    private void setTimeAndDateOfSale(String timeAndDateOfSale) {
+        this.timeAndDateOfSale = timeAndDateOfSale;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public String asText() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Integer, ItemModel> entry : goods.entrySet()) {
+            sb.append(entry.getValue().getName());
+            sb.append(" x ");
+            sb.append(entry.getValue().getQuantity());
+            sb.append(" ");
+            sb.append(entry.getValue().getTotalPrice());
+            sb.append(" kr ");
+            sb.append("( " + entry.getValue().getPrice() + "kr/pce excluding tax of " + entry.getValue().getTaxRate()*entry.getValue().getPrice());
+            sb.append("\n");
+        }
+        sb.append("Time and date of sale : " + timeAndDateOfSale + "\n");
+        return sb.toString();
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+/*
     public void setProcessedGoods(ProcessedGoods processedGoods) {
         this.processedGoods = processedGoods;
     }
@@ -37,49 +123,8 @@ public class SaleDetail {
     public void setCashBack(double cashBack) {
         this.cashBack = cashBack;
     }
-
-    public void setSaleId(SaleId id) {
-        this.id = id;
-    }
-
-    /**
-     * Creates a new instance representing details about
-     * a specific transaction.
-     */
-
-    public SaleDetail() {
-
-    }
-
-    public void createDefault() {
-        setSaleId(new SaleId());
-        setCompleted(false);
-        setActive(true);
-        setProcessedGoods(new ProcessedGoods());
-    }
-
-    public SaleId getSaleId(){
-        return id;
-    }
-
-    public double getTotalVAT() {
+   public double getTotalVAT() {
         return totalVAT;
-    }
-
-    public String getTimeAndDateOfSale() {
-        return this.timeAndDateOfSale;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public boolean isCompleted() {
-        return completed;
     }
 
     public double getRunningTotal() {
@@ -89,6 +134,7 @@ public class SaleDetail {
     public double getCashBack() {
         return cashBack;
     }
+
 
     public void setSaleLineItem(ItemModel saleLineItem) {
         this.saleLineItem = saleLineItem;
@@ -104,16 +150,28 @@ public class SaleDetail {
         return totalCost;
     }
 
+    public void completeSale() {
+        setCompleted(true);
+        setTimeAndDateOfSale(Calendar.getTimeAndDate());
+        totalCost = runningTotal;
+    }
+
     public String updateSaleDetail() {
 
-        if (processedGoods.contains(saleLineItem.itemId))
+        if (processedGoods.contains(saleLineItem.getItemId()))
             updateItemQuantity();
         else
             addItem();
-        updateRunningTotal(saleLineItem.totalPrice);
+        updateRunningTotal(saleLineItem.getTotalPrice());
         updateVAT();
         return saleDetailAsString();
     }
+
+
+    private void updateVAT() {
+        totalVAT += saleLineItem.getTaxRate() * saleLineItem.getQuantity() * saleLineItem.getPrice();
+    }
+
 
     public double updateRunningTotal(double amount) {
         this.runningTotal += amount;
@@ -124,22 +182,8 @@ public class SaleDetail {
         return runningTotal;
     }
 
-    public void completeSale() {
-        setCompleted(true);
-        setTimeAndDateOfSale(Calendar.getTimeAndDate());
-        totalCost = runningTotal;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    private void updateVAT() {
-        totalVAT += saleLineItem.taxRate * saleLineItem.quantity * saleLineItem.price;
-    }
-
     private String updateItemQuantity() {
-        processedGoods.getItem(saleLineItem.itemId).quantity += saleLineItem.quantity;
+        processedGoods.getItem(saleLineItem.getItemId()).setQuantity(saleLineItem.getQuantity() + processedGoods.getItem(saleLineItem.getItemId()).getQuantity());
         return saleDetailAsString();
     }
 
@@ -155,7 +199,5 @@ public class SaleDetail {
         return sb.toString();
     }
 
-    private void setTimeAndDateOfSale(String timeAndDateOfSale) {
-        this.timeAndDateOfSale = timeAndDateOfSale;
-    }
+ */
 }

@@ -1,6 +1,6 @@
-package model.salemodel;
-import java.text.DecimalFormat;
-import model.Store;
+package model.physicalobjects;
+import model.physicalobjects.Store;
+import model.salemodel.Sale;
 import util.Address;
 import util.ContactInformation;
 

@@ -1,58 +1,88 @@
-package model.discountmodel.discounttypes;
+package service.discountservice;
 
 
 import integration.discountdb.DiscountDTO;
-import model.salemodel.SaleDetail;
+import model.salemodel.Sale;
+import service.discountservice.discountpolicy.BulkDiscountPolicy;
+import service.discountservice.discountpolicy.BuyNItemsGetMFreePolicy;
+import service.discountservice.discountpolicy.DiscountPolicy;
+import service.discountservice.discountpolicy.PriceDiscountPolicy;
 
-import java.util.List;
-
+/**
+ * Service class that is used to create instances of <code> DiscountPolicy </code>
+ * based on the type that is given in the <code> DiscountDTO </code> that has been
+ * fetched from the discount database.
+ */
 public class DiscountStrategy {
-    static private final String PRODUCT_DISCOUNT = "Product discount";
-    static private final String THREE_FOR_TWO_DISCOUNT = "Buy-3-pay-2";
-    static private double totalPriceReduction = 0;
-    static SaleDetail saleDetails;
+    private final String BULK_DISCOUNT = "Bulk Discount";
+    private final String GET_FREE_ITEM = "Buy N Items Get N Free";
+    private final String PRICE_DISCOUNT = "Price Discount";
 
-    public static double ApplyDiscountLogic(SaleDetail saleDetail, List<DiscountDTO> discounts) {
-        saleDetails = saleDetail;
-        totalPriceReduction = 0;
-        for (DiscountDTO discountDTO : discounts) {
-            if (discountDTO.getType().equals(PRODUCT_DISCOUNT)) {
-                if (discountDTO.getRequirement().equals(THREE_FOR_TWO_DISCOUNT)) {
-                    calculateThreeForTwoDiscount(Integer.parseInt(discountDTO.getItemId()));
-                } else if (discountDTO.getRequirement().equals("On given item")) {
-                    calculateReducedPriceProductDiscount(Integer.parseInt(discountDTO.getItemId()));
-                }
+    private DiscountDTO discountDTO;
+
+    /**
+     * Creates an instance of a strategy that is applied
+     * on specific type of discount
+     * @param discountDTO the discount that the strategy is
+     *                    applied on
+     */
+    public DiscountStrategy(DiscountDTO discountDTO){
+        this.discountDTO = discountDTO;
+    }
+
+
+    /**
+     * Method used to create a discount policy based on
+     * the <code> discountDTO </code> and its attributes
+     * @return the generated discount policy
+     */
+    public DiscountPolicy generateDiscountPolicy(){
+        String discountType = discountDTO.getType();
+        String [] discountItemId = discountDTO.getItemId().split(":");
+
+        switch (discountType) {
+            case BULK_DISCOUNT :{
+                DiscountPolicy bulkDiscount =  createBulkDiscount(discountItemId);
+
+                return createBulkDiscount(discountItemId);
+            }
+
+            case GET_FREE_ITEM :{
+                return createBuyNItemsGetNFreeDiscount(discountItemId);
+            }
+
+            case PRICE_DISCOUNT :{
+                return createPriceDiscount();
             }
         }
-        applyDiscount(totalPriceReduction);
-        return totalPriceReduction;
-    }
-    private static void applyDiscount(double priceReduction){
-        System.out.println(saleDetails.getRunningTotal());
-        saleDetails.updateRunningTotal(priceReduction);
-        System.out.println(saleDetails.getRunningTotal());
-    }
-    private static void calculateThreeForTwoDiscount(int itemId) {
-        final int requirement = 3;
-        int id = itemId;
-        if (saleDetails.getProcessedGoods().contains(id)) {
-            int quantity =  saleDetails.getProcessedGoods().getItem(id).getQuantity();
-            double price =  saleDetails.getProcessedGoods().getItem(id).getTotalPrice() / quantity;
-            if (quantity >= 3)
-                for (int i = 3; i <= quantity; i++) {
-                    System.out.println(i % 3);
-                    if (i % 3 == 0)
-                        totalPriceReduction = totalPriceReduction - price;
-                }
-        }
+
+        return null;
     }
 
-    private static void calculateReducedPriceProductDiscount(int itemId){
-        int id = itemId;
-        if (saleDetails.getProcessedGoods().contains(id)){
-            double price = (0.2) *  saleDetails.getProcessedGoods().getItem(id).getTotalPrice();
-            totalPriceReduction = totalPriceReduction - price;
-        }
+    private DiscountPolicy createPriceDiscount() {
+        double minimumSpent = Double.parseDouble(discountDTO.getRequirement());
+        double priceReduction = Double.parseDouble(discountDTO.getReduction());
+        return new PriceDiscountPolicy(minimumSpent,priceReduction);
+    }
+
+    private DiscountPolicy createBulkDiscount(String [] discountItemId){
+        int [] itemId = new int[discountItemId.length];
+        for(int i = 0; i<itemId.length; i++)
+            itemId[i] = Integer.parseInt(discountItemId[i]);
+        int minimumAmountOfItems = Integer.parseInt(discountDTO.getRequirement());
+        int limit = Integer.parseInt(discountDTO.getLimit());
+        double priceReduction = Double.parseDouble(discountDTO.getReduction());
+        return new BulkDiscountPolicy(itemId, minimumAmountOfItems, limit, priceReduction);
+    }
+
+    private DiscountPolicy createBuyNItemsGetNFreeDiscount(String [] discountItemId){
+        int [] itemId = new int[discountItemId.length];
+        for(int i = 0; i<itemId.length; i++)
+            itemId[i] = Integer.parseInt(discountItemId[i]);
+        int requiredAmountOfItems = Integer.parseInt(discountDTO.getRequirement());
+        int limit = Integer.parseInt(discountDTO.getLimit());
+        double priceReduction = Double.parseDouble(discountDTO.getReduction());
+        return new BuyNItemsGetMFreePolicy(requiredAmountOfItems,itemId,limit,priceReduction);
     }
 
 }

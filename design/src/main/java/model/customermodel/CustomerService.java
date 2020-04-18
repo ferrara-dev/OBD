@@ -1,9 +1,10 @@
 package model.customermodel;
 
+import integration.customerdb.MemberService;
 import util.Member;
 
 public class CustomerService {
-    integration.MemberService db= new integration.MemberService();
+    MemberService db= new MemberService();
 
     /***********  Call to dbhandler **************
      * Calls dbhandler to register a new member

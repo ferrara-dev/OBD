@@ -1,4 +1,4 @@
-package integration;
+package integration.customerdb;
 import util.JavaSeH2Memory;
 import util.Member;
 
