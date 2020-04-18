@@ -2,15 +2,16 @@ package controller;
 
 import integration.productdb.ItemDTO;
 import service.inventoryservice.ItemScanner;
+import service.inventoryservice.ItemService;
 import startup.LayerCreator;
 
 public class ItemController {
-    SaleController saleController;
-    ItemScanner itemScanner;
+    private final SaleController saleController;
+    private final ItemService itemService;
 
     public ItemController(LayerCreator creator){
         saleController = creator.getSaleController();
-        itemScanner = new ItemScanner();
+        itemService = new ItemService();
     }
 
     /**
@@ -22,7 +23,7 @@ public class ItemController {
      * @return
      */
     public String registerItem(int itemId, int quantity) {
-        ItemDTO itemDTO = itemScanner.scanId(itemId);
+        ItemDTO itemDTO =  itemService.getItem(itemId);
         String displayMessage = saleController.registerItem(itemDTO, quantity);
         return displayMessage;
     }

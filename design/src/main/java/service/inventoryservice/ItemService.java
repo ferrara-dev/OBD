@@ -5,9 +5,14 @@ import model.itemmodel.ItemModel;
 
 
 public class ItemService {
+    private final ItemScanner itemScanner = new ItemScanner();
 
-    public void ItemService(){
+    public ItemService(){
 
+    }
+
+    public ItemDTO getItem(int itemId){
+        return itemScanner.scanId(itemId);
     }
 
     public ItemModel createItemModel(ItemDTO itemDTO, int quantity){
@@ -18,6 +23,7 @@ public class ItemService {
         itemModel.setTotalVAT(itemModel.getQuantity() * itemModel.getPrice() * itemModel.getTaxRate());
         return itemModel;
     }
+
 
     public void updateItemQuantity(){
 

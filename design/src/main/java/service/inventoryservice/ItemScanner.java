@@ -1,13 +1,15 @@
 package service.inventoryservice;
 
 import integration.DBService;
+import integration.DataBaseHandler;
+import integration.productdb.InventoryHandler;
 import integration.productdb.ItemDTO;
 
 /**
  * Class representing a scanner used by the cashier to read the itemId
  */
 public class ItemScanner {
-
+    private final DataBaseHandler <ItemDTO,Integer> inventoryHandler = new InventoryHandler();
     public ItemScanner(){
 
     }
@@ -30,6 +32,6 @@ public class ItemScanner {
      * given itemIdentifier
      */
     private ItemDTO fetchItemDetail(int itemId) {
-        return DBService.getProduct(String.valueOf(itemId));
+        return inventoryHandler.collect(String.valueOf(itemId));
     }
 }
