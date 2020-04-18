@@ -6,5 +6,6 @@ public class AccountingSystem {
 
 
     public static void updateAccounting(SaleDetail saleDetail) {
+
     }
 }

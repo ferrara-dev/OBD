@@ -2,10 +2,8 @@ package model;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Calendar {
     static private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -52,7 +50,6 @@ public class Calendar {
         }
         return dates;
     }
-
 
     public static DayOfWeek getDayOfTheWeek(){
         now = LocalDateTime.now();

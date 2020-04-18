@@ -24,6 +24,14 @@ public class Store {
         return storeAddress;
     }
 
+    @Override
+    public String toString() {
+        return "Store : \n" +
+                "name : " + name + '\n' +
+                storeAddress +  "\n" +
+                 storeContactInfo;
+    }
+
     public ContactInformation getStoreContactInfo() {
         return storeContactInfo;
     }

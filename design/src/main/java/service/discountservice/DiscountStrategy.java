@@ -1,4 +1,4 @@
-package model.discountmodel;
+package model.discountmodel.discounttypes;
 
 
 import integration.discountdb.DiscountDTO;
@@ -6,7 +6,7 @@ import model.salemodel.SaleDetail;
 
 import java.util.List;
 
-public class DiscountLogic {
+public class DiscountStrategy {
     static private final String PRODUCT_DISCOUNT = "Product discount";
     static private final String THREE_FOR_TWO_DISCOUNT = "Buy-3-pay-2";
     static private double totalPriceReduction = 0;
@@ -36,8 +36,8 @@ public class DiscountLogic {
         final int requirement = 3;
         int id = itemId;
         if (saleDetails.getProcessedGoods().contains(id)) {
-            int quantity =  saleDetails.getProcessedGoods().getItem(id).quantity;
-            double price =  saleDetails.getProcessedGoods().getItem(id).totalPrice / quantity;
+            int quantity =  saleDetails.getProcessedGoods().getItem(id).getQuantity();
+            double price =  saleDetails.getProcessedGoods().getItem(id).getTotalPrice() / quantity;
             if (quantity >= 3)
                 for (int i = 3; i <= quantity; i++) {
                     System.out.println(i % 3);
@@ -50,7 +50,7 @@ public class DiscountLogic {
     private static void calculateReducedPriceProductDiscount(int itemId){
         int id = itemId;
         if (saleDetails.getProcessedGoods().contains(id)){
-            double price = (0.2) *  saleDetails.getProcessedGoods().getItem(id).totalPrice;
+            double price = (0.2) *  saleDetails.getProcessedGoods().getItem(id).getTotalPrice();
             totalPriceReduction = totalPriceReduction - price;
         }
     }
