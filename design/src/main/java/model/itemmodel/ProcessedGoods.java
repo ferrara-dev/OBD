@@ -1,12 +1,18 @@
 package model.itemmodel;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ProcessedGoods {
     private List<ItemModel> goods;
+
+    public void setGoods(List<ItemModel> goods) {
+        this.goods = goods;
+    }
 
     public List<ItemModel> getGoods() {
         return goods;
@@ -52,7 +58,7 @@ public class ProcessedGoods {
         }
         return goodsAsString;
     }
-
+    @JsonIgnore
     public boolean isEmpty() {
         return goods.isEmpty();
     }

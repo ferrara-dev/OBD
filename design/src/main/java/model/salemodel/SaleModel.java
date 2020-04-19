@@ -4,6 +4,7 @@ package model.salemodel;
 import integration.ItemDetail;
 import integration.RegestryCreator;
 import model.itemmodel.ItemModel;
+import model.itemmodel.ProcessedGoods;
 import util.NotFoundException;
 
 import java.util.Objects;
@@ -61,6 +62,7 @@ public class SaleModel {
      */
     public void startSale() {
         saleDetail = new SaleDetail();
+        saleDetail.createDefault();
     }
 
     public String endSale() {
