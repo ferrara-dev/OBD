@@ -16,17 +16,6 @@ public class DiscountController {
         this.creator = LayerCreator;
     }
 
-<<<<<<< HEAD
-    public String signalDiscountRequest(String customerId){
-        if(integration.customerdb.CustomerDB.find(customerId)){
-            discountEngine = new DiscountEngine(creator.getSaleController().getSalemodel().getSaleDetail());
-          //  creator.getSaleController().
-            return "total discount of : " + discountEngine.totalPriceReduction;
-        }
-
-        else
-            throw new NotFoundException("Item not found");
-=======
     public DiscountService getDiscountService() {
         return discountService;
     }
@@ -41,7 +30,6 @@ public class DiscountController {
     public Discount signalDiscountRequest(String customerId){
         if(Objects.isNull(discountService))
             discountService = new DiscountService(creator.getSaleController().getSaleService());
->>>>>>> origin/master
 
         discountService.findOffers(customerId);
         Discount discount = discountService.createDiscountModel();

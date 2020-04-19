@@ -1,40 +1,5 @@
 package model.itemmodel;
 
-<<<<<<< HEAD
-
-import integration.ItemDetail;
-import integration.productdb.ItemDTO;
-
-public class ItemModel {
-        private String itemDescription;
-        public String name;
-        public int itemId;
-        public double price;
-        public int quantity;
-        public double totalPrice;
-        public String category;
-        public double taxRate;
-
-        public ItemModel(ItemDTO itemDTO){
-                price = itemDTO.getPrice();
-                quantity = itemDTO.getQuantity();
-                itemId = itemDTO.getItemId();
-        }
-        public ItemModel(ItemDetail itemDetail, int quantity){
-                price = itemDetail.getPrice();
-                this.quantity = quantity;
-                itemId = itemDetail.getItemId();
-                name = itemDetail.getName();
-                category = itemDetail.getCategory();
-                taxRate = Tax.getTax(category);
-                calcTotalPrice();
-
-                itemDescription = "Item name : " + name + "\n" +
-                        "price/item : " + price + "\n" +
-                        "Tax-Rate : " + taxRate + "\n" +
-                        "Stock status : " + itemDetail.getStockStatus() +
-                        "\n";
-=======
 import integration.productdb.ItemDTO;
 
 public class ItemModel {
@@ -85,7 +50,6 @@ public class ItemModel {
                 this.quantity = quantity;
         }
 
->>>>>>> origin/master
 
         public void setTotalPrice() {
                 totalPrice = quantity*price*(taxRate + 1);

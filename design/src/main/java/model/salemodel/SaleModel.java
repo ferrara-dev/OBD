@@ -41,19 +41,13 @@ public class SaleModel {
 
         if (!saleDetail.isCompleted())
             if (saleDetail.isActive()) {
-                String saleDetails = saleDetail.addItemToSale(itemModel);
+                saleDetail.setSaleLineItem(itemModel);
+                String saleDetails = addItemToSale();
                 return saleDetails;
             }
         return getDisplayMessage(ITEM_NOT_FOUND, false);
     }
 
-<<<<<<< HEAD
-    public void setSaleDetail(SaleDetail saleDetail) {
-        this.saleDetail = saleDetail;
-    }
-
-=======
->>>>>>> origin/master
     /**
      * Creates a new sale detail where all information about
      * the performed transaction is stored.
@@ -65,7 +59,8 @@ public class SaleModel {
     }
 
     public String endSale() {
-        return Double.toString(saleDetail.completeSale());
+        saleDetail.completeSale();
+        return Double.toString(saleDetail.getTotalCost());
     }
 
     private String getDisplayMessage(int itemId, boolean itemFound) {
@@ -76,8 +71,6 @@ public class SaleModel {
         return "Item not found";
     }
 
-<<<<<<< HEAD
-=======
     private String addItemToSale() {
         String saleDetails = saleDetail.updateSaleDetail();
         return saleDetails;
@@ -86,5 +79,4 @@ public class SaleModel {
 
 
  */
->>>>>>> origin/master
 }

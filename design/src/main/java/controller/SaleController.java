@@ -1,44 +1,25 @@
 package controller;
 
-<<<<<<< HEAD
-import integration.ItemDetail;
-import integration.Printer;
-import model.itemmodel.ItemModel;
-import model.salemodel.Payment;
-import model.salemodel.Receipt;
-import model.salemodel.SaleModel;
-=======
 import integration.productdb.ItemDTO;
 import model.discountmodel.Discount;
 import service.saleservice.PaymentService;
->>>>>>> origin/master
 import service.saleservice.SaleService;
 import startup.LayerCreator;
 
 public class SaleController {
-<<<<<<< HEAD
-    private SaleModel salemodel;
-    private LayerCreator creator;
-    SaleService saleService;
-=======
 
     private LayerCreator creator;
     private SaleService saleService;
     private PaymentService paymentService;
->>>>>>> origin/master
 
     public SaleController(LayerCreator creator) {
         this.creator = creator;
-<<<<<<< HEAD
-        saleService = new SaleService(salemodel);
-=======
         this.saleService = new SaleService();
         this.paymentService = new PaymentService(saleService);
     }
 
     public SaleService getSaleService() {
         return saleService;
->>>>>>> origin/master
     }
 
     public PaymentService getPaymentService() {

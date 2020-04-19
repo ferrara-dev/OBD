@@ -4,92 +4,38 @@ import model.discountmodel.Discount;
 
 import util.Calendar;
 import model.itemmodel.ItemModel;
-<<<<<<< HEAD
-import model.itemmodel.ProcessedGoods;
-import java.util.Objects;
-=======
 import java.util.HashMap;
 import java.util.Map;
 
->>>>>>> origin/master
 
 public class SaleDetail {
     private HashMap<Integer,ItemModel> goods;
     private Discount discount;
     private boolean active;
     private boolean completed;
-<<<<<<< HEAD
-    private double runningTotal = 0;
-    private double totalCost = 0;
-    private double totalVAT = 0;
-    private double cashBack = 0;
-    private String TimeAndDateOfSale;
-    private SaleId id;
-
-
-=======
     private String timeAndDateOfSale;
     private SaleId id;
 
->>>>>>> origin/master
     /**
      * Creates a new instance representing details about
      * a specific transaction.
      */
-<<<<<<< HEAD
-
     public SaleDetail() {
-        id = new SaleId();
-        completed = false;
-        active = true;
-        processedGoods = new ProcessedGoods();
-    }
-
-
-    public void setCashBack(double cashBack) {
-        this.cashBack = cashBack;
-    }
-
-    public void setId(SaleId id) {
-        this.id = id;
-    }
-
-    public void setProcessedGoods(ProcessedGoods processedGoods) {
-        this.processedGoods = processedGoods;
-    }
-=======
-    public SaleDetail() {
->>>>>>> origin/master
 
     }
 
-<<<<<<< HEAD
-    public void setSaleLineItem(ItemModel saleLineItem) {
-        this.saleLineItem = saleLineItem;
-    }
-
-    public void setTotalCost(double totalCost) {
-        this.totalCost = totalCost;
-=======
     public void createDefault() {
         setSaleId(new SaleId());
         setCompleted(false);
         setActive(true);
         setTimeAndDateOfSale(Calendar.getTimeAndDate());
         goods = new HashMap<>();
->>>>>>> origin/master
     }
 
     public HashMap<Integer,ItemModel> getGoods(){
         return goods;
     }
 
-<<<<<<< HEAD
-    public ItemModel getSaleLineItem() {
-        return saleLineItem;
-    }
-
-=======
     public void setDiscount(Discount discount) {
         this.discount = discount;
     }
@@ -109,7 +55,6 @@ public class SaleDetail {
     public void setSaleId(SaleId id) {
         this.id = id;
     }
->>>>>>> origin/master
 
     public SaleId getId() {
         return id;
@@ -120,7 +65,7 @@ public class SaleDetail {
     }
 
     public String getTimeAndDateOfSale() {
-        return TimeAndDateOfSale;
+        return this.timeAndDateOfSale;
     }
 
     private void setTimeAndDateOfSale(String timeAndDateOfSale) {
@@ -190,13 +135,10 @@ public class SaleDetail {
         return cashBack;
     }
 
-<<<<<<< HEAD
-=======
 
     public void setSaleLineItem(ItemModel saleLineItem) {
         this.saleLineItem = saleLineItem;
     }
->>>>>>> origin/master
 
     public ProcessedGoods getProcessedGoods() {
         if (Objects.isNull(processedGoods))
@@ -208,11 +150,6 @@ public class SaleDetail {
         return totalCost;
     }
 
-<<<<<<< HEAD
-    public String addItemToSale(ItemModel item){
-        saleLineItem = item;
-        return updateSaleDetail();
-=======
     public void completeSale() {
         setCompleted(true);
         setTimeAndDateOfSale(Calendar.getTimeAndDate());
@@ -228,7 +165,6 @@ public class SaleDetail {
         updateRunningTotal(saleLineItem.getTotalPrice());
         updateVAT();
         return saleDetailAsString();
->>>>>>> origin/master
     }
 
 
@@ -246,33 +182,6 @@ public class SaleDetail {
         return runningTotal;
     }
 
-<<<<<<< HEAD
-    public Double completeSale() {
-        setCompleted(true);
-        setTimeAndDateOfSale(Calendar.getTimeAndDate());
-        return totalCost = runningTotal;
-    }
-
-    private String updateSaleDetail() {
-        if (processedGoods.contains(saleLineItem.itemId))
-            updateItemQuantity();
-        else
-            addItem();
-        updateRunningTotal(saleLineItem.totalPrice);
-        updateVAT();
-        return saleDetailAsString();
-    }
-
-    private void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    private void updateVAT() {
-        totalVAT += saleLineItem.taxRate * saleLineItem.quantity * saleLineItem.price;
-    }
-
-=======
->>>>>>> origin/master
     private String updateItemQuantity() {
         processedGoods.getItem(saleLineItem.getItemId()).setQuantity(saleLineItem.getQuantity() + processedGoods.getItem(saleLineItem.getItemId()).getQuantity());
         return saleDetailAsString();
@@ -290,11 +199,5 @@ public class SaleDetail {
         return sb.toString();
     }
 
-<<<<<<< HEAD
-    private void setTimeAndDateOfSale(String timeAndDateOfSale) {
-        TimeAndDateOfSale = timeAndDateOfSale;
-    }
-=======
  */
->>>>>>> origin/master
 }

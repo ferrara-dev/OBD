@@ -1,18 +1,9 @@
 package util;
 
-
-
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-<<<<<<< HEAD:design/src/main/java/model/Calendar.java
-
 import java.util.ArrayList;
 import java.util.List;
-
-=======
-import java.util.ArrayList;
-import java.util.List;
->>>>>>> origin/master:design/src/main/java/util/Calendar.java
 
 public class Calendar {
     static private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -27,11 +18,9 @@ public class Calendar {
         now = LocalDateTime.now();
         dtf.format(now);
         StringBuilder sb = new StringBuilder(id);
-        int year = sb.charAt(0);
-
 
         LocalDate today = LocalDate.now();                          //Today's date
-        LocalDate birthday = LocalDate.of(94, Month.JANUARY, 1);  //Birth date
+        LocalDate birthday = LocalDate.of(1960, Month.JANUARY, 1);  //Birth date
         Period p = Period.between(birthday, today);
 
         return p.getYears();

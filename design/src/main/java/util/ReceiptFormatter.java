@@ -1,36 +1,21 @@
 package util;
 
-<<<<<<< HEAD
-import model.salemodel.Receipt;
-
-=======
 import model.physicalobjects.Receipt;
->>>>>>> origin/master
 
 public class ReceiptFormatter {
+    private final int SECTION_LENGTH = 10;
+    private final String[] HEADERS = new String[]{"Item", "Price", "Quantity", "VAT"};
+    private String returnValue;
     private Receipt receipt;
 
     public ReceiptFormatter(Receipt receipt){
         this.receipt = receipt;
     }
 
-<<<<<<< HEAD
-    public String formatReceipt() {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for(int j = 0; j < receipt.itemNames.length; j++) {
-            stringBuilder.append("- " + receipt.itemNames[j]);
-            stringBuilder.append(tab(" ", 5) + receipt.itemPrices[j]);
-            stringBuilder.append("kr exklusive moms");
-            stringBuilder.append(tab(" ", 5) + receipt.itemQuantites[j]);
-            stringBuilder.append("st");
-            stringBuilder.append("\n");
-=======
     private String goodsToString() {
         return
              "Purchased Items :\n" + receipt.getSale().getSaleDetail().asText() + '\n';
     }
->>>>>>> origin/master
 
     private String saleInfoToString(){
         String amountPaid = String.valueOf(receipt.getSale().getTotalCost() + receipt.getSale().getCashBack());
@@ -42,17 +27,9 @@ public class ReceiptFormatter {
                 "Sale id " + receipt.getSale().getSaleDetail().getSaleId();
     }
 
-<<<<<<< HEAD
-        }
-        stringBuilder.append("Total summa : " + receipt.totalCost + " kr\n");
-        stringBuilder.append("Varav moms  : " + receipt.totalTaxPayed + " kr\n");
-        stringBuilder.append("Betalt : " + receipt.amountPaid + " kr\n");
-        stringBuilder.append("Tillbaks : " + receipt.change + " kr\n");
-=======
     public String formatReceipt() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(goodsToString() + "\n");
->>>>>>> origin/master
         stringBuilder.append("------------------------------------------------------------------\n");
         stringBuilder.append(saleInfoToString() + "\n");
         stringBuilder.append("------------------------------------------------------------------\n");
@@ -83,6 +60,10 @@ public class ReceiptFormatter {
             spaces.append(" ");
         }
         return spaces.toString();
+    }
+
+    private  void setReturnValue(String s) {
+        returnValue = s;
     }
 
     private static String tab(String str, int lengthOfLine) {
