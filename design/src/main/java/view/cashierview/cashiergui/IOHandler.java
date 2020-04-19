@@ -75,8 +75,14 @@ public class IOHandler implements ActionListener {
     private void signalDiscount() {
         String customerId = cashierGui.textHandler.getCustomerIdTextField().getText();
         try {
+<<<<<<< HEAD
             String displayMessage = cashierGui.getCashierView().signalDiscountRequest(cashierGui.getCashierView().signalDiscountRequest(customerId));
             cashierGui.textHandler.getSaleInformationArea().setText(displayMessage);
+=======
+            cashierGui.getCashierView().signalDiscountRequest(customerId);
+            cashierGui.signalDiscount(customerId);
+            //cashierGui.textHandler.getSaleInformationArea().setText(displayMessage);
+>>>>>>> origin/master
         } catch (NotFoundException ex) {
             GuiErrorMessage.getErrorPopUp(GuiErrorMessage.CUSTOMER_NOT_FOUND_MESSAGE);
         }

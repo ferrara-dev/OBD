@@ -7,12 +7,11 @@ package util;
 public class ContactInformation {
     private String email;
     private String phoneNumber;
-    private String mailAdress;
+    private String mailAddress;
 
-    public ContactInformation(String email, String phoneNumber, String mailAdress){
+    public ContactInformation(String email, String phoneNumber){
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.mailAdress = mailAdress;
     }
 
     public String getEmail() {
@@ -20,7 +19,7 @@ public class ContactInformation {
     }
 
     public String getMailAdress() {
-        return mailAdress;
+        return mailAddress;
     }
 
     public String getPhoneNumber() {
@@ -32,7 +31,15 @@ public class ContactInformation {
     }
 
     public void setMailAdress(String mailAdress) {
-        this.mailAdress = mailAdress;
+        this.mailAddress = mailAdress;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactInformation : \n" +
+                "email: " + email + '\n' +
+                "phoneNumber : " + phoneNumber + '\n' +
+                "mailAddress : " + mailAddress + '\n';
     }
 
     public void setPhoneNumber(String phoneNumber) {

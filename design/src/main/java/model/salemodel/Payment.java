@@ -4,21 +4,17 @@ package model.salemodel;
  * Class representing a payment
  */
 public class Payment {
+    private double priceToPay;
     private double amountPayed;
-    private SaleDetail saleDetail;
     private final String currency = "kronor";
 
-    public Payment(SaleDetail saleDetail, double amountPayed){
-        this.saleDetail = saleDetail;
+    public Payment(double priceToPay, double amountPayed){
+        this.priceToPay = priceToPay;
         this.amountPayed = amountPayed;
     }
 
     public double getPriceToPay() {
-        return saleDetail.getRunningTotal();
-    }
-
-    public SaleDetail getSaleDetail() {
-        return saleDetail;
+        return priceToPay;
     }
 
     public double getAmountPayed() {

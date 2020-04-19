@@ -1,5 +1,6 @@
 package view.cashierview;
 
+import model.discountmodel.Discount;
 import startup.LayerCreator;
 import util.NotFoundException;
 import view.View;
@@ -42,12 +43,17 @@ public class CashierView implements View {
             return displayMessage;
     }
 
+<<<<<<< HEAD
     /**
      * Call to controller to initiate a discount request
      * @param customerId the id of the customer requesting a discount
      * @return information about the discount
      */
     public String signalDiscountRequest(String customerId) {
+=======
+
+    public Discount signalDiscountRequest(String customerId) {
+>>>>>>> origin/master
             return creator.getDiscountController().signalDiscountRequest(customerId);
     }
 

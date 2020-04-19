@@ -1,6 +1,7 @@
 package model;
 
-import model.salemodel.Register;
+import model.physicalobjects.Store;
+import model.physicalobjects.Register;
 import util.Address;
 import util.ContactInformation;
 
@@ -15,7 +16,7 @@ public class PhysicalObjectCreator {
 
     public PhysicalObjectCreator(){
         address = new Address("Store street 123", "Store City","Sweden","191 49");
-        contactInformation = new ContactInformation("spof@kth.se", "070 123 4567","Store street 123 - 191 49 - Sweden");
+        contactInformation = new ContactInformation("spof@kth.se", "070 123 4567");
         store = new Store(address,contactInformation);
         cashRegister = new Register(store);
     }

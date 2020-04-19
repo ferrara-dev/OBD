@@ -14,7 +14,7 @@ public class SaleControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        LayerCreator layerCreator = new LayerCreator();
+        layerCreator = new LayerCreator();
 
     }
 
@@ -25,19 +25,28 @@ public class SaleControllerTest {
 
     @Test
     public void startSale() throws Exception {
-        LayerCreator layerCreator = new LayerCreator();
         assertEquals("Sale Started", layerCreator.getSaleController().startSale());
+    }
 
+    @Test
+    public void registerItem() throws Exception {
+         layerCreator.getItemController().registerItem(1,2);
     }
 
     @Test
     public void endSale() {
-
+        assertEquals("Sale Started", layerCreator.getSaleController().startSale());
+        layerCreator.getItemController().registerItem(1,2);
+        layerCreator.getSaleController().endSale();
     }
 
     @Test
     public void enterPayment() {
-
+        assertEquals("Sale Started", layerCreator.getSaleController().startSale());
+        layerCreator.getItemController().registerItem(1,2);
+        layerCreator.getSaleController().endSale();
+        layerCreator.getSaleController().getPaymentService().setPayment(200);
+        layerCreator.getSaleController().getPaymentService().processPayment(layerCreator.getPhysicalObjectCreator().getCashRegister());
     }
 
     @Test

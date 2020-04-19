@@ -1,5 +1,5 @@
 package integration;
-import model.salemodel.Receipt;
+import model.physicalobjects.Receipt;
 import util.ReceiptFormatter;
 
 public class Printer {
