@@ -15,7 +15,7 @@ public interface DataBaseHandler <obj,param> {
      boolean find(String id);
      obj collect(String id);
 
-     static void printSQLException(SQLException ex){
+     default void printSQLException(SQLException ex){
           System.err.println("SQLState: " + ex.getSQLState());
           System.err.println("Error Code: " + ex.getErrorCode());
           System.err.println("Message: " + ex.getMessage());

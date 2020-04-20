@@ -69,8 +69,15 @@ public class CashierGui extends JFrame {
      * @param quantity
      */
     public void registerItem(int itemId, int quantity){
-        if(Objects.isNull(customJTable.getMyList()));
-            customJTable.createDefault(saleController.getCreator().getItemController().registerItem(itemId,quantity).getCart());
+       /* if(Objects.isNull(customJTable.getCart())) {
+            customJTable.createDefault(saleController.getCreator().getItemController().registerItem(itemId, quantity).getCart());
+        } else {
+
+            customJTable.setCard(saleController.getCreator().getItemController().registerItem(itemId, quantity).getCart().getItems());
+            //customJTable.getTable().updateUI();
+        }*/
+        customJTable.setCard(saleController.getCreator().getItemController().registerItem(itemId, quantity).getCart().getItems());
+
     }
 
     /**

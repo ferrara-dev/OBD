@@ -3,10 +3,8 @@ package model.salemodel;
 import model.AbstractModel;
 import model.itemmodel.Product;
 
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.Objects;
 
 public class SaleItem extends AbstractModel {
     private final Product product;
@@ -30,14 +28,20 @@ public class SaleItem extends AbstractModel {
     }
 
     public void update(int increasedQuantity){
-        if(Objects.nonNull(this) && Objects.nonNull(product)) {
+       /* if(Objects.nonNull(this) && Objects.nonNull(product)) {
             int newQuantity = quantity + increasedQuantity;
             double newTotalPrice = product.getTotalPrice() * newQuantity;
             double newTotalVAT = product.getTotalVAT() * newQuantity;
             setQuantity(newQuantity);
             setTotalPrice(newTotalPrice);
             setTotalVAT(newTotalVAT);
-        }
+        }********/
+        int newQuantity = quantity + increasedQuantity;
+        double newTotalPrice = product.getTotalPrice() * newQuantity;
+        double newTotalVAT = product.getTotalVAT() * newQuantity;
+        setQuantity(newQuantity);
+        setTotalPrice(newTotalPrice);
+        setTotalVAT(newTotalVAT);
     }
 
     public SaleItem copy(SaleItem saleItem){
