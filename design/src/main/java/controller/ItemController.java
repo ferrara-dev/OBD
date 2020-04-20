@@ -1,6 +1,8 @@
 package controller;
 
 import model.itemmodel.Product;
+import model.salemodel.Sale;
+import model.salemodel.SaleItem;
 import service.inventoryservice.ItemService;
 import startup.LayerCreator;
 
@@ -21,9 +23,9 @@ public class ItemController {
      * @param quantity
      * @return
      */
-    public String registerItem(int itemId, int quantity) {
+
+    public Sale registerItem(int itemId, int quantity) {
         Product product =  itemService.getItem(itemId);
-        String displayMessage = saleController.registerItem(product, quantity);
-        return displayMessage;
+        return saleController.registerItem(product, quantity);
     }
 }

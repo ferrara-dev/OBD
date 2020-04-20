@@ -7,15 +7,13 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.io.Serializable;
 public class Cost implements PropertyChangeListener, Serializable {
-
     private double totalCost = 0;
     private double totalVAT = 0;
 
-
     public void updateCost(Sale sale){
-        for(int i = 0; i < sale.getCart().getSize(); i++) {
-            totalCost = sale.getCart().getElementAt(i).getTotalPrice();
-            totalVAT = sale.getCart().getElementAt(i).getTotalVAT();
+        for(int i = 0; i < sale.getCart().size(); i++) {
+            totalCost = sale.getCart().get(i).getTotalPrice();
+            totalVAT = sale.getCart().get(i).getTotalVAT();
         }
 
         if(Objects.nonNull(sale.getSaleDetail().getDiscount()))

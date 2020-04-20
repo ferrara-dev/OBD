@@ -49,7 +49,7 @@ public class SaleService {
         updateRunningTotal(discount.getTotalPriceReduction()*-1);
     }
 
-    public String registerItem(Product product, int quantity) {
+    public Sale registerItem(Product product, int quantity) {
         if (Objects.isNull(sale)) {
             startSale();
         }
@@ -58,8 +58,7 @@ public class SaleService {
                 sale.getCart().add(product,quantity);
                 sale.updateCost();
             }
-
-        return sale.saleDetailAsString();
+        return sale;
     }
 
     public void updateRunningTotal(double amount) {

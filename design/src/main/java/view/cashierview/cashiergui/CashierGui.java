@@ -10,6 +10,7 @@ import view.cashierview.cashiergui.panels.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 
 public class CashierGui extends JFrame {
@@ -17,6 +18,7 @@ public class CashierGui extends JFrame {
     DisplayPanel secondDisplayPanel;
     JPanel cards;
 
+    CustomJTable customJTable;
 
     final JLabel customerIdLabel = new JLabel("Customer id :");
     final JLabel endSaleLabel = new JLabel("Total ");
@@ -32,7 +34,9 @@ public class CashierGui extends JFrame {
     private ItemController itemController;
     private DiscountController discountController;
 
-
+    public CustomJTable getCustomJTable() {
+        return customJTable;
+    }
 
     public SaleController getCashierView() {
         return saleController;
@@ -47,6 +51,7 @@ public class CashierGui extends JFrame {
         discountController = creator.getDiscountController();
         itemController = creator.getItemController();
 
+        customJTable = new CustomJTable();
         inputHandler = new InputHandler(this);
         buttonHandler = new ButtonHandler();
         textHandler = new TextHandler();
@@ -64,8 +69,8 @@ public class CashierGui extends JFrame {
      * @param quantity
      */
     public void registerItem(int itemId, int quantity){
-        String outputInformation = saleController.getCreator().getItemController().registerItem(itemId,quantity);
-        updateSaleInformation(outputInformation);
+        if(Objects.isNull(customJTable.getMyList()));
+            customJTable.createDefault(saleController.getCreator().getItemController().registerItem(itemId,quantity).getCart());
     }
 
     /**

@@ -5,6 +5,7 @@ import model.discountmodel.Discount;
 import model.itemmodel.Product;
 import model.salemodel.Payment;
 import model.salemodel.Sale;
+import model.salemodel.SaleItem;
 import service.saleservice.PaymentService;
 import service.saleservice.SaleService;
 import startup.LayerCreator;
@@ -33,7 +34,7 @@ public class SaleController {
         return paymentService;
     }
 
-    public String registerItem(Product product, int quantity) {
+    public Sale registerItem(Product product, int quantity) {
         return saleService.registerItem(product, quantity);
     }
 

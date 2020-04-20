@@ -1,12 +1,10 @@
 package model;
 
-import util.NotFoundException;
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.swing.AbstractListModel;
 
-public abstract class CustomListModel<E> extends AbstractListModel <E> {
+public class CustomListModel<E> extends AbstractListModel <E>  {
     protected List <E> list;
 
 
@@ -16,9 +14,10 @@ public abstract class CustomListModel<E> extends AbstractListModel <E> {
     }
 
     public CustomListModel() {
+        this.list = new ArrayList<>();
     }
 
-    protected void addElement(E element) {
+    public void addElement(E element) {
         list.add(element);
         int index = list.size();
         fireContentsChanged(element,index,index);

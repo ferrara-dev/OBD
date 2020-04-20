@@ -1,19 +1,34 @@
 package model.salemodel;
 
+import model.AbstractModel;
 import model.CustomListModel;
 import model.itemmodel.Product;
 import util.NotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import java.util.Objects;
 
-public class Cart extends CustomListModel<SaleItem> {
+public class Cart extends AbstractModel {
+    CustomListModel<SaleItem> items;
 
-    public Cart(List<SaleItem> list) {
-        super(list);
+    private PropertyChangeSupport pcs;
+
+    public Cart() {
+        items = new CustomListModel<SaleItem>();
+        pcs = new PropertyChangeSupport(items);
     }
 
+    public CustomListModel<SaleItem> getItems() {
+        return items;
+    }
+
+    public int size(){
+        if(Objects.nonNull(items))
+            return items.getSize();
+        return 0;
+    }
 
     public void add(Product product, int quantity) {
         SaleItem saleItem;
@@ -24,19 +39,27 @@ public class Cart extends CustomListModel<SaleItem> {
         } catch (NotFoundException e) {
             if(Objects.nonNull(product)) {
                 saleItem = new SaleItem(product);
-                addElement(saleItem);
+                items.addElement(saleItem);
             }
         }
     }
 
     public SaleItem find(Product product) {
         if(Objects.nonNull(product))
-            for (int i = 0; i < getSize(); i++) {
-                if (getElementAt(i).getProduct().equals(product)) {
-                    return getElementAt(i);
+            if(Objects.nonNull(items))
+            for (int i = 0; i < items.getSize(); i++) {
+                if (items.getElementAt(i).getProduct().equals(product)) {
+                    return items.getElementAt(i);
                 }
             }
         throw new NotFoundException("not found in cart");
     }
 
+    public SaleItem get(int index){
+        return items.getElementAt(index);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(listener);
+    }
 }

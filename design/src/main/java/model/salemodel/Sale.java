@@ -1,14 +1,11 @@
 package model.salemodel;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Sale {
     private SaleDetail saleDetail;
     private Cart cart;
     private Cost cost;
-    private Payment salePayment;
     private double runningTotal = 0;
     private double cashBack = 0;
 
@@ -29,14 +26,6 @@ public class Sale {
         this.cashBack = cashBack;
     }
 
-    public Payment getSalePayment() {
-        return salePayment;
-    }
-
-    public void setSalePayment(Payment salePayment) {
-        this.salePayment = salePayment;
-    }
-
     public Cost getCost() {
         return cost;
     }
@@ -54,7 +43,7 @@ public class Sale {
     }
 
     public void createDefault(){
-        this.cart = new Cart(new ArrayList<>());
+        this.cart = new Cart();
         this.cost = new Cost();
         this.saleDetail = new SaleDetail();
         saleDetail.createDefault();

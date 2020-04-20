@@ -14,7 +14,6 @@ public class ComponentAdder {
     }
 
     private void addComponents(){
-
         //Create the "cards".
         JPanel card1 = new JPanel(new MigLayout("fill"));
         card1.add(creator.getCashierGui().buttonHandler.getStartButton(), "center,span,grow");
@@ -22,7 +21,7 @@ public class ComponentAdder {
         card2.setLayout(new MigLayout("wrap", "[fill, grow]", "[fill, grow][fill, grow]"));
         card2.add(creator.getCashierGui().displayPanel, "center,spany,push");
         creator.getCashierGui().displayPanel.addComponents("top",creator.getCashierGui().saleInformationLabel);
-        creator.getCashierGui().displayPanel.addComponents("top, grow, push",creator.getCashierGui().textHandler.getSaleInformationArea());
+        creator.getCashierGui().displayPanel.addComponents("top, grow, push",creator.getCashierGui().customJTable.getPanel());
         creator.getCashierGui().displayPanel.addComponents("top", creator.getCashierGui().itemIdLabel);
         creator.getCashierGui().displayPanel.addComponents("top",creator.getCashierGui().textHandler.getItemIdTextField());
         creator.getCashierGui().displayPanel.addComponents("top", new JLabel("quantity : "));

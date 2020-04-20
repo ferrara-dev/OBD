@@ -3,10 +3,6 @@ package model.salemodel;
 import model.discountmodel.Discount;
 import util.Calendar;
 
-import java.util.HashMap;
-import java.util.Map;
-
-
 public class SaleDetail {
     private Discount discount;
     private boolean active;
@@ -28,8 +24,6 @@ public class SaleDetail {
         setActive(true);
         setTimeAndDateOfSale(Calendar.getTimeAndDate());
     }
-
-
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
