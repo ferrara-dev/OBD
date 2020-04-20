@@ -35,7 +35,7 @@ public class SaleLogHandler implements DataBaseHandler <Sale,Object> {
         } catch (SQLException e) {
 
             // print SQL exception information
-            DataBaseHandler.printSQLException(e);
+            printSQLException(e);
         }
         return true;
     }
@@ -51,7 +51,7 @@ public class SaleLogHandler implements DataBaseHandler <Sale,Object> {
                 return true;
             }
         } catch (SQLException ex) {
-            DataBaseHandler.printSQLException(ex);
+            printSQLException(ex);
         }
         return false;
     }
@@ -91,7 +91,7 @@ public class SaleLogHandler implements DataBaseHandler <Sale,Object> {
         } catch (SQLException e) {
 
             // print SQL exception information
-            DataBaseHandler.printSQLException(e);
+            printSQLException(e);
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {

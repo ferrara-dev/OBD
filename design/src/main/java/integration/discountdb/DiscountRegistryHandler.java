@@ -41,7 +41,7 @@ public class DiscountRegistryHandler implements DataBaseHandler <List,Discount> 
                 return true;
             }
         } catch (SQLException ex) {
-            DataBaseHandler.printSQLException(ex);
+            printSQLException(ex);
         }
 
         return false;
@@ -86,7 +86,7 @@ public class DiscountRegistryHandler implements DataBaseHandler <List,Discount> 
 
             return discountDTOList;
         } catch (SQLException ex) {
-            DataBaseHandler.printSQLException(ex);
+            printSQLException(ex);
         }
 
         throw new NotFoundException("Item not found");

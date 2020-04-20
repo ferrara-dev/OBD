@@ -26,7 +26,7 @@ public class InventoryHandler implements DataBaseHandler <ItemDTO,Integer> {
         } catch (SQLException e) {
 
             // print SQL exception information
-            DataBaseHandler.printSQLException(e);
+            printSQLException(e);
         }
         throw  new NotFoundException("SaleDetail not found!");
     }
@@ -41,7 +41,7 @@ public class InventoryHandler implements DataBaseHandler <ItemDTO,Integer> {
                 return true;
             }
         } catch (SQLException ex) {
-            DataBaseHandler.printSQLException(ex);
+            printSQLException(ex);
         }
         return false;
     }
@@ -63,7 +63,7 @@ public class InventoryHandler implements DataBaseHandler <ItemDTO,Integer> {
 
             }
         } catch (SQLException ex) {
-            DataBaseHandler.printSQLException(ex);
+            printSQLException(ex);
         }
 
         throw new NotFoundException("Item not found");
