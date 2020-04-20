@@ -18,6 +18,7 @@ public class SaleService {
 
     public SaleService() {
         itemService = new ItemService();
+        sale = new Sale();
     }
 
     public String finalizeSale() {
@@ -50,14 +51,15 @@ public class SaleService {
     }
 
     public Sale registerItem(Product product, int quantity) {
-        if (Objects.isNull(sale)) {
+       /* if (Objects.isNull(sale)) {
             startSale();
-        }
-        if (!sale.getSaleDetail().isCompleted())
-            if (sale.getSaleDetail().isActive()) {
+        }*/
+      /*  if (!sale.getSaleDetail().isCompleted() && sale.getSaleDetail().isActive()) {
                 sale.getCart().add(product,quantity);
                 sale.updateCost();
-            }
+        }*/
+        sale.getCart().add(product,quantity);
+        sale.updateCost();
         return sale;
     }
 

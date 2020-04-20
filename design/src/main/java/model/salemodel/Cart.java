@@ -1,32 +1,25 @@
 package model.salemodel;
 
-import model.AbstractModel;
-import model.CustomListModel;
 import model.itemmodel.Product;
 import util.NotFoundException;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
+import java.util.ArrayList;
 import java.util.Objects;
 
-public class Cart extends AbstractModel {
-    CustomListModel<SaleItem> items;
-
-    private PropertyChangeSupport pcs;
+public class Cart  {
+    ArrayList<SaleItem> items;
 
     public Cart() {
-        items = new CustomListModel<SaleItem>();
-        pcs = new PropertyChangeSupport(items);
+        items = new ArrayList<>();
     }
 
-    public CustomListModel<SaleItem> getItems() {
+    public ArrayList<SaleItem> getItems() {
         return items;
     }
 
     public int size(){
         if(Objects.nonNull(items))
-            return items.getSize();
+            return items.size();
         return 0;
     }
 
@@ -39,7 +32,8 @@ public class Cart extends AbstractModel {
         } catch (NotFoundException e) {
             if(Objects.nonNull(product)) {
                 saleItem = new SaleItem(product);
-                items.addElement(saleItem);
+                saleItem.setQuantity(quantity);
+                items.add(saleItem);
             }
         }
     }
@@ -47,19 +41,16 @@ public class Cart extends AbstractModel {
     public SaleItem find(Product product) {
         if(Objects.nonNull(product))
             if(Objects.nonNull(items))
-            for (int i = 0; i < items.getSize(); i++) {
-                if (items.getElementAt(i).getProduct().equals(product)) {
-                    return items.getElementAt(i);
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).getProduct().equals(product)) {
+                    return items.get(i);
                 }
             }
         throw new NotFoundException("not found in cart");
     }
 
     public SaleItem get(int index){
-        return items.getElementAt(index);
+        return items.get(index);
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        pcs.addPropertyChangeListener(listener);
-    }
 }

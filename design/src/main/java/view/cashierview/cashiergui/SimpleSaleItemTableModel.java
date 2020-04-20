@@ -1,40 +1,64 @@
 package view.cashierview.cashiergui;
 
-import model.CustomListModel;
 import model.salemodel.SaleItem;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SimpleSaleItemTableModel extends AbstractTableModel {
     private String[] columnNames = {"Product", "Price", "Quantity"};
-    private CustomListModel<SaleItem> myList;
+    private List<SaleItem> list;
 
-    public SimpleSaleItemTableModel(CustomListModel<SaleItem> myList) {
-        this.myList = myList;
+    public SimpleSaleItemTableModel() {
+        this.list = new ArrayList<>();
     }
+
+    public void addElement(SaleItem element) {
+        list.add(element);
+        int index = list.size();
+        fireTableCellUpdated(index,index);
+    }
+
+
+    public int getSize() {
+        return list.size();
+    }
+
+    public SaleItem getElementAt(int index) {
+        return list.get(index);
+    }
+
+    public void removeElement(SaleItem element) {
+        list.remove(element);
+        int index = list.size();
+        fireTableCellUpdated(index,index);
+    }
+
 
     public int getColumnCount() {
         return columnNames.length;
     }
 
-    public void setMyList(CustomListModel<SaleItem> myList) {
-        this.myList = myList;
+    public void setList(List<SaleItem> myList) {
+        this.list = myList;
+        fireTableDataChanged();
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         // Indicate the change has happened:
-        fireTableDataChanged();
         super.setValueAt(aValue, rowIndex, columnIndex);
+        fireTableDataChanged();
     }
 
     public int getRowCount() {
         int size;
-        if (myList == null) {
+        if (list == null) {
             size = 0;
         } else {
-            size = myList.getSize();
+            size = list.size();
         }
         return size;
     }
@@ -42,11 +66,11 @@ public class SimpleSaleItemTableModel extends AbstractTableModel {
     public Object getValueAt(int row, int col) {
         Object temp = null;
         if (col == 0) {
-            temp = myList.getElementAt(row).getProduct().getName();
+            temp = getElementAt(row).getProduct().getName();
         } else if (col == 1) {
-            temp = myList.getElementAt(row).getTotalPrice();
+            temp = getElementAt(row).getTotalPrice();
         } else if (col == 2) {
-            temp = (double) myList.getElementAt(row).getQuantity();
+            temp = (double) getElementAt(row).getQuantity();
         }
         return temp;
     }

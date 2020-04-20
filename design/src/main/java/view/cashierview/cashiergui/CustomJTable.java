@@ -1,30 +1,34 @@
 package view.cashierview.cashiergui;
 
-import model.CustomListModel;
 import model.salemodel.Cart;
 import model.salemodel.SaleItem;
+
 import javax.swing.*;
-import javax.swing.event.RowSorterEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomJTable implements ActionListener {
     private SimpleSaleItemTableModel tableModel;
     JPanel panel;
     private JTable table;
-    private CustomListModel<SaleItem> myList;
+    private List<SaleItem> list;
+
     public CustomJTable() {
-    }
-
-    public void createDefault(Cart cart){
-        myList = cart.getItems();
-        tableModel = new SimpleSaleItemTableModel(myList);
-
+        panel = new JPanel();
+        tableModel = new SimpleSaleItemTableModel();
+        table = new JTable(tableModel);
         table.setAutoCreateRowSorter(true);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(380,280));
         panel.add(scrollPane);
+    }
+
+    public void createDefault(Cart cart){
+        list = cart.getItems();
+
     }
 
     public void setTableModel(SimpleSaleItemTableModel tableModel) {
@@ -42,12 +46,13 @@ public class CustomJTable implements ActionListener {
         return panel;
     }
 
-    public CustomListModel<SaleItem> getMyList() {
-        return myList;
+    public List<SaleItem> getCart() {
+        return list;
     }
 
-    public void setMyList(CustomListModel<SaleItem> myList) {
-        this.myList = myList;
+    public void setCard(List<SaleItem> myList) {
+        this.list = myList;
+        tableModel.setList(myList);
     }
 
     public JTable getTable() {

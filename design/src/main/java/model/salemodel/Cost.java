@@ -1,11 +1,9 @@
 package model.salemodel;
 
-import java.util.Objects;
-
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.Serializable;
+import java.util.Objects;
 public class Cost implements PropertyChangeListener, Serializable {
     private double totalCost = 0;
     private double totalVAT = 0;
