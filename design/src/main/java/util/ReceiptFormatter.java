@@ -18,10 +18,10 @@ public class ReceiptFormatter {
     }
 
     private String saleInfoToString(){
-        String amountPaid = String.valueOf(receipt.getSale().getTotalCost() + receipt.getSale().getCashBack());
-        return     "totalCost : " + receipt.getSale().getTotalCost() + '\n' +
+        String amountPaid = String.valueOf(receipt.getSale().getCost().getTotalCost() + receipt.getSale().getCashBack());
+        return     "totalCost : " + receipt.getSale().getCost().getTotalCost() + '\n' +
                     "Amount payed : " + amountPaid + "\n" +
-                "totalVAT : " + receipt.getSale().getTotalVAT() + " kr\n" +
+                "totalVAT : " + receipt.getSale().getCost().getTotalVAT() + " kr\n" +
                 "cashBack : " + receipt.getSale().getCashBack() + " kr\n" +
                 "timeAndDateOfSale : " + receipt.getSale().getSaleDetail().getTimeAndDateOfSale() + '\n' +
                 "Sale id " + receipt.getSale().getSaleDetail().getSaleId();

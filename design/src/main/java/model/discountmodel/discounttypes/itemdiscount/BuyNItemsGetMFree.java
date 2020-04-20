@@ -1,28 +1,22 @@
 package model.discountmodel.discounttypes.itemdiscount;
 
-import model.itemmodel.ItemModel;
+import model.itemmodel.Product;
 import service.discountservice.discountpolicy.BuyNItemsGetMFreePolicy;
 
-import java.util.List;
-
 public class BuyNItemsGetMFree extends ItemDiscount {
-    private List<ItemModel> discountedItems;
-    double totalPriceReduction;
+    private Product discountedItem;
+    private int requiredAmountOfItems;
 
     public BuyNItemsGetMFree(BuyNItemsGetMFreePolicy policy) {
-
-    }
-
-    @Override
-    List getDiscountedItems() {
-        return discountedItems;
-    }
-
-    public double getTotalPriceReduction() {
-        return 0;
+        super(policy);
     }
 
     public String getDiscountType() {
         return null;
+    }
+
+    @Override
+    public double getTotalPriceReduction(){
+        return super.totalPriceReduction;
     }
 }

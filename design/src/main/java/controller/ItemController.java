@@ -1,7 +1,6 @@
 package controller;
 
-import integration.productdb.ItemDTO;
-import service.inventoryservice.ItemScanner;
+import model.itemmodel.Product;
 import service.inventoryservice.ItemService;
 import startup.LayerCreator;
 
@@ -23,8 +22,8 @@ public class ItemController {
      * @return
      */
     public String registerItem(int itemId, int quantity) {
-        ItemDTO itemDTO =  itemService.getItem(itemId);
-        String displayMessage = saleController.registerItem(itemDTO, quantity);
+        Product product =  itemService.getItem(itemId);
+        String displayMessage = saleController.registerItem(product, quantity);
         return displayMessage;
     }
 }

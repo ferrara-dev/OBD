@@ -1,4 +1,4 @@
-package integration.discountdb;
+package integration.datatransferobject;
 
 
 public class DiscountDTO {

@@ -1,20 +1,28 @@
 package model.itemmodel;
 
-import integration.productdb.ItemDTO;
+import integration.datatransferobject.ItemDTO;
 
-public class ItemModel {
+public class Product {
         private String name;
         private int itemId;
         private double price;
-        private int quantity = 1;
-        private double totalPrice;
         private String category;
-        private double taxRate;
         private double totalVAT;
-        private double itemPrice;
+        private double taxRate;
+        private double totalPrice;
 
-        public ItemModel(){
+        public Product(){
 
+        }
+
+        public void setAttributes(ItemDTO itemDTO){
+                name = itemDTO.getName();
+                itemId = itemDTO.getItemId();
+                price = itemDTO.getPrice();
+                category = itemDTO.getCategory();
+                taxRate = Tax.getTax(this);
+                totalVAT = taxRate * price;
+                totalPrice = totalVAT + price;
         }
 
         public void createItemModel(ItemDTO itemDTO){
@@ -24,7 +32,6 @@ public class ItemModel {
                 category = itemDTO.getCategory();
                 setTaxRate();
                 setTotalVAT(taxRate * price);
-                setTotalPrice();
         }
 
         public double getTotalVAT() {
@@ -35,7 +42,6 @@ public class ItemModel {
                 this.totalVAT = totalVAT;
         }
 
-
         public void setItemId(int itemId) {
                 this.itemId = itemId;
         }
@@ -45,34 +51,13 @@ public class ItemModel {
                 this.price = price;
         }
 
-
-        public void setQuantity(int quantity) {
-                this.quantity = quantity;
-        }
-
-
-        public void setTotalPrice() {
-                totalPrice = quantity*price*(taxRate + 1);
-        }
-
-
         public void setCategory(String category) {
                 this.category = category;
         }
 
-
         public void setTaxRate() {
                 this.taxRate = Tax.getTax(this);
         }
-
-
-        public String toString(){
-                return  "Item :  " + this.name + "\n" +
-                        "Quantity : " + this.quantity + "\n" +
-                        "Total price : " + this.totalPrice + "\n" +
-                        "Which of tax : " + taxRate*totalPrice;
-        }
-
 
         public String getName() {
                 return name;
@@ -80,10 +65,6 @@ public class ItemModel {
 
         public void setTaxRate(double taxRate) {
                 this.taxRate = taxRate;
-        }
-
-        public void setItemPrice(double itemPrice) {
-                this.itemPrice = itemPrice;
         }
 
         public void setTotalPrice(double totalPrice) {
@@ -94,41 +75,32 @@ public class ItemModel {
                 return itemId;
         }
 
-
         public double getPrice() {
                 return price;
         }
-
-        public int getQuantity() {
-                return quantity;
-        }
-
 
         public double getTotalPrice() {
                 return totalPrice;
         }
 
-
         public String getCategory() {
                 return category;
         }
-
 
         public double getTaxRate() {
                 return taxRate;
         }
 
-
-        private void calcTotalPrice(){
-                totalPrice = quantity*price*(taxRate + 1);
-        }
-
-
         public void setName(String name) {
                 this.name = name;
         }
 
-        public double getItemPrice(){
-                return totalPrice/quantity;
+
+        public boolean equals(Product product){
+                if(this == product)
+                        return true;
+                else if(this.itemId == product.getItemId())
+                        return true;
+                return false;
         }
 }

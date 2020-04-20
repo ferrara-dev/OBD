@@ -1,7 +1,6 @@
 package view.cashierview.cashiergui.panels;
 
 import net.miginfocom.swing.MigLayout;
-import view.cashierview.cashiergui.GuiUtil;
 
 import javax.swing.*;
 import java.awt.*;

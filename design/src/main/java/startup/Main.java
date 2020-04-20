@@ -20,24 +20,33 @@ import java.util.Objects;
 
 
 public class Main {
-
+    private static CashierGui cashierGUI;
+    private static LayerCreator layerCreator;
     public static void main(String[] args) throws Exception {
         DBCreator.createTable();
         start();
     }
 
-    private static void start() throws Exception {
-
-        LayerCreator layerCreator = new LayerCreator();
-        run(new CashierView(layerCreator));
+    public static LayerCreator getLayerCreator() {
+        return layerCreator;
     }
 
-    private static void run(CashierView cashierView) {
+    public static CashierGui getCashierGUI() {
+        return cashierGUI;
+    }
+
+    private static void start() throws Exception {
+
+        layerCreator = new LayerCreator();
+        run(layerCreator);
+    }
+
+    private static void run(LayerCreator layerCreator) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
                     WebLookAndFeel.install ( WebDarkSkin.class );
-                    new CashierGui(cashierView);
+                    cashierGUI =  new CashierGui(layerCreator);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (URISyntaxException e) {

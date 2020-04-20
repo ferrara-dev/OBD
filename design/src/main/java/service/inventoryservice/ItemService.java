@@ -1,7 +1,7 @@
 package service.inventoryservice;
 
-import integration.productdb.ItemDTO;
-import model.itemmodel.ItemModel;
+import integration.datatransferobject.ItemDTO;
+import model.itemmodel.Product;
 
 
 public class ItemService {
@@ -11,17 +11,17 @@ public class ItemService {
 
     }
 
-    public ItemDTO getItem(int itemId){
+    public Product getItem(int itemId){
         return itemScanner.scanId(itemId);
     }
 
-    public ItemModel createItemModel(ItemDTO itemDTO, int quantity){
-        ItemModel itemModel = new ItemModel();
-        itemModel.createItemModel(itemDTO);
-        itemModel.setQuantity(quantity);
-        itemModel.setTotalPrice();
-        itemModel.setTotalVAT(itemModel.getQuantity() * itemModel.getPrice() * itemModel.getTaxRate());
-        return itemModel;
+    public Product createItemModel(ItemDTO itemDTO, int quantity){
+        Product product = new Product();
+        product.setAttributes(itemDTO);
+        //product.setQuantity(quantity);
+    //    product.setTotalPrice();
+   //     product.setTotalVAT(product.getQuantity() * product.getPrice() * product.getTaxRate());
+        return product;
     }
 
 

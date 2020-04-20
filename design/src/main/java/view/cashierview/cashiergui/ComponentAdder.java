@@ -1,6 +1,8 @@
 package view.cashierview.cashiergui;
 
 import net.miginfocom.swing.MigLayout;
+import view.cashierview.cashiergui.panels.GuiCreator;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,6 +14,7 @@ public class ComponentAdder {
     }
 
     private void addComponents(){
+
         //Create the "cards".
         JPanel card1 = new JPanel(new MigLayout("fill"));
         card1.add(creator.getCashierGui().buttonHandler.getStartButton(), "center,span,grow");
@@ -48,6 +51,8 @@ public class ComponentAdder {
         creator.getCashierGui().cards.add(card2, "card2");
         creator.getCashierGui().cards.add(card3, "card3");
         creator.getMainFrame().add(creator.getCashierGui().cards);
+
+
 
     }
 

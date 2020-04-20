@@ -2,15 +2,14 @@ package service.saleservice;
 
 import integration.DBService;
 import integration.Printer;
-import integration.productdb.ItemDTO;
 import java.util.HashMap;
 import java.util.Objects;
 import model.discountmodel.Discount;
-import model.itemmodel.ItemModel;
+import model.itemmodel.Product;
 import model.physicalobjects.Receipt;
 import model.salemodel.Sale;
+import model.salemodel.SaleItem;
 import service.inventoryservice.ItemService;
-import util.NotFoundException;
 
 
 public class SaleService {
@@ -50,67 +49,45 @@ public class SaleService {
         updateRunningTotal(discount.getTotalPriceReduction()*-1);
     }
 
-    public String registerItem(ItemDTO itemDTO, int quantity) {
+    public String registerItem(Product product, int quantity) {
         if (Objects.isNull(sale)) {
             startSale();
         }
-
         if (!sale.getSaleDetail().isCompleted())
             if (sale.getSaleDetail().isActive()) {
-                ItemModel saleLineItem = itemService.createItemModel(itemDTO, quantity);
-                int itemId = itemDTO.getItemId();
-                addSaleLineItem(saleLineItem);
-
-                double itemVAT = sale.getSaleDetail().getGoods().get(itemId).getTotalVAT();
-                double price = sale.getSaleDetail().getGoods().get(itemId).getTotalPrice();
-                updateTotalVAT(itemVAT);
-                updateRunningTotal(price);
+                sale.getCart().add(product,quantity);
+                sale.updateCost();
             }
 
         return sale.saleDetailAsString();
     }
 
     public void updateRunningTotal(double amount) {
-        double newTotal = sale.getRunningTotal() + amount;
+        double newTotal = sale.getCost().getTotalCost();
         sale.setRunningTotal(newTotal);
-
-        if (!sale.getSaleDetail().isCompleted())
-            sale.setTotalCost(sale.getRunningTotal());
     }
 
-    public ItemModel getRegisteredItem(int itemId){
-        ItemModel registeredItem = sale.getSaleDetail().getGoods().get(itemId);
-        if(Objects.isNull(registeredItem))
-            throw new NotFoundException("Item has not been registered");
-        return sale.getSaleDetail().getGoods().get(itemId);
-    }
-
-    public String endSale() {
+    public Sale endSale() {
         sale.getSaleDetail().setCompleted(true);
-        double totalCost = sale.getRunningTotal();
-        sale.setTotalCost(totalCost);
-        return Double.toString(sale.getTotalCost());
+        return sale;
     }
 
-    private void updateTotalVAT(double amount) {
-        double newVAT = sale.getTotalVAT() + amount;
-        sale.setTotalVAT(newVAT);
-    }
 
-    private void addSaleLineItem(ItemModel saleLineItem) {
+/*
+    private void addSaleItem(Product saleLineItem) {
         if (Objects.isNull(saleLineItem))
             throw new IllegalStateException("There must be an saleLineItem to register");
 
-        HashMap<Integer,ItemModel> goods = sale.getSaleDetail().getGoods();
+        HashMap<Integer, SaleItem> goods = sale.getSaleDetail().getGoods();
         int itemId = saleLineItem.getItemId();
         if (goods.containsKey(itemId)) {
             int newQuantity = goods.get(itemId).getQuantity() + saleLineItem.getQuantity();
-            goods.get(itemId).setQuantity(newQuantity);
+            goods.get(itemId).update(newQuantity);
         }
         else
             goods.put(itemId,saleLineItem);
 
         sale.getSaleDetail().setGoods(goods);
     }
-
+*/
 }

@@ -1,20 +1,18 @@
 package view.cashierview.cashiergui;
 
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
-import util.FormatException;
 import util.NotFoundException;
 import view.cashierview.cashiergui.panels.GuiErrorMessage;
 
 /**
  * class that handles input and output
  */
-public class IOHandler implements ActionListener {
+public class InputHandler implements ActionListener {
     CashierGui cashierGui;
 
-    public IOHandler(CashierGui cashierGui) {
+    public InputHandler(CashierGui cashierGui) {
         this.cashierGui = cashierGui;
     }
 
@@ -76,7 +74,6 @@ public class IOHandler implements ActionListener {
     private void signalDiscount() {
         String customerId = cashierGui.textHandler.getCustomerIdTextField().getText();
         try {
-            cashierGui.getCashierView().signalDiscountRequest(customerId);
             cashierGui.signalDiscount(customerId);
             //cashierGui.textHandler.getSaleInformationArea().setText(displayMessage);
         } catch (NotFoundException ex) {

@@ -1,6 +1,8 @@
-package view.cashierview.cashiergui;
+package view.cashierview.cashiergui.panels;
 
-import view.cashierview.cashiergui.panels.DisplayPanel;
+import view.cashierview.PropertyListenerFactory;
+import view.cashierview.cashiergui.CashierGui;
+import view.cashierview.cashiergui.ComponentAdder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,12 +13,17 @@ public class GuiCreator {
     private DisplayPanel displayPanel;
     private CashierGui cashierGui;
     private ComponentAdder componentAdder;
-
+    PropertyListenerFactory propertyListenerFactory;
     public GuiCreator(CashierGui cashierGui) throws Exception {
+        propertyListenerFactory = new PropertyListenerFactory(this);
         this.cashierGui = cashierGui;
         createGUI();
         showGUI();
         componentAdder = new ComponentAdder(this);
+    }
+
+    public PropertyListenerFactory getPropertyListenerFactory() {
+        return propertyListenerFactory;
     }
 
     public JFrame getMainFrame() {

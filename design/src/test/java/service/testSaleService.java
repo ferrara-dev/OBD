@@ -45,7 +45,7 @@ public class testSaleService {
             itemController.registerItem(i,5);
         }
 
-        double cost = saleService.getSale().getTotalCost();
+        double cost = saleService.getSale().getCost().getTotalCost();
         double runningTotal = saleService.getSale().getRunningTotal();
         assertEquals(cost,runningTotal);
 

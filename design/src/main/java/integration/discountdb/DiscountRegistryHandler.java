@@ -1,6 +1,7 @@
 package integration.discountdb;
 
 import integration.DataBaseHandler;
+import integration.datatransferobject.DiscountDTO;
 import model.discountmodel.Discount;
 import util.Calendar;
 import util.NotFoundException;

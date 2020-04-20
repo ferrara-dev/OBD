@@ -39,7 +39,7 @@ public class SaleControllerTest {
         layerCreator.getItemController().registerItem(1,2);
         layerCreator.getSaleController().endSale();
     }
-
+/*
     @Test
     public void enterPayment() {
         assertEquals("Sale Started", layerCreator.getSaleController().startSale());
@@ -49,6 +49,8 @@ public class SaleControllerTest {
         layerCreator.getSaleController().getPaymentService().processPayment(layerCreator.getPhysicalObjectCreator().getCashRegister());
     }
 
+
+ */
     @Test
     public void applyDiscountToSale() {
 

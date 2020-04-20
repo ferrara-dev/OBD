@@ -1,21 +1,18 @@
 package view.cashierview.cashiergui;
 
-import util.FormatException;
-import util.NotFoundException;
-import view.cashierview.CashierView;
+import controller.DiscountController;
+import controller.ItemController;
+import controller.SaleController;
+import startup.LayerCreator;
+import view.cashierview.cashiergui.buttons.ButtonHandler;
 import view.cashierview.cashiergui.panels.*;
 
+
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+
 
 public class CashierGui extends JFrame {
-    private CashierView cashierView;
     DisplayPanel displayPanel;
     DisplayPanel secondDisplayPanel;
     JPanel cards;
@@ -28,21 +25,29 @@ public class CashierGui extends JFrame {
     final JLabel saleInformationLabel = new JLabel("SaleInformation ");
 
 
-    IOHandler ioHandler;
+    InputHandler inputHandler;
     ButtonHandler buttonHandler;
     TextHandler textHandler;
+    private SaleController saleController;
+    private ItemController itemController;
+    private DiscountController discountController;
 
-    public CashierView getCashierView() {
-        return cashierView;
+
+
+    public SaleController getCashierView() {
+        return saleController;
     }
 
     public TextHandler getTextHandler() {
         return textHandler;
     }
 
-    public CashierGui(CashierView cashierView) throws Exception {
-        this.cashierView = cashierView;
-        ioHandler = new IOHandler(this);
+    public CashierGui(LayerCreator creator) throws Exception {
+        saleController = creator.getSaleController();
+        discountController = creator.getDiscountController();
+        itemController = creator.getItemController();
+
+        inputHandler = new InputHandler(this);
         buttonHandler = new ButtonHandler();
         textHandler = new TextHandler();
 
@@ -59,7 +64,7 @@ public class CashierGui extends JFrame {
      * @param quantity
      */
     public void registerItem(int itemId, int quantity){
-        String outputInformation = cashierView.registerItem(itemId,quantity);
+        String outputInformation = saleController.getCreator().getItemController().registerItem(itemId,quantity);
         updateSaleInformation(outputInformation);
     }
 
@@ -69,8 +74,8 @@ public class CashierGui extends JFrame {
     public void endSale(){
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.next(cards);
-        String outPutInformation = cashierView.endSale();
-        updateEndSaleTextArea(outPutInformation);
+        saleController.endSale();
+        updateEndSaleTextArea("outPutInformation");
     }
 
     /**
@@ -81,7 +86,7 @@ public class CashierGui extends JFrame {
     public void startSale(){
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.next(cards);
-        cashierView.startSale();
+        saleController.startSale();
     }
 
     /**
@@ -91,7 +96,7 @@ public class CashierGui extends JFrame {
      *                   the discount is requested
      */
     public void signalDiscount(String customerId){
-        cashierView.signalDiscountRequest(customerId);
+       discountController.signalDiscountRequest(customerId);
     }
 
     /**
@@ -99,15 +104,15 @@ public class CashierGui extends JFrame {
      * goes on to update the text on <code>secondDisplayPanel</code>
      */
     public void enterPayment(){
-            String outputInformation = cashierView.enterPayment(Double.parseDouble(textHandler.getPaymentTextField().getText()));
+            String outputInformation = saleController.enterPayment(Double.parseDouble(textHandler.getPaymentTextField().getText()));
             updateEndSaleTextArea(outputInformation);
     }
     private void addActionListeners() {
-        buttonHandler.getStartButton().addActionListener(ioHandler::actionPerformed);
-        buttonHandler.getRegisterItemButton().addActionListener(ioHandler::actionPerformed);
-        buttonHandler.getEndSaleButton().addActionListener(ioHandler::actionPerformed);
-        buttonHandler.getDiscountButton().addActionListener(ioHandler::actionPerformed);
-        buttonHandler.getPaymentButton().addActionListener(ioHandler::actionPerformed);
+        buttonHandler.getStartButton().addActionListener(inputHandler::actionPerformed);
+        buttonHandler.getRegisterItemButton().addActionListener(inputHandler::actionPerformed);
+        buttonHandler.getEndSaleButton().addActionListener(inputHandler::actionPerformed);
+        buttonHandler.getDiscountButton().addActionListener(inputHandler::actionPerformed);
+        buttonHandler.getPaymentButton().addActionListener(inputHandler::actionPerformed);
     }
 
     private void updateSaleInformation(String displayMessage){

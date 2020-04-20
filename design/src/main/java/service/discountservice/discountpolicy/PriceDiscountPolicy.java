@@ -29,13 +29,13 @@ public class PriceDiscountPolicy extends DiscountPolicy {
     @Override
     public PriceDiscount calculateDiscount(Sale sale) {
         if(sale.getSaleDetail().isCompleted() && sale.getSaleDetail().isActive()) {
-            double totalPrice = sale.getTotalCost();
+            double totalPrice = sale.getCost().getTotalCost();
             if (minimumSpent <= totalPrice)
                 totalPriceReduction = totalPrice*reduction;
         }
 
         else if(sale.getSaleDetail().isActive() && !sale.getSaleDetail().isCompleted()){
-            double totalPrice = sale.getTotalCost();
+            double totalPrice = sale.getCost().getTotalCost();
             if (minimumSpent <= totalPrice)
                 totalPriceReduction = totalPrice*reduction;
         }

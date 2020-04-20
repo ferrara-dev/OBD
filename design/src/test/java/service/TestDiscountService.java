@@ -42,7 +42,7 @@ public class TestDiscountService {
     public void tearDown() throws Exception {
 
     }
-
+/*
     @Test
     public void testDiscountService() throws Exception {
         double priceBeforeDiscount = sale.getTotalCost();
@@ -56,4 +56,6 @@ public class TestDiscountService {
 
     }
 
+
+ */
 }

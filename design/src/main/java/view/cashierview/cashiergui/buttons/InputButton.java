@@ -1,4 +1,4 @@
-package view.cashierview.cashiergui.panels;
+package view.cashierview.cashiergui.buttons;
 
 import javax.swing.*;
 

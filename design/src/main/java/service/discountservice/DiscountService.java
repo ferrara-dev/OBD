@@ -2,7 +2,7 @@ package service.discountservice;
 
 import integration.DataBaseHandler;
 import integration.discountdb.DiscountRegistryHandler;
-import integration.discountdb.DiscountDTO;
+import integration.datatransferobject.DiscountDTO;
 
 import java.util.ArrayList;
 import java.util.List;

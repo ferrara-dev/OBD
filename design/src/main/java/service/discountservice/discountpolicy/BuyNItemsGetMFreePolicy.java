@@ -1,7 +1,7 @@
 package service.discountservice.discountpolicy;
 
 import model.discountmodel.discounttypes.itemdiscount.BuyNItemsGetMFree;
-import model.itemmodel.ItemModel;
+import model.itemmodel.Product;
 import model.salemodel.Sale;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class BuyNItemsGetMFreePolicy extends DiscountPolicy {
     private final int limit;
     private final double reduction;
     private double totalPriceReduction;
-    private List<ItemModel> discountedItems;
+    private List<Product> discountedItems;
 
     public BuyNItemsGetMFreePolicy(int requiredAmountOfItems, int[] itemId, int limit, double priceReduction) {
         this.requiredAmountOfItems = requiredAmountOfItems;
@@ -34,6 +34,9 @@ public class BuyNItemsGetMFreePolicy extends DiscountPolicy {
 
     @Override
     public BuyNItemsGetMFree calculateDiscount(Sale sale) {
+
+       /*
+
         int length = itemId.length;
         double itemPrice = 0;
         int itemQuantity = 0;
@@ -53,6 +56,8 @@ public class BuyNItemsGetMFreePolicy extends DiscountPolicy {
         }
 
         return new BuyNItemsGetMFree(this);
+        */
+       return null;
     }
 
     @Override

@@ -4,14 +4,13 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import integration.discountdb.DiscountDTO;
-import integration.productdb.ItemDTO;
+import integration.datatransferobject.DiscountDTO;
+import integration.datatransferobject.ItemDTO;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.salemodel.Sale;
 import util.Calendar;
-import model.salemodel.SaleDetail;
 import util.NotFoundException;
 
 import java.io.IOException;

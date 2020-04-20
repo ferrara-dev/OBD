@@ -1,6 +1,7 @@
 package integration.productdb;
 
 import integration.DataBaseHandler;
+import integration.datatransferobject.ItemDTO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

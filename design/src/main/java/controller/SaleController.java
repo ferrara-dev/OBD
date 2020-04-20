@@ -1,7 +1,10 @@
 package controller;
 
-import integration.productdb.ItemDTO;
+import integration.datatransferobject.ItemDTO;
 import model.discountmodel.Discount;
+import model.itemmodel.Product;
+import model.salemodel.Payment;
+import model.salemodel.Sale;
 import service.saleservice.PaymentService;
 import service.saleservice.SaleService;
 import startup.LayerCreator;
@@ -18,6 +21,10 @@ public class SaleController {
         this.paymentService = new PaymentService(saleService);
     }
 
+    public LayerCreator getCreator() {
+        return creator;
+    }
+
     public SaleService getSaleService() {
         return saleService;
     }
@@ -26,8 +33,8 @@ public class SaleController {
         return paymentService;
     }
 
-    public String registerItem(ItemDTO itemDTO, int quantity) {
-        return saleService.registerItem(itemDTO, quantity);
+    public String registerItem(Product product, int quantity) {
+        return saleService.registerItem(product, quantity);
     }
 
     /**
@@ -49,7 +56,7 @@ public class SaleController {
      *
      * @return message shown by the gui to present total cost
      */
-    public String endSale() {
+    public Sale endSale() {
         return saleService.endSale();
     }
 
@@ -60,9 +67,9 @@ public class SaleController {
      * @return returns information that is forwarded to a printer that prints a receipt
      */
     public String enterPayment(double amountPayed) {
-        paymentService.setPayment(amountPayed);
-        double change = paymentService.processPayment(creator.getPhysicalObjectCreator().getCashRegister());
-
+        Payment payment = new Payment();
+        payment.setAmountPayed(amountPayed);
+        double change = paymentService.processPayment(creator.getPhysicalObjectCreator().getCashRegister(), payment);
         return saleService.finalizeSale();
     }
 

@@ -1,4 +1,4 @@
-package integration.productdb;
+package integration.datatransferobject;
 
 public class ItemDTO {
     private String name;

@@ -1,8 +1,7 @@
 package service.discountservice;
 
 
-import integration.discountdb.DiscountDTO;
-import model.salemodel.Sale;
+import integration.datatransferobject.DiscountDTO;
 import service.discountservice.discountpolicy.BulkDiscountPolicy;
 import service.discountservice.discountpolicy.BuyNItemsGetMFreePolicy;
 import service.discountservice.discountpolicy.DiscountPolicy;

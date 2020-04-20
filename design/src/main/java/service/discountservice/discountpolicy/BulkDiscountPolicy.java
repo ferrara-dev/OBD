@@ -1,7 +1,7 @@
 package service.discountservice.discountpolicy;
 
 import model.discountmodel.discounttypes.itemdiscount.BulkDiscount;
-import model.itemmodel.ItemModel;
+import model.itemmodel.Product;
 import model.salemodel.Sale;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class BulkDiscountPolicy extends DiscountPolicy {
     private final int limit;
     private final int[] itemId;
     private double totalPriceReduction;
-    private List<ItemModel> discountedItems;
+    private List<Product> discountedItems;
 
     public BulkDiscountPolicy(int[] itemId, int minimumAmountOfItems, int limit, double priceReduction) {
         this.reduction = priceReduction;
@@ -48,12 +48,13 @@ public class BulkDiscountPolicy extends DiscountPolicy {
         return limit;
     }
 
-    public List<ItemModel> getDiscountedItems() {
+    public List<Product> getDiscountedItems() {
         return discountedItems;
     }
 
     @Override
     public BulkDiscount calculateDiscount(Sale sale) {
+        /*
         int length = itemId.length;
         double itemPrice = 0;
         int itemQuantity;
@@ -68,6 +69,9 @@ public class BulkDiscountPolicy extends DiscountPolicy {
             i++;
         }
         return new BulkDiscount(this);
+
+         */
+        return null;
     }
 
     @Override

@@ -1,9 +1,9 @@
 package service.inventoryservice;
 
-import integration.DBService;
 import integration.DataBaseHandler;
 import integration.productdb.InventoryHandler;
-import integration.productdb.ItemDTO;
+import integration.datatransferobject.ItemDTO;
+import model.itemmodel.Product;
 
 /**
  * Class representing a scanner used by the cashier to read the itemId
@@ -19,8 +19,11 @@ public class ItemScanner {
      * @param itemId
      * @return details about the item that is mapped to the id given in the
      */
-    public ItemDTO scanId(int itemId){
-        return fetchItemDetail(itemId);
+    public Product scanId(int itemId){
+        ItemDTO dto = fetchItemDetail(itemId);
+        Product product = new Product();
+        product.setAttributes(dto);
+        return product;
     }
 
     /**

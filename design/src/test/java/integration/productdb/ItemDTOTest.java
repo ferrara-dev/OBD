@@ -1,5 +1,6 @@
 package integration.productdb;
 
+import integration.datatransferobject.ItemDTO;
 import org.junit.After;
 import org.junit.Before;
 

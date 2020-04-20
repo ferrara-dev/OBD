@@ -1,8 +1,6 @@
-package view.cashierview.cashiergui;
+package view.cashierview.cashiergui.buttons;
 
-import view.cashierview.cashiergui.panels.CardSwitchingButton;
-import view.cashierview.cashiergui.panels.InputButton;
-import view.cashierview.cashiergui.panels.RegistrationButton;
+import view.cashierview.cashiergui.InputHandler;
 
 /**
  * Class that handles the push buttons in the cashier gui
@@ -23,12 +21,12 @@ public class ButtonHandler {
     }
 
 
-    public void addActionListeners(IOHandler ioHandler) {
-        startButton.addActionListener(ioHandler::actionPerformed);
-        registerItemButton.addActionListener(ioHandler::actionPerformed);
-        endSaleButton.addActionListener(ioHandler::actionPerformed);
-        discountButton.addActionListener(ioHandler::actionPerformed);
-        paymentButton.addActionListener(ioHandler::actionPerformed);
+    public void addActionListeners(InputHandler inputHandler) {
+        startButton.addActionListener(inputHandler::actionPerformed);
+        registerItemButton.addActionListener(inputHandler::actionPerformed);
+        endSaleButton.addActionListener(inputHandler::actionPerformed);
+        discountButton.addActionListener(inputHandler::actionPerformed);
+        paymentButton.addActionListener(inputHandler::actionPerformed);
     }
 
     public InputButton getStartButton() {

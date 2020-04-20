@@ -6,19 +6,16 @@ import util.InsufficientPaymentException;
 
 public class PaymentService {
     SaleService saleService;
-    Payment payment;
 
     public PaymentService(SaleService saleService) {
         this.saleService = saleService;
     }
 
-    public void setPayment(double amount) {
-        payment = new Payment(saleService.getSale().getRunningTotal(), amount);
-    }
 
-    public double processPayment(Register register) {
+
+    public double processPayment(Register register,Payment payment) {
         register.enterPayment(payment);
-        double change = payment.getPriceToPay() - payment.getAmountPayed();
+        double change = saleService.getSale().getCost().getTotalCost() - payment.getAmountPayed();
         saleService.getSale().setRunningTotal(change);
         if (change > 0)
             throw new InsufficientPaymentException();
@@ -27,6 +24,7 @@ public class PaymentService {
         register.setBalance(register.getBalance() + change);
         saleService.getSale().setCashBack(change);
         saleService.getSale().setRunningTotal(0);
+
         return change;
     }
 
