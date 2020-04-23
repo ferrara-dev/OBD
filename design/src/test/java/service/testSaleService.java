@@ -3,7 +3,7 @@ package service;
 import controller.DiscountController;
 import controller.ItemController;
 import controller.SaleController;
-import model.salemodel.Sale;
+import model.sale.Sale;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,9 +22,7 @@ public class testSaleService {
     @Before
     public void setUp() throws Exception {
         layerCreator = new LayerCreator();
-        saleController = layerCreator.getSaleController();
-        discountController = layerCreator.getDiscountController();
-        itemController = layerCreator.getItemController();
+
     }
 
     @After

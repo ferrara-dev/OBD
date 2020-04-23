@@ -1,14 +1,24 @@
 package view;
 
 import model.AbstractModel;
+import model.listener.saleprocess.SaleProgressListener;
 
+import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-public abstract class View implements PropertyChangeListener {
+public abstract class View extends JPanel implements PropertyChangeListener, SaleProgressListener {
     private ArrayList<AbstractModel> registeredModels;
+    private ArrayList<View> registeredViews;
+
+    public View() {
+        registeredViews = new ArrayList<View>();
+        registeredModels = new ArrayList<AbstractModel>();
+    }
+
+    public abstract Object getSaleView();
 
     public void addModel(AbstractModel model) {
         registeredModels.add(model);
@@ -22,8 +32,6 @@ public abstract class View implements PropertyChangeListener {
 
     //  Use this to observe property changes from registered models
     //  and propagate them on to all the views.
-
-
     public void propertyChange(PropertyChangeEvent evt) {
         for (AbstractModel model: registeredModels) {
             modelPropertyChange(evt);

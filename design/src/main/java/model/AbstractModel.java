@@ -1,5 +1,4 @@
 package model;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -17,6 +16,14 @@ public abstract class AbstractModel {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    public PropertyChangeListener [] getPropertyChangeListeners(String propertyName){
+        return propertyChangeSupport.getPropertyChangeListeners(propertyName);
+    }
+
+    public PropertyChangeListener [] getPropertyChangeListeners(){
+        return propertyChangeSupport.getPropertyChangeListeners();
     }
 
     protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {

@@ -1,41 +1,34 @@
 package controller;
 
-import integration.datatransferobject.ItemDTO;
-import model.discountmodel.Discount;
-import model.itemmodel.Product;
-import model.salemodel.Payment;
-import model.salemodel.Sale;
-import model.salemodel.SaleItem;
+import model.PhysicalObjectCreator;
+import model.item.Product;
+import model.listener.saleprocess.SaleCartListener;
+import model.listener.saleprocess.SaleListener;
+import model.listener.saleprocess.SaleProgressListener;
+import model.sale.Payment;
 import service.saleservice.PaymentService;
 import service.saleservice.SaleService;
-import startup.LayerCreator;
+import startup.ServiceFactory;
 
-public class SaleController {
+public class SaleController extends AbstractController{
+    private PhysicalObjectCreator physicalObjectCreator;
 
-    private LayerCreator creator;
-    private SaleService saleService;
-    private PaymentService paymentService;
-
-    public SaleController(LayerCreator creator) {
-        this.creator = creator;
-        this.saleService = new SaleService();
-        this.paymentService = new PaymentService(saleService);
+    public SaleController(ServiceFactory serviceFactory) {
+        super(serviceFactory);
+        physicalObjectCreator = serviceFactory.getPhysicalObjectCreator();
     }
 
-    public LayerCreator getCreator() {
-        return creator;
-    }
 
     public SaleService getSaleService() {
-        return saleService;
+        return super.saleService;
     }
 
     public PaymentService getPaymentService() {
-        return paymentService;
+        return super.paymentService;
     }
 
-    public Sale registerItem(Product product, int quantity) {
-        return saleService.registerItem(product, quantity);
+    public void registerItem(Product product, int quantity) {
+        saleService.registerItem(product, quantity);
     }
 
     /**
@@ -44,12 +37,21 @@ public class SaleController {
      * hasn't been initialized or if the last sale has been completed
      * and logged.
      *
-     * @return message shown by the gui to confirm the start of a new sale
      */
-    public String startSale() {
-        saleService.startSale();
-        String startConfirmation = "Sale Started";
-        return startConfirmation;
+    public void startSale() {
+        saleService.startSale(super.modelListeners);
+    }
+
+    public void addSaleCartListener(SaleCartListener saleCartListener) {
+        super.registerListeners(saleCartListener);
+    }
+
+    public void addSaleProgressListener(SaleProgressListener saleProgressListener) {
+        super.registerListeners(saleProgressListener);
+    }
+
+    public void addSaleListener(SaleListener saleListener){
+        super.registerListeners(saleListener);
     }
 
     /**
@@ -57,8 +59,8 @@ public class SaleController {
      *
      * @return message shown by the gui to present total cost
      */
-    public Sale endSale() {
-        return saleService.endSale();
+    public void endSale() {
+        super.saleService.endSale();
     }
 
     /**
@@ -70,7 +72,7 @@ public class SaleController {
     public String enterPayment(double amountPayed) {
         Payment payment = new Payment();
         payment.setAmountPayed(amountPayed);
-        double change = paymentService.processPayment(creator.getPhysicalObjectCreator().getCashRegister(), payment);
+        double change = paymentService.processPayment(physicalObjectCreator.getCashRegister(), payment);
         return saleService.finalizeSale();
     }
 
@@ -81,10 +83,5 @@ public class SaleController {
      * @param
      * @return
      */
-    public String applyDiscountToSale(Discount discount) {
-        saleService.applyDiscountToSale(discount);
-        return null;
-    }
-
 
 }

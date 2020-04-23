@@ -1,17 +1,14 @@
 package controller;
 
-import model.itemmodel.Product;
-import model.salemodel.Sale;
-import model.salemodel.SaleItem;
+import model.item.Product;
 import service.inventoryservice.ItemService;
-import startup.LayerCreator;
+import startup.ServiceFactory;
 
-public class ItemController {
-    private final SaleController saleController;
+public class ItemController extends AbstractController{
     private final ItemService itemService;
 
-    public ItemController(LayerCreator creator){
-        saleController = creator.getSaleController();
+    public ItemController(ServiceFactory serviceFactory){
+        super(serviceFactory);
         itemService = new ItemService();
     }
 
@@ -23,9 +20,8 @@ public class ItemController {
      * @param quantity
      * @return
      */
-
-    public Sale registerItem(int itemId, int quantity) {
+    public void registerItem(int itemId, int quantity) {
         Product product =  itemService.getItem(itemId);
-        return saleController.registerItem(product, quantity);
+        super.saleService.registerItem(product, quantity);
     }
 }

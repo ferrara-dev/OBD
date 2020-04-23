@@ -1,23 +1,20 @@
 package controller;
 
-import model.discountmodel.Discount;
 import service.discountservice.DiscountService;
 import startup.LayerCreator;
+import startup.ServiceFactory;
 
 import java.util.Objects;
 
 
-public class DiscountController {
-    private LayerCreator creator;
-    private DiscountService discountService;
+public class DiscountController extends AbstractController{
 
-
-    public DiscountController(LayerCreator LayerCreator){
-        this.creator = LayerCreator;
+    public DiscountController(ServiceFactory serviceFactory){
+        super(serviceFactory);
     }
 
     public DiscountService getDiscountService() {
-        return discountService;
+        return super.discountService;
     }
 
     /**
@@ -27,14 +24,12 @@ public class DiscountController {
      * @param customerId
      * @return the discount model is returned back the the view to be interpreted for output
      */
-    public Discount signalDiscountRequest(String customerId){
-        if(Objects.isNull(discountService))
-            discountService = new DiscountService(creator.getSaleController().getSaleService());
+    public void signalDiscountRequest(String customerId){
+        if(Objects.isNull(super.discountService))
+            throw new IllegalStateException();
 
-        discountService.findOffers(customerId);
-        Discount discount = discountService.createDiscountModel();
-        creator.getSaleController().applyDiscountToSale(discount);
-       return discount;
+        super.discountService.findOffers(customerId);
+        super.discountService.applyDiscount();
     }
 
 }

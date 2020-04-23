@@ -9,7 +9,7 @@ import integration.datatransferobject.ItemDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.salemodel.Sale;
+import model.sale.Sale;
 import util.Calendar;
 import util.NotFoundException;
 

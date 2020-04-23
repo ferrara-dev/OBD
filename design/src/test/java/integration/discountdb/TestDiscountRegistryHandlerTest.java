@@ -2,7 +2,7 @@ package integration.discountdb;
 
 import integration.DataBaseHandler;
 import integration.datatransferobject.DiscountDTO;
-import model.discountmodel.Discount;
+import model.discount.Discount;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

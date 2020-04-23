@@ -1,18 +1,13 @@
 package integration.saledb;
 
 import integration.DataBaseHandler;
-import integration.productdb.InventoryHandler;
-import integration.datatransferobject.ItemDTO;
-import model.itemmodel.Product;
-import model.salemodel.Sale;
+import model.sale.Sale;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 import startup.LayerCreator;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.*;
 
 public class TestSaleLogHandler {
     LayerCreator creator;

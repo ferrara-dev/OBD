@@ -1,6 +1,5 @@
 package model.physicalobjects;
-import model.physicalobjects.Store;
-import model.salemodel.Sale;
+import model.sale.Sale;
 import util.Address;
 import util.ContactInformation;
 

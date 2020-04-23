@@ -3,7 +3,7 @@ package service.inventoryservice;
 import integration.DataBaseHandler;
 import integration.productdb.InventoryHandler;
 import integration.datatransferobject.ItemDTO;
-import model.itemmodel.Product;
+import model.item.Product;
 
 /**
  * Class representing a scanner used by the cashier to read the itemId

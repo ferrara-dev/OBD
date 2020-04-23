@@ -1,20 +1,16 @@
 package service.saleservice;
 
-import model.itemmodel.Product;
-import model.salemodel.Sale;
-import model.salemodel.SaleItem;
+import model.item.Product;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class SaleServiceTest {
     SaleService saleService;
     Product [] products = new Product[3];
     @Before
     public void setUp() throws Exception {
-        saleService = new SaleService();
+        //saleService = new SaleService();
         products [0] = saleService.itemService.getItem(1);
         products [1] = saleService.itemService.getItem(2);
         products [2] = saleService.itemService.getItem(1);

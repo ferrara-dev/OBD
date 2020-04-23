@@ -1,6 +1,6 @@
 package integration.saledb;
 
-import model.salemodel.SaleDetail;
+import model.sale.SaleDetail;
 
 public class AccountingHandler {
 

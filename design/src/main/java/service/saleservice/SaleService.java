@@ -2,22 +2,27 @@ package service.saleservice;
 
 import integration.DBService;
 import integration.Printer;
-import java.util.HashMap;
+
+import java.beans.PropertyChangeListener;
+import java.util.List;
 import java.util.Objects;
-import model.discountmodel.Discount;
-import model.itemmodel.Product;
+import model.discount.Discount;
+import model.item.Product;
+import model.listener.saleprocess.SaleCartListener;
+import model.listener.ModelListener;
+import model.listener.saleprocess.SaleProgressListener;
 import model.physicalobjects.Receipt;
-import model.salemodel.Sale;
-import model.salemodel.SaleItem;
+import model.sale.Sale;
 import service.inventoryservice.ItemService;
+import startup.ServiceFactory;
 
 
 public class SaleService {
     Sale sale;
     ItemService itemService;
 
-    public SaleService() {
-        itemService = new ItemService();
+    public SaleService(ServiceFactory serviceFactory) {
+        itemService =  serviceFactory.getItemService();
     }
 
     public String finalizeSale() {
@@ -35,58 +40,61 @@ public class SaleService {
         return sale;
     }
 
-    public void startSale() {
+    public void startSale(List<ModelListener> modelListeners) {
         sale = new Sale();
-        sale.createDefault();
+        for (ModelListener modelListener : modelListeners) {
+            if (modelListener instanceof SaleProgressListener) {
+                sale.createDefault(modelListener);
+                break;
+            }
+        }
+
+        for (ModelListener modelListener : modelListeners) {
+            if (modelListener instanceof SaleCartListener) {
+                sale.getCart().addSaleCartListener((SaleCartListener) modelListener);
+            }
+        }
     }
 
-    /**
-     * applies a discount that has been calculated by the discount service to the current sale
-     * @param discount the discount that is applied
-     */
-    public void applyDiscountToSale(Discount discount) {
-        sale.getSaleDetail().setDiscount(discount);
-        updateRunningTotal(discount.getTotalPriceReduction()*-1);
+    public void distributeSaleListeners(PropertyChangeListener propertyChangeListener) {
+        sale.addPropertyChangeListener(propertyChangeListener);
+        sale.getSaleDetail().addPropertyChangeListener(propertyChangeListener);
+        sale.getCost().addPropertyChangeListener(propertyChangeListener);
     }
 
     public Sale registerItem(Product product, int quantity) {
         if (Objects.isNull(sale)) {
-            startSale();
+            throw new IllegalStateException();
+            // startSale();
         }
+
         if (!sale.getSaleDetail().isCompleted())
             if (sale.getSaleDetail().isActive()) {
-                sale.getCart().add(product,quantity);
+                sale.getCart().add(product, quantity);
                 sale.updateCost();
             }
         return sale;
     }
 
-    public void updateRunningTotal(double amount) {
+    public void updateRunningTotal() {
         double newTotal = sale.getCost().getTotalCost();
         sale.setRunningTotal(newTotal);
     }
 
     public Sale endSale() {
         sale.getSaleDetail().setCompleted(true);
+        applyDiscounts();
         return sale;
     }
 
+    private void applyDiscounts() {
+        List<Discount> discountList = sale.getDiscounts();
+        double priceReduction = 0;
+        if (discountList == null)
+            return;
 
-/*
-    private void addSaleItem(Product saleLineItem) {
-        if (Objects.isNull(saleLineItem))
-            throw new IllegalStateException("There must be an saleLineItem to register");
-
-        HashMap<Integer, SaleItem> goods = sale.getSaleDetail().getGoods();
-        int itemId = saleLineItem.getItemId();
-        if (goods.containsKey(itemId)) {
-            int newQuantity = goods.get(itemId).getQuantity() + saleLineItem.getQuantity();
-            goods.get(itemId).update(newQuantity);
-        }
-        else
-            goods.put(itemId,saleLineItem);
-
-        sale.getSaleDetail().setGoods(goods);
+        sale.updateCost();
+        updateRunningTotal();
     }
-*/
+
 }

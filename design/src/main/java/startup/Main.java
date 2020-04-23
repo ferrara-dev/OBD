@@ -5,8 +5,8 @@ import com.alee.laf.WebLookAndFeel;
 import com.alee.skin.dark.WebDarkSkin;
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import org.h2.tools.RunScript;
-import view.cashierview.CashierView;
-import view.cashierview.cashiergui.CashierGui;
+import view.gui.CashierGui;
+import view.guiutil.GuiCreator;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,24 +20,17 @@ import java.util.Objects;
 
 
 public class Main {
-    private static CashierGui cashierGUI;
-    private static LayerCreator layerCreator;
+
+
     public static void main(String[] args) throws Exception {
         DBCreator.createTable();
         start();
     }
 
-    public static LayerCreator getLayerCreator() {
-        return layerCreator;
-    }
-
-    public static CashierGui getCashierGUI() {
-        return cashierGUI;
-    }
 
     private static void start() throws Exception {
 
-        layerCreator = new LayerCreator();
+        LayerCreator layerCreator = new LayerCreator();
         run(layerCreator);
     }
 
@@ -46,7 +39,7 @@ public class Main {
             public void run() {
                 try {
                     WebLookAndFeel.install ( WebDarkSkin.class );
-                    cashierGUI =  new CashierGui(layerCreator);
+                    GuiCreator guiCreator = new GuiCreator(layerCreator);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (URISyntaxException e) {

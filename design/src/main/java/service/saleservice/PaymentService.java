@@ -1,6 +1,6 @@
 package service.saleservice;
 
-import model.salemodel.Payment;
+import model.sale.Payment;
 import model.physicalobjects.Register;
 import util.InsufficientPaymentException;
 

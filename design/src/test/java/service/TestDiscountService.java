@@ -3,11 +3,9 @@ package service;
 import controller.DiscountController;
 import controller.ItemController;
 import controller.SaleController;
-import model.salemodel.Sale;
+import model.sale.Sale;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import service.discountservice.DiscountService;
 import service.saleservice.SaleService;
 import startup.LayerCreator;
 
@@ -25,9 +23,9 @@ public class TestDiscountService {
     @Before
     public void setUp() throws Exception {
         layerCreator = new LayerCreator();
-        saleController = layerCreator.getSaleController();
-        discountController = layerCreator.getDiscountController();
-        itemController = layerCreator.getItemController();
+     //   saleController = layerCreator.getSaleController();
+     //   discountController = layerCreator.getDiscountController();
+    //  //  itemController = layerCreator.getItemController();
         saleController.startSale();
         SaleService saleService = saleController.getSaleService();
         sale = saleService.getSale();

@@ -3,7 +3,7 @@ package service.discountservice;
 import controller.DiscountController;
 import controller.ItemController;
 import controller.SaleController;
-import model.salemodel.Sale;
+import model.sale.Sale;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,9 +23,9 @@ public class TestDiscountService {
     @Before
     public void setUp() throws Exception {
         layerCreator = new LayerCreator();
-        saleController = layerCreator.getSaleController();
-        discountController = layerCreator.getDiscountController();
-        itemController = layerCreator.getItemController();
+      //  saleController = layerCreator.getSaleController();
+        //discountController = layerCreator.getDiscountController();
+      //  itemController = layerCreator.getItemController();
         saleController.startSale();
         SaleService saleService = saleController.getSaleService();
         sale = saleService.getSale();
@@ -40,19 +40,12 @@ public class TestDiscountService {
     public void tearDown() throws Exception {
 
     }
-/*
+
     @Test
     public void testDiscountService() throws Exception {
-        double priceBeforeDiscount = sale.getTotalCost();
-        System.out.println(priceBeforeDiscount);
-        discountController.signalDiscountRequest("940412-1395");
-        DiscountService discountService = discountController.getDiscountService();
-        assertNotNull(discountService);
-        saleController.endSale();
-        double priceAfterDiscount = sale.getTotalCost();
-        System.out.println(priceAfterDiscount);
+
 
     }
 
- */
+
 }
